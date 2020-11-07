@@ -17,7 +17,7 @@ struct LCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: 
         ZStack {
             switch viewModel.state {
             case .loading:
-                ActivityIndicator(isAnimating: .constant(true), style: .large)
+                LoadingView()
             case .error(let title, let message):
                 ErrorView(title: title, message: message)
             case .content:
