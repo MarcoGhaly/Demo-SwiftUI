@@ -1,5 +1,5 @@
 //
-//  PostsStore.swift
+//  PostsViewModel.swift
 //  Demo
 //
 //  Created by Marco Ghaly on 8/29/20.
@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class PostsStore: LCEViewModel<[Post]> {
+class PostsViewModel: LCEViewModel<[Post]> {
     
     init() {
         let postsDataSource = PostsDataSource()

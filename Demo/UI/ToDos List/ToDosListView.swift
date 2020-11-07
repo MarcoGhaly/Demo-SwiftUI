@@ -10,11 +10,11 @@ import SwiftUI
 
 struct ToDosListView: View {
     
-    @ObservedObject var toDosStore: ToDosStore
+    @ObservedObject var viewModel: ToDosViewModel
     
     var body: some View {
-        LCEView(viewModel: toDosStore) {
-            List(toDosStore.model) { toDo in
+        LCEView(viewModel: viewModel) {
+            List(viewModel.model) { toDo in
                 ToDoRowView(toDo: toDo)
             }
         }
@@ -24,9 +24,9 @@ struct ToDosListView: View {
 
 struct ToDosListView_Previews: PreviewProvider {
     static var previews: some View {
-        let toDosStore = ToDosStore()
-        toDosStore.model = [testToDo]
-        toDosStore.state = .content
-        return ToDosListView(toDosStore: toDosStore)
+        let viewModel = ToDosViewModel()
+        viewModel.model = [testToDo]
+        viewModel.state = .content
+        return ToDosListView(viewModel: viewModel)
     }
 }

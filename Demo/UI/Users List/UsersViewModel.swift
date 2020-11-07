@@ -1,5 +1,5 @@
 //
-//  UsersStore.swift
+//  UsersViewModel.swift
 //  Demo
 //
 //  Created by Marco Ghaly on 8/30/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UsersStore: LCEViewModel<[User]> {
+class UsersViewModel: LCEViewModel<[User]> {
     
     init() {
         let usersDataSource = UsersDataSource()

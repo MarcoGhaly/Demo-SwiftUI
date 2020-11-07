@@ -1,5 +1,5 @@
 //
-//  ToDosStore.swift
+//  ToDosViewModel.swift
 //  Demo
 //
 //  Created by Marco Ghaly on 8/30/20.
@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class ToDosStore: LCEViewModel<[ToDo]> {
+class ToDosViewModel: LCEViewModel<[ToDo]> {
     
     init() {
         let toDosDataSource = ToDosDataSource()

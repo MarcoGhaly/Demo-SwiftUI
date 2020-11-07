@@ -10,12 +10,12 @@ import SwiftUI
 
 struct PostsListView: View {
     
-    @ObservedObject var postsStore: PostsStore
+    @ObservedObject var viewModel: PostsViewModel
     
     var body: some View {
-        LCEView(viewModel: postsStore) {
-            List(postsStore.model) { post in
-                NavigationLink(destination: PostDetailsView().environmentObject(PostStore(post: post))) {
+        LCEView(viewModel: viewModel) {
+            List(viewModel.model) { post in
+                NavigationLink(destination: PostDetailsView().environmentObject(PostViewModel(post: post))) {
                     PostRowView(post: post)
                 }
             }
@@ -26,9 +26,9 @@ struct PostsListView: View {
 
 struct PostsListView_Previews: PreviewProvider {
     static var previews: some View {
-        let postsStore = PostsStore()
-        postsStore.model = [testPost]
-        postsStore.state = .content
-        return PostsListView(postsStore: postsStore)
+        let viewModel = PostsViewModel()
+        viewModel.model = [testPost]
+        viewModel.state = .content
+        return PostsListView(viewModel: viewModel)
     }
 }

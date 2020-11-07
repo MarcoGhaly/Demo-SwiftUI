@@ -10,14 +10,14 @@ import SwiftUI
 
 struct PostDetailsView: View {
     
-    @EnvironmentObject var postStore: PostStore
+    @EnvironmentObject var viewModel: PostViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
-            postStore.post.title.map {
+            viewModel.post.title.map {
                 Text($0).font(.headline)
             }
-            postStore.post.body.map {
+            viewModel.post.body.map {
                 Text($0).font(.body)
             }
             
@@ -25,14 +25,14 @@ struct PostDetailsView: View {
             
             Text("Comments:").font(.title)
             
-            CommentsListView(commentsStore: CommentsStore(postID: postStore.post.id)).frame(maxHeight: .infinity)
-        }.padding().navigationBarTitle(Text(postStore.post.title ?? ""))
+            CommentsListView(viewModel: CommentsViewModel(postID: viewModel.post.id)).frame(maxHeight: .infinity)
+        }.padding().navigationBarTitle(Text(viewModel.post.title ?? ""))
     }
 }
 
 struct PostDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        let postStore = PostStore(post: testPost)
-        return PostDetailsView().environmentObject(postStore)
+        let viewModel = PostViewModel(post: testPost)
+        return PostDetailsView().environmentObject(viewModel)
     }
 }

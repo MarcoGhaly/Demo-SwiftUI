@@ -1,5 +1,5 @@
 //
-//  PostStore.swift
+//  PostViewModel.swift
 //  Demo
 //
 //  Created by Marco Ghaly on 8/29/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PostStore: ObservableObject {
+class PostDetailsViewModel: ObservableObject {
     
     @Published var post: Post
     @Published var loading = false

@@ -10,11 +10,11 @@ import SwiftUI
 
 struct UsersListView: View {
     
-    @ObservedObject var usersStore: UsersStore
+    @ObservedObject var viewModel: UsersViewModel
     
     var body: some View {
-        LCEView(viewModel: usersStore) {
-            List(usersStore.model) { user in
+        LCEView(viewModel: viewModel) {
+            List(viewModel.model) { user in
                 NavigationLink(destination: UserDetailsView(user: user)) {
                     UserRowView(user: user)
                 }
@@ -26,9 +26,9 @@ struct UsersListView: View {
 
 struct UsersListView_Previews: PreviewProvider {
     static var previews: some View {
-        let usersStore = UsersStore()
-        usersStore.model = [testUser]
-        usersStore.state = .content
-        return UsersListView(usersStore: usersStore)
+        let viewModel = UsersViewModel()
+        viewModel.model = [testUser]
+        viewModel.state = .content
+        return UsersListView(viewModel: viewModel)
     }
 }

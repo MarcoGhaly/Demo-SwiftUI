@@ -1,5 +1,5 @@
 //
-//  CommentsStore.swift
+//  CommentsViewModel.swift
 //  Demo
 //
 //  Created by Marco Ghaly on 8/30/20.
@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class CommentsStore: LCEViewModel<[Comment]> {
+class CommentsViewModel: LCEViewModel<[Comment]> {
     
     init(postID: Int? = nil) {
         let commentsDataSource = CommentsDataSource()

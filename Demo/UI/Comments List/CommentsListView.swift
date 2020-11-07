@@ -10,11 +10,11 @@ import SwiftUI
 
 struct CommentsListView: View {
     
-    @ObservedObject var commentsStore: CommentsStore
+    @ObservedObject var viewModel: CommentsViewModel
     
     var body: some View {
-        LCEView(viewModel: commentsStore) {
-            List(commentsStore.model) { comment in
+        LCEView(viewModel: viewModel) {
+            List(viewModel.model) { comment in
                 CommentRowView(comment: comment)
             }
         }
@@ -24,9 +24,9 @@ struct CommentsListView: View {
 
 struct CommentsListView_Previews: PreviewProvider {
     static var previews: some View {
-        let commentsStore = CommentsStore(postID: testPost.id)
-        commentsStore.model = [testComment]
-        commentsStore.state = .content
-        return CommentsListView(commentsStore: commentsStore)
+        let viewModel = CommentsViewModel(postID: testPost.id)
+        viewModel.model = [testComment]
+        viewModel.state = .content
+        return CommentsListView(viewModel: viewModel)
     }
 }
