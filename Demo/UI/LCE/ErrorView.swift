@@ -18,7 +18,7 @@ struct ErrorView: View {
     var spacing: CGFloat = 25
     
     var body: some View {
-        VStack(spacing: 25) {
+        VStack(spacing: spacing) {
             if title != nil {
                 Text(title!)
                     .font(.title)
@@ -50,6 +50,6 @@ struct ErrorView_Previews: PreviewProvider {
                   message: "Error Message",
                   image: (image: Image(systemName: "xmark.octagon"), size: CGSize(width: 50, height: 50)),
                   retry: (label: "Retry", action: {}))
-            .previewLayout(.fixed(width: 400, height: 400))
+            .previewLayout(.fixed(width: 400, height: 300))
     }
 }
