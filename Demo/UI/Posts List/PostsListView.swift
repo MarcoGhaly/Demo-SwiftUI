@@ -15,7 +15,7 @@ struct PostsListView: View {
     var body: some View {
         LCEView(viewModel: viewModel) {
             List(viewModel.model) { post in
-                NavigationLink(destination: PostDetailsView().environmentObject(PostViewModel(post: post))) {
+                NavigationLink(destination: NavigationLazyView(PostDetailsView().environmentObject(PostViewModel(post: post)))) {
                     PostRowView(post: post)
                 }
             }

@@ -15,7 +15,7 @@ struct UsersListView: View {
     var body: some View {
         LCEView(viewModel: viewModel) {
             List(viewModel.model) { user in
-                NavigationLink(destination: UserDetailsView(user: user)) {
+                NavigationLink(destination: NavigationLazyView(UserDetailsView(user: user))) {
                     UserRowView(user: user)
                 }
             }
