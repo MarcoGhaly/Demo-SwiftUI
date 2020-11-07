@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ToDosListView: View {
     
-    @EnvironmentObject var toDosStore: ToDosStore
+    @ObservedObject var toDosStore: ToDosStore
     
     var body: some View {
         LCEView(viewModel: toDosStore) {
@@ -27,6 +27,6 @@ struct ToDosListView_Previews: PreviewProvider {
         let toDosStore = ToDosStore()
         toDosStore.model = [testToDo]
         toDosStore.state = .content
-        return ToDosListView().environmentObject(toDosStore)
+        return ToDosListView(toDosStore: toDosStore)
     }
 }

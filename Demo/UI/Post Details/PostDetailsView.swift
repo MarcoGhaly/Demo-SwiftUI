@@ -25,7 +25,7 @@ struct PostDetailsView: View {
             
             Text("Comments:").font(.title)
             
-            CommentsListView().environmentObject(CommentsStore(postID: postStore.post.id)).frame(maxHeight: .infinity)
+            CommentsListView(commentsStore: CommentsStore(postID: postStore.post.id)).frame(maxHeight: .infinity)
         }.padding().navigationBarTitle(Text(postStore.post.title ?? ""))
     }
 }

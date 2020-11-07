@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CommentsListView: View {
     
-    @EnvironmentObject var commentsStore: CommentsStore
+    @ObservedObject var commentsStore: CommentsStore
     
     var body: some View {
         LCEView(viewModel: commentsStore) {
@@ -27,6 +27,6 @@ struct CommentsListView_Previews: PreviewProvider {
         let commentsStore = CommentsStore(postID: testPost.id)
         commentsStore.model = [testComment]
         commentsStore.state = .content
-        return CommentsListView().environmentObject(commentsStore)
+        return CommentsListView(commentsStore: commentsStore)
     }
 }

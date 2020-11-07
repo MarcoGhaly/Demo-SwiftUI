@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PostsListView: View {
     
-    @EnvironmentObject var postsStore: PostsStore
+    @ObservedObject var postsStore: PostsStore
     
     var body: some View {
         LCEView(viewModel: postsStore) {
@@ -29,6 +29,6 @@ struct PostsListView_Previews: PreviewProvider {
         let postsStore = PostsStore()
         postsStore.model = [testPost]
         postsStore.state = .content
-        return PostsListView().environmentObject(postsStore)
+        return PostsListView(postsStore: postsStore)
     }
 }

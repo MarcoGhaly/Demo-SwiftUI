@@ -11,12 +11,12 @@ import SwiftUI
 struct HomeView: View {
     
     private let buttons =
-        [[("Users", Color.red, {AnyView(UsersListView().environmentObject(UsersStore()))}),
-          ("Posts", Color.green, {AnyView(PostsListView().environmentObject(PostsStore()))})],
-         [("Comments", Color.blue, {AnyView(CommentsListView().environmentObject(CommentsStore()))}),
-          ("ToDos", Color.yellow, {AnyView(ToDosListView().environmentObject(ToDosStore()))})],
-         [("Albums", Color.gray, {AnyView(UsersListView().environmentObject(UsersStore()))}),
-          ("Photos", Color.black, {AnyView(UsersListView().environmentObject(UsersStore()))})]]
+        [[("Users", Color.red, {AnyView(UsersListView(usersStore: UsersStore()))}),
+          ("Posts", Color.green, {AnyView(PostsListView(postsStore: PostsStore()))})],
+         [("Comments", Color.blue, {AnyView(CommentsListView(commentsStore: CommentsStore()))}),
+          ("ToDos", Color.yellow, {AnyView(ToDosListView(toDosStore: ToDosStore()))})],
+         [("Albums", Color.gray, {AnyView(UsersListView(usersStore: UsersStore()))}),
+          ("Photos", Color.black, {AnyView(UsersListView(usersStore: UsersStore()))})]]
     
     var body: some View {
         NavigationView {

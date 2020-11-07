@@ -10,7 +10,7 @@ import SwiftUI
 
 struct UsersListView: View {
     
-    @EnvironmentObject var usersStore: UsersStore
+    @ObservedObject var usersStore: UsersStore
     
     var body: some View {
         LCEView(viewModel: usersStore) {
@@ -29,6 +29,6 @@ struct UsersListView_Previews: PreviewProvider {
         let usersStore = UsersStore()
         usersStore.model = [testUser]
         usersStore.state = .content
-        return UsersListView().environmentObject(usersStore)
+        return UsersListView(usersStore: usersStore)
     }
 }
