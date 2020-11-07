@@ -28,7 +28,7 @@ class LCEViewModel<Model>: ObservableObject {
     lazy var receiveCompletion = { [weak self] (completion: Subscribers.Completion<AppError>) in
         switch completion {
         case .finished:
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self?.state = .content
             }
         case .failure(let error):
