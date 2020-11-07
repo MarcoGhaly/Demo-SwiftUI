@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PostDetailsView: View {
     
-    @EnvironmentObject var viewModel: PostViewModel
+    @ObservedObject var viewModel: PostViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -33,6 +33,6 @@ struct PostDetailsView: View {
 struct PostDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = PostViewModel(post: testPost)
-        return PostDetailsView().environmentObject(viewModel)
+        return PostDetailsView(viewModel: viewModel)
     }
 }
