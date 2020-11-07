@@ -13,28 +13,22 @@ struct PostsListView: View {
     @EnvironmentObject var postsStore: PostsStore
     
     var body: some View {
-        ZStack {
-            if postsStore.loading {
-                ActivityIndicator(isAnimating: .constant(true), style: .large)
-            } else {
-                List(postsStore.posts) { post in
-                    NavigationLink(destination: PostDetailsView().environmentObject(PostStore(post: post))) {
-                        PostRowView(post: post)
-                    }
+        LCEView(viewModel: postsStore) {
+            List(postsStore.model) { post in
+                NavigationLink(destination: PostDetailsView().environmentObject(PostStore(post: post))) {
+                    PostRowView(post: post)
                 }
             }
-        }.navigationBarTitle(Text("Posts")).onAppear {
-            if self.postsStore.posts.isEmpty {
-                self.postsStore.fetchPosts()
-            }
         }
+        .navigationBarTitle(Text("Posts"))
     }
 }
 
 struct PostsListView_Previews: PreviewProvider {
     static var previews: some View {
         let postsStore = PostsStore()
-        postsStore.posts = [testPost]
+        postsStore.model = [testPost]
+        postsStore.state = .content
         return PostsListView().environmentObject(postsStore)
     }
 }

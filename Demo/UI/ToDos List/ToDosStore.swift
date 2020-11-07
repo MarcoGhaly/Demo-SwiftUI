@@ -9,32 +9,11 @@
 import Foundation
 import Combine
 
-class ToDosStore: ObservableObject {
+class ToDosStore: LCEViewModel<[ToDo]> {
     
-    @Published var toDos: [ToDo] = []
-    @Published var loading = false
-    var subscriptions: [AnyCancellable] = []
-    
-    func fetchToDos() {
-        loading = true
+    init() {
         let toDosDataSource = ToDosDataSource()
-        
-        toDosDataSource.getToDos()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] (completion) in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    break
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self?.loading = false
-                }
-            }, receiveValue: { [weak self] (toDos) in
-                self?.toDos = toDos
-            }).store(in: &subscriptions)
+        super.init(model: [], publisher: toDosDataSource.getToDos())
     }
     
 }

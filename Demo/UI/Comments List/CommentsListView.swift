@@ -12,34 +12,21 @@ struct CommentsListView: View {
     
     @EnvironmentObject var commentsStore: CommentsStore
     
-    var post: Post?
-    
     var body: some View {
-        ZStack {
-            if commentsStore.loading {
-                HStack {
-                    Spacer()
-                    ActivityIndicator(isAnimating: .constant(true), style: .large)
-                    Spacer()
-                }
-            } else {
-                List(commentsStore.comments) { comment in
-                    CommentRowView(comment: comment)
-                }
-            }
-        }.navigationBarTitle(Text("Comments")).onAppear {
-            if self.commentsStore.comments.isEmpty {
-                self.commentsStore.fetchComments(postID: self.post?.id)
+        LCEView(viewModel: commentsStore) {
+            List(commentsStore.model) { comment in
+                CommentRowView(comment: comment)
             }
         }
+        .navigationBarTitle(Text("Comments"))
     }
 }
 
 struct CommentsListView_Previews: PreviewProvider {
     static var previews: some View {
-        let commentsStore = CommentsStore()
-        commentsStore.loading = false
-        commentsStore.comments = [testComment]
-        return CommentsListView(post: testPost).environmentObject(commentsStore)
+        let commentsStore = CommentsStore(postID: testPost.id)
+        commentsStore.model = [testComment]
+        commentsStore.state = .content
+        return CommentsListView().environmentObject(commentsStore)
     }
 }

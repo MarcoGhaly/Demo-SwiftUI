@@ -13,27 +13,20 @@ struct ToDosListView: View {
     @EnvironmentObject var toDosStore: ToDosStore
     
     var body: some View {
-        ZStack {
-            if toDosStore.loading {
-                ActivityIndicator(isAnimating: .constant(true), style: .large)
-            } else {
-                List(toDosStore.toDos) { toDo in
-                    ToDoRowView(toDo: toDo)
-                }
+        LCEView(viewModel: toDosStore) {
+            List(toDosStore.model) { toDo in
+                ToDoRowView(toDo: toDo)
             }
-        }.navigationBarTitle(Text("ToDos"))
-            .onAppear {
-                if self.toDosStore.toDos.isEmpty {
-                    self.toDosStore.fetchToDos()
-                }
         }
+        .navigationBarTitle(Text("ToDos"))
     }
 }
 
 struct ToDosListView_Previews: PreviewProvider {
     static var previews: some View {
         let toDosStore = ToDosStore()
-        toDosStore.toDos = [testToDo]
+        toDosStore.model = [testToDo]
+        toDosStore.state = .content
         return ToDosListView().environmentObject(toDosStore)
     }
 }

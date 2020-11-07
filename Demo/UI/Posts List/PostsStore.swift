@@ -9,32 +9,11 @@
 import Foundation
 import Combine
 
-class PostsStore: ObservableObject {
+class PostsStore: LCEViewModel<[Post]> {
     
-    @Published var posts: [Post] = []
-    @Published var loading = false
-    var subscriptions: [AnyCancellable] = []
-    
-    func fetchPosts() {
-        loading = true
+    init() {
         let postsDataSource = PostsDataSource()
-        
-        postsDataSource.getAllPosts()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] (completion) in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    break
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self?.loading = false
-                }
-            }) { [weak self] (posts) in
-                self?.posts = posts
-        }.store(in: &subscriptions)
+        super.init(model: [], publisher: postsDataSource.getAllPosts())
     }
     
 }

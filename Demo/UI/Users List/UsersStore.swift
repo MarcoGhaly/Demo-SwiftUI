@@ -7,34 +7,12 @@
 //
 
 import Foundation
-import Combine
 
-class UsersStore: ObservableObject {
+class UsersStore: LCEViewModel<[User]> {
     
-    @Published var users: [User] = []
-    @Published var loading = false
-    var subscriptions: [AnyCancellable] = []
-    
-    func fetchUsers() {
-        loading = true
+    init() {
         let usersDataSource = UsersDataSource()
-        
-        usersDataSource.getAllUsers()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] (completion) in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    break
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self?.loading = false
-                }
-            }) { [weak self] (users) in
-                self?.users = users
-        }.store(in: &subscriptions)
+        super.init(model: [], publisher: usersDataSource.getAllUsers())
     }
     
 }

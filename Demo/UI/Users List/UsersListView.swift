@@ -13,29 +13,22 @@ struct UsersListView: View {
     @EnvironmentObject var usersStore: UsersStore
     
     var body: some View {
-        ZStack {
-            if usersStore.loading {
-                ActivityIndicator(isAnimating: .constant(true), style: .large)
-            } else {
-                List(usersStore.users) { user in
-                    NavigationLink(destination: UserDetailsView(user: user)) {
-                        UserRowView(user: user)
-                    }
+        LCEView(viewModel: usersStore) {
+            List(usersStore.model) { user in
+                NavigationLink(destination: UserDetailsView(user: user)) {
+                    UserRowView(user: user)
                 }
             }
-        }.navigationBarTitle(Text("Users")).onAppear {
-            if self.usersStore.users.isEmpty {
-                self.usersStore.fetchUsers()
-            }
         }
+        .navigationBarTitle(Text("Users"))
     }
 }
 
 struct UsersListView_Previews: PreviewProvider {
     static var previews: some View {
         let usersStore = UsersStore()
-        usersStore.users = [testUser]
-        usersStore.loading = false
+        usersStore.model = [testUser]
+        usersStore.state = .content
         return UsersListView().environmentObject(usersStore)
     }
 }

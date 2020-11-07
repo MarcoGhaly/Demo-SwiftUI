@@ -9,32 +9,11 @@
 import Foundation
 import Combine
 
-class CommentsStore: ObservableObject {
+class CommentsStore: LCEViewModel<[Comment]> {
     
-    @Published var comments: [Comment] = []
-    @Published var loading = false
-    var subscriptions: [AnyCancellable] = []
-    
-    func fetchComments(postID: Int? = nil) {
-        loading = true
+    init(postID: Int? = nil) {
         let commentsDataSource = CommentsDataSource()
-        
-        commentsDataSource.getComments(postID: postID)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] (completion) in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    break
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self?.loading = false
-                }
-            }) { [weak self] (comments) in
-                self?.comments = comments
-        }.store(in: &subscriptions)
+        super.init(model: [], publisher: commentsDataSource.getComments(postID: postID))
     }
     
 }
