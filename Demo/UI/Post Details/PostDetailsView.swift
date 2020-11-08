@@ -25,8 +25,11 @@ struct PostDetailsView: View {
             
             Text("Comments:").font(.title)
             
-            CommentsListView(viewModel: CommentsViewModel(postID: viewModel.post.id)).frame(maxHeight: .infinity)
-        }.padding().navigationBarTitle(Text(viewModel.post.title ?? ""))
+            CommentsListView(viewModel: CommentsViewModel(postID: viewModel.post.id))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .padding()
+        .navigationBarTitle(Text(viewModel.post.title ?? ""))
     }
 }
 
