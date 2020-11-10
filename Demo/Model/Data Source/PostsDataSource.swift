@@ -9,9 +9,9 @@
 import Foundation
 import Combine
 
-class PostsDataSource: BaseDataSource {
+struct PostsDataSource: BaseDataSource {
     
-    func getAllPosts() -> AnyPublisher<[Post], AppError> {
+    func getAllPosts() -> AnyPublisher<[Post], DefaultAppError> {
         return performRequest(withRelativeURL: "posts")
     }
     

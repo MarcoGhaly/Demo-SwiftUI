@@ -9,9 +9,9 @@
 import Foundation
 import Combine
 
-class ToDosDataSource: BaseDataSource {
+struct ToDosDataSource: BaseDataSource {
     
-    func getToDos() -> AnyPublisher<[ToDo], AppError> {
+    func getToDos() -> AnyPublisher<[ToDo], DefaultAppError> {
         let urlString = "todos"
         return performRequest(withRelativeURL: urlString)
     }

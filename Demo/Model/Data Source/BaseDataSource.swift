@@ -9,24 +9,25 @@
 import Foundation
 import Combine
 
-enum AppError: Error {
-    case invalidURL(urlString: String?)
-    case statusCode(code: Int?)
-    case decoding
-    case general(error: Error)
+protocol BaseDataSource {
+    func performRequest<DataModel: Codable, ErrorModel: Codable>(withRelativeURL relativeURLString: String) -> AnyPublisher<DataModel, AppError<ErrorModel>>
+    func performRequest<DataModel: Codable, ErrorModel: Codable>(withURL urlString: String) -> AnyPublisher<DataModel, AppError<ErrorModel>>
+    func performRequest<DataModel: Codable>(urlString: String, completion: @escaping (Result<DataModel>) -> Void)
 }
 
-class BaseDataSource {
+private extension BaseDataSource {
+    private var baseURL: String { "https://jsonplaceholder.typicode.com/" }
+    private var successCode: Int { 200 }
+}
+
+extension BaseDataSource {
     
-    private static let baseURL = "https://jsonplaceholder.typicode.com/"
-    private static let successCode = 200
-    
-    func performRequest<T: Codable>(withRelativeURL relativeURLString: String) -> AnyPublisher<T, AppError> {
-        let urlString = BaseDataSource.baseURL + relativeURLString
+    func performRequest<DataModel: Codable, ErrorModel: Codable>(withRelativeURL relativeURLString: String) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
+        let urlString = baseURL + relativeURLString
         return performRequest(withURL: urlString)
     }
     
-    func performRequest<T: Codable>(withURL urlString: String) -> AnyPublisher<T, AppError> {
+    func performRequest<DataModel: Codable, ErrorModel: Codable>(withURL urlString: String) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
         guard let url = URL(string: urlString) else {
             return Fail(error: .invalidURL(urlString: urlString)).eraseToAnyPublisher()
         }
@@ -35,27 +36,31 @@ class BaseDataSource {
         jsonDecoder.dateDecodingStrategy = .secondsSince1970
         
         return URLSession.shared.dataTaskPublisher(for: url)
-            .tryMap { output in
-                let data = output.data
-                let httpURLResponse = output.response as? HTTPURLResponse
-                let statusCode = httpURLResponse?.statusCode
-                if let statusCode = statusCode, statusCode == BaseDataSource.successCode {
+            .tryMap { data, urlResponse in
+                let statusCode = (urlResponse as? HTTPURLResponse)?.statusCode
+                if let statusCode = statusCode, statusCode == self.successCode {
                     return data
                 }
                 
-                throw AppError.statusCode(code: statusCode)
+                let errorModel = try jsonDecoder.decode(ErrorModel.self, from: data)
+                throw AppError.statusCode(code: statusCode, errorModel: errorModel)
         }
-        .decode(type: T.self, decoder: jsonDecoder)
-        .mapError({ (error) -> AppError in
+        .decode(type: DataModel.self, decoder: jsonDecoder)
+        .mapError { (error) -> AppError<ErrorModel> in
             (error as? AppError) ?? AppError.general(error: error)
-        })
-            .eraseToAnyPublisher()
+        }
+        .receive(on: DispatchQueue.main)
+        .eraseToAnyPublisher()
     }
     
-    func performRequest<T: Codable>(urlString: String, completion: @escaping (DataResult<T>) -> Void) {
+}
+
+extension BaseDataSource {
+    
+    func performRequest<DataModel: Codable>(urlString: String, completion: @escaping (Result<DataModel>) -> Void) {
         guard let url = URL(string: urlString) else {
             DispatchQueue.main.async {
-                completion(DataResult(success: false, data: nil, error: NSError()))
+                completion(Result(success: false, data: nil, error: NSError()))
             }
             return
         }
@@ -66,7 +71,7 @@ class BaseDataSource {
                 print("\(#function) -> Response:\n\(response)")
             }
             
-            var result = DataResult<T>(success: false, data: nil, error: nil)
+            var result = Result<DataModel>(success: false, data: nil, error: nil)
             
             if data == nil || error != nil {
                 let error = error ?? NSError()
@@ -74,7 +79,7 @@ class BaseDataSource {
             } else if let data = data {
                 let jsonDecoder = JSONDecoder()
                 do {
-                    let posts = try jsonDecoder.decode(T.self, from: data)
+                    let posts = try jsonDecoder.decode(DataModel.self, from: data)
                     result.success = true
                     result.data = posts
                     print("\(#function) -> Response Object:\n\(posts)")
@@ -90,4 +95,10 @@ class BaseDataSource {
         task.resume()
     }
     
+}
+
+struct Result<Data> {
+    var success: Bool
+    var data: Data?
+    var error: Error?
 }

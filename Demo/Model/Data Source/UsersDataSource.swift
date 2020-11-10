@@ -9,9 +9,9 @@
 import Foundation
 import Combine
 
-class UsersDataSource: BaseDataSource {
+struct UsersDataSource: BaseDataSource {
     
-    func getAllUsers() -> AnyPublisher<[User], AppError> {
+    func getAllUsers() -> AnyPublisher<[User], DefaultAppError> {
         return performRequest(withRelativeURL: "users")
     }
     

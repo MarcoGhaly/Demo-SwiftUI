@@ -25,7 +25,7 @@ class LCEViewModel<Model>: ObservableObject {
     
     @Published var state = State.loading
     
-    lazy var receiveCompletion = { [weak self] (completion: Subscribers.Completion<AppError>) in
+    lazy var receiveCompletion = { [weak self] (completion: Subscribers.Completion<DefaultAppError>) in
         switch completion {
         case .finished:
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -40,14 +40,16 @@ class LCEViewModel<Model>: ObservableObject {
     
     // MARK:- Initializers
     
-    init(model: Model, publisher: AnyPublisher<Model, AppError>? = nil) {
+    init(model: Model, publisher: AnyPublisher<Model, DefaultAppError>? = nil) {
         self.model = model
         if let publisher = publisher {
             fetchData(publisher: publisher)
         }
     }
     
-    func fetchData(publisher: AnyPublisher<Model, AppError>) {
+    // MARK:- Fetch Data
+    
+    func fetchData(publisher: AnyPublisher<Model, DefaultAppError>) {
         state = .loading
         
         publisher.receive(on: DispatchQueue.main)

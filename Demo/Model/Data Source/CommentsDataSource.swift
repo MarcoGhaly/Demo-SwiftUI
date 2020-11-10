@@ -9,9 +9,9 @@
 import Foundation
 import Combine
 
-class CommentsDataSource: BaseDataSource {
+struct CommentsDataSource: BaseDataSource {
     
-    func getComments(postID: Int? = nil) -> AnyPublisher<[Comment], AppError> {
+    func getComments(postID: Int? = nil) -> AnyPublisher<[Comment], DefaultAppError> {
         var urlString = "comments"
         postID.map {
             urlString += "?postId=\($0)"
