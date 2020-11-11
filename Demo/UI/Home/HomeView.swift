@@ -10,27 +10,36 @@ import SwiftUI
 
 struct HomeView: View {
     
+    private let spacing: CGFloat = 20
+    
     private let buttons =
-        [[("Users", Color.red, {AnyView(UsersListView(viewModel: UsersViewModel()))}),
-          ("Posts", Color.green, {AnyView(PostsListView(viewModel: PostsViewModel()))})],
-         [("Comments", Color.blue, {AnyView(CommentsListView(viewModel: CommentsViewModel()))}),
-          ("ToDos", Color.yellow, {AnyView(ToDosListView(viewModel: ToDosViewModel()))})],
-         [("Albums", Color.gray, {AnyView(UsersListView(viewModel: UsersViewModel()))}),
-          ("Photos", Color.black, {AnyView(UsersListView(viewModel: UsersViewModel()))})]]
+        [[("Users", {AnyView(UsersListView(viewModel: UsersViewModel()))}),
+          ("Posts", {AnyView(PostsListView(viewModel: PostsViewModel()))})],
+         [("Comments", {AnyView(CommentsListView(viewModel: CommentsViewModel()))}),
+          ("ToDos", {AnyView(ToDosListView(viewModel: ToDosViewModel()))})],
+         [("Albums", {AnyView(EmptyView())}),
+          ("Photos", {AnyView(EmptyView())})]]
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: spacing) {
                 ForEach(buttons, id: \.self[0].0) { array in
-                    HStack(spacing: 0) {
+                    HStack(spacing: spacing) {
                         ForEach(array, id: \.self.0) { button in
-                            NavigationLink(destination: NavigationLazyView(button.2())) {
-                                Text(button.0).frame(maxWidth: .infinity, maxHeight: .infinity).font(.title).background(button.1).foregroundColor(.white)
+                            NavigationLink(destination: NavigationLazyView(button.1())) {
+                                Text(button.0)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .font(.title)
+                                    .foregroundColor(.black)
+                                    .cardify()
                             }
                         }
                     }
                 }
-            }.edgesIgnoringSafeArea(.all)
+            }
+            .navigationBarTitle("Home")
+            .navigationBarHidden(true)
+            .padding(spacing)
         }
     }
     
