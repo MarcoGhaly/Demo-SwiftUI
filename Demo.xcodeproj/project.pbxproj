@@ -13,6 +13,11 @@
 		2F6DB70E2557377A002817B5 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DB70D2557377A002817B5 /* NavigationLazyView.swift */; };
 		2F6DB71925574D41002817B5 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DB71825574D41002817B5 /* PostViewModel.swift */; };
 		2F6DB71D25575D51002817B5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DB71C25575D51002817B5 /* LoadingView.swift */; };
+		2FB6B5D425645AD500A7FBDD /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5D325645AD500A7FBDD /* Album.swift */; };
+		2FB6B5D725645B8D00A7FBDD /* AlbumsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5D625645B8D00A7FBDD /* AlbumsViewModel.swift */; };
+		2FB6B5DB25645BC200A7FBDD /* AlbumsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5DA25645BC200A7FBDD /* AlbumsListView.swift */; };
+		2FB6B5DE25645F0F00A7FBDD /* AlbumRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5DD25645F0F00A7FBDD /* AlbumRowView.swift */; };
+		2FB6B5E125645FA600A7FBDD /* AlbumsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5E025645FA600A7FBDD /* AlbumsDataSource.swift */; };
 		2FECD700255B46B100054AC1 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FECD6FF255B46B100054AC1 /* AppError.swift */; };
 		2FECD704255B46FE00054AC1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FECD703255B46FE00054AC1 /* Constants.swift */; };
 		2FEECD81255C994E00654DF8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEECD80255C994E00654DF8 /* CardView.swift */; };
@@ -60,6 +65,11 @@
 		2F6DB70D2557377A002817B5 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		2F6DB71825574D41002817B5 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		2F6DB71C25575D51002817B5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		2FB6B5D325645AD500A7FBDD /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		2FB6B5D625645B8D00A7FBDD /* AlbumsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsViewModel.swift; sourceTree = "<group>"; };
+		2FB6B5DA25645BC200A7FBDD /* AlbumsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsListView.swift; sourceTree = "<group>"; };
+		2FB6B5DD25645F0F00A7FBDD /* AlbumRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRowView.swift; sourceTree = "<group>"; };
+		2FB6B5E025645FA600A7FBDD /* AlbumsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsDataSource.swift; sourceTree = "<group>"; };
 		2FECD6FF255B46B100054AC1 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		2FECD703255B46FE00054AC1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2FEECD80255C994E00654DF8 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -122,6 +132,16 @@
 				2F0D456A2556B53800C44971 /* ErrorView.swift */,
 			);
 			path = LCE;
+			sourceTree = "<group>";
+		};
+		2FB6B5D225645A7B00A7FBDD /* Albums */ = {
+			isa = PBXGroup;
+			children = (
+				2FB6B5D625645B8D00A7FBDD /* AlbumsViewModel.swift */,
+				2FB6B5DA25645BC200A7FBDD /* AlbumsListView.swift */,
+				2FB6B5DD25645F0F00A7FBDD /* AlbumRowView.swift */,
+			);
+			path = Albums;
 			sourceTree = "<group>";
 		};
 		2FECD702255B46E900054AC1 /* Utilities */ = {
@@ -210,6 +230,7 @@
 				6CD3AD3524FAC39400D8BF77 /* Posts */,
 				6CD3AD7024FB526B00D8BF77 /* Comments */,
 				6C40E1B024FBFEC2007D0393 /* ToDos */,
+				2FB6B5D225645A7B00A7FBDD /* Albums */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -222,6 +243,7 @@
 				6CD3AD5324FB155E00D8BF77 /* User.swift */,
 				6CD3AD5524FB155E00D8BF77 /* Company.swift */,
 				6C40E1AE24FBF1F2007D0393 /* ToDo.swift */,
+				2FB6B5D325645AD500A7FBDD /* Album.swift */,
 				6C40E1AD24FBF116007D0393 /* Address */,
 			);
 			path = Data;
@@ -236,6 +258,7 @@
 				6CD3AD3124FABD6100D8BF77 /* PostsDataSource.swift */,
 				6C40E1A924FBF012007D0393 /* CommentsDataSource.swift */,
 				6C40E1AB24FBF05B007D0393 /* ToDosDataSource.swift */,
+				2FB6B5E025645FA600A7FBDD /* AlbumsDataSource.swift */,
 			);
 			path = "Data Source";
 			sourceTree = "<group>";
@@ -393,6 +416,7 @@
 				6C40E1B224FBFEDC007D0393 /* ToDosViewModel.swift in Sources */,
 				2F0D456B2556B53800C44971 /* ErrorView.swift in Sources */,
 				6CD3AD6A24FB1F7000D8BF77 /* MapView.swift in Sources */,
+				2FB6B5D425645AD500A7FBDD /* Album.swift in Sources */,
 				6C15569924FABA7A000980BE /* AppDelegate.swift in Sources */,
 				6CD3AD3D24FAC3F600D8BF77 /* PostsViewModel.swift in Sources */,
 				6C15569B24FABA7A000980BE /* SceneDelegate.swift in Sources */,
@@ -409,6 +433,7 @@
 				6CD3AD6324FB192600D8BF77 /* UserRowView.swift in Sources */,
 				6C40E1B424FC014B007D0393 /* ToDosListView.swift in Sources */,
 				6CD3AD4624FAE70700D8BF77 /* Comment.swift in Sources */,
+				2FB6B5E125645FA600A7FBDD /* AlbumsDataSource.swift in Sources */,
 				6C40E1AC24FBF05B007D0393 /* ToDosDataSource.swift in Sources */,
 				6CD3AD5724FB155E00D8BF77 /* User.swift in Sources */,
 				2FECD704255B46FE00054AC1 /* Constants.swift in Sources */,
@@ -416,10 +441,13 @@
 				2FEECD81255C994E00654DF8 /* CardView.swift in Sources */,
 				6CD3AD6524FB1AA100D8BF77 /* UsersListView.swift in Sources */,
 				6CD3AD6124FB178F00D8BF77 /* UsersViewModel.swift in Sources */,
+				2FB6B5DE25645F0F00A7FBDD /* AlbumRowView.swift in Sources */,
 				6CD3AD7424FB535B00D8BF77 /* CommentsListView.swift in Sources */,
 				6CD3AD6F24FB344600D8BF77 /* HomeView.swift in Sources */,
 				6CD3AD7624FB536E00D8BF77 /* CommentsViewModel.swift in Sources */,
+				2FB6B5D725645B8D00A7FBDD /* AlbumsViewModel.swift in Sources */,
 				6CD3AD4224FAE44900D8BF77 /* PostDetailsView.swift in Sources */,
+				2FB6B5DB25645BC200A7FBDD /* AlbumsListView.swift in Sources */,
 				6CD3AD5924FB155E00D8BF77 /* Company.swift in Sources */,
 				6CD3AD6C24FB299500D8BF77 /* TestData.swift in Sources */,
 				6CD3AD4A24FAEE5600D8BF77 /* CommentRowView.swift in Sources */,

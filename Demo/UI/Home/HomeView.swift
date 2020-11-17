@@ -17,7 +17,7 @@ struct HomeView: View {
           ("Posts", {AnyView(PostsListView(viewModel: PostsViewModel()))})],
          [("Comments", {AnyView(CommentsListView(viewModel: CommentsViewModel()))}),
           ("ToDos", {AnyView(ToDosListView(viewModel: ToDosViewModel()))})],
-         [("Albums", {AnyView(EmptyView())}),
+         [("Albums", {AnyView(AlbumsListView(viewModel: AlbumsViewModel()))}),
           ("Photos", {AnyView(EmptyView())})]]
     
     var body: some View {

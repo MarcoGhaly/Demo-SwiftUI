@@ -15,3 +15,5 @@ let testPost = Post(userId: 1, id: 1, title: "sunt aut facere repellat provident
 let testComment = Comment(postId: 1, id: 1, name: "id labore ex et quam laborum", email: "Eliseo@gardner.biz", body: "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium")
 
 let testToDo = ToDo(userId: 1, id: 1, title: "delectus aut autem", completed: true)
+
+let testAlbum = Album(id: 1, userId: 1, title: "quidem molestiae enim")
