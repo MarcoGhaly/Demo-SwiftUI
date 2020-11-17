@@ -180,14 +180,14 @@
 			path = Address;
 			sourceTree = "<group>";
 		};
-		6C40E1B024FBFEC2007D0393 /* ToDos List */ = {
+		6C40E1B024FBFEC2007D0393 /* ToDos */ = {
 			isa = PBXGroup;
 			children = (
 				6C40E1B124FBFEDC007D0393 /* ToDosViewModel.swift */,
 				6C40E1B324FC014B007D0393 /* ToDosListView.swift */,
 				6C40E1B524FC017D007D0393 /* ToDoRowView.swift */,
 			);
-			path = "ToDos List";
+			path = ToDos;
 			sourceTree = "<group>";
 		};
 		6CD3AD2A24FABADC00D8BF77 /* Model */ = {
@@ -206,12 +206,10 @@
 				6CD3AD7124FB528700D8BF77 /* Custom Views */,
 				2F0D45622556AAC900C44971 /* LCE */,
 				6CD3AD6D24FB342700D8BF77 /* Home */,
-				6CD3AD5F24FB177800D8BF77 /* Users List */,
-				6CD3AD6624FB1E6F00D8BF77 /* User Details */,
-				6CD3AD3524FAC39400D8BF77 /* Posts List */,
-				6CD3AD4024FAE41B00D8BF77 /* Post Details */,
-				6CD3AD7024FB526B00D8BF77 /* Comments List */,
-				6C40E1B024FBFEC2007D0393 /* ToDos List */,
+				6CD3AD5F24FB177800D8BF77 /* Users */,
+				6CD3AD3524FAC39400D8BF77 /* Posts */,
+				6CD3AD7024FB526B00D8BF77 /* Comments */,
+				6C40E1B024FBFEC2007D0393 /* ToDos */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -242,14 +240,15 @@
 			path = "Data Source";
 			sourceTree = "<group>";
 		};
-		6CD3AD3524FAC39400D8BF77 /* Posts List */ = {
+		6CD3AD3524FAC39400D8BF77 /* Posts */ = {
 			isa = PBXGroup;
 			children = (
 				6CD3AD3C24FAC3F600D8BF77 /* PostsViewModel.swift */,
 				6CD3AD3624FAC3C700D8BF77 /* PostsListView.swift */,
 				6CD3AD3824FAC3D100D8BF77 /* PostRowView.swift */,
+				6CD3AD4024FAE41B00D8BF77 /* Post Details */,
 			);
-			path = "Posts List";
+			path = Posts;
 			sourceTree = "<group>";
 		};
 		6CD3AD4024FAE41B00D8BF77 /* Post Details */ = {
@@ -261,14 +260,15 @@
 			path = "Post Details";
 			sourceTree = "<group>";
 		};
-		6CD3AD5F24FB177800D8BF77 /* Users List */ = {
+		6CD3AD5F24FB177800D8BF77 /* Users */ = {
 			isa = PBXGroup;
 			children = (
 				6CD3AD6024FB178F00D8BF77 /* UsersViewModel.swift */,
 				6CD3AD6424FB1AA100D8BF77 /* UsersListView.swift */,
 				6CD3AD6224FB192600D8BF77 /* UserRowView.swift */,
+				6CD3AD6624FB1E6F00D8BF77 /* User Details */,
 			);
-			path = "Users List";
+			path = Users;
 			sourceTree = "<group>";
 		};
 		6CD3AD6624FB1E6F00D8BF77 /* User Details */ = {
@@ -287,14 +287,14 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		6CD3AD7024FB526B00D8BF77 /* Comments List */ = {
+		6CD3AD7024FB526B00D8BF77 /* Comments */ = {
 			isa = PBXGroup;
 			children = (
 				6CD3AD7524FB536E00D8BF77 /* CommentsViewModel.swift */,
 				6CD3AD7324FB535B00D8BF77 /* CommentsListView.swift */,
 				6CD3AD4924FAEE5600D8BF77 /* CommentRowView.swift */,
 			);
-			path = "Comments List";
+			path = Comments;
 			sourceTree = "<group>";
 		};
 		6CD3AD7124FB528700D8BF77 /* Custom Views */ = {
