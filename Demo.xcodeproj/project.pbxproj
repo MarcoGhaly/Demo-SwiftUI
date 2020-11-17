@@ -19,6 +19,7 @@
 		2FB6B5DE25645F0F00A7FBDD /* AlbumRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5DD25645F0F00A7FBDD /* AlbumRowView.swift */; };
 		2FB6B5E125645FA600A7FBDD /* AlbumsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5E025645FA600A7FBDD /* AlbumsDataSource.swift */; };
 		2FB6B5E5256479B900A7FBDD /* QGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 2FB6B5E4256479B900A7FBDD /* QGrid */; };
+		2FB6B5F525648E5E00A7FBDD /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2FB6B5F425648E5E00A7FBDD /* SDWebImageSwiftUI */; };
 		2FECD700255B46B100054AC1 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FECD6FF255B46B100054AC1 /* AppError.swift */; };
 		2FECD704255B46FE00054AC1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FECD703255B46FE00054AC1 /* Constants.swift */; };
 		2FEECD81255C994E00654DF8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEECD80255C994E00654DF8 /* CardView.swift */; };
@@ -118,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FB6B5F525648E5E00A7FBDD /* SDWebImageSwiftUI in Frameworks */,
 				2FB6B5E5256479B900A7FBDD /* QGrid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,6 +362,7 @@
 			name = Demo;
 			packageProductDependencies = (
 				2FB6B5E4256479B900A7FBDD /* QGrid */,
+				2FB6B5F425648E5E00A7FBDD /* SDWebImageSwiftUI */,
 			);
 			productName = Demo;
 			productReference = 6C15569524FABA7A000980BE /* Demo.app */;
@@ -391,6 +394,7 @@
 			mainGroup = 6C15568C24FABA7A000980BE;
 			packageReferences = (
 				2FB6B5E3256479B900A7FBDD /* XCRemoteSwiftPackageReference "QGrid" */,
+				2FB6B5F325648E5E00A7FBDD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 6C15569624FABA7A000980BE /* Products */;
 			projectDirPath = "";
@@ -666,6 +670,14 @@
 				version = 0.1.4;
 			};
 		};
+		2FB6B5F325648E5E00A7FBDD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -673,6 +685,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2FB6B5E3256479B900A7FBDD /* XCRemoteSwiftPackageReference "QGrid" */;
 			productName = QGrid;
+		};
+		2FB6B5F425648E5E00A7FBDD /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FB6B5F325648E5E00A7FBDD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
