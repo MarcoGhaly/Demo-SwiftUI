@@ -15,7 +15,10 @@ struct AlbumsListView: View {
     var body: some View {
         LCEView(viewModel: viewModel) {
             List(viewModel.model) { album in
-                AlbumRowView(album: album)
+                NavigationLink(
+                    destination: NavigationLazyView(PhotosListView(viewModel: PhotosViewModel(albumID: album.id)))) {
+                    AlbumRowView(album: album)
+                }
             }
         }
         .navigationBarTitle("Albums")

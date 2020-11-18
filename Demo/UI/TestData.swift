@@ -17,3 +17,5 @@ let testComment = Comment(postId: 1, id: 1, name: "id labore ex et quam laborum"
 let testToDo = ToDo(userId: 1, id: 1, title: "delectus aut autem", completed: true)
 
 let testAlbum = Album(id: 1, userId: 1, title: "quidem molestiae enim")
+
+let testPhoto = Photo(albumId: 1, id: 1, title: "accusamus beatae ad facilis cum similique qui sunt", url: "https://via.placeholder.com/600/92c952", thumbnailUrl: "https://via.placeholder.com/150/92c952")
