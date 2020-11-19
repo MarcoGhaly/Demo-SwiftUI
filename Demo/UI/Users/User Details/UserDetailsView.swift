@@ -12,11 +12,36 @@ struct UserDetailsView: View {
     
     var user: User
     
+    private var buttons: [(String, () -> AnyView)] {
+        [("Posts", {AnyView(PostsListView(viewModel: PostsViewModel(userID: user.id)))}),
+         ("ToDos", {AnyView(ToDosListView(viewModel: ToDosViewModel(userID: user.id)))}),
+         ("Albums", {AnyView(AlbumsListView(viewModel: AlbumsViewModel(userID: user.id)))})]
+    }
+    
     var body: some View {
         VStack {
-            MapView(coordinate: user.address?.geo ?? Geo(lat: "0", lng: "0")).frame(height: 300)
+            MapView(coordinate: user.address?.geo ?? Geo(lat: "0", lng: "0"))
             UserRowView(user: user)
-            Spacer()
+            
+            Divider()
+            
+            ForEach(buttons, id: \.self.0) { button in
+                VStack(spacing: 0) {
+                    NavigationLink(
+                        destination: NavigationLazyView(button.1())) {
+                        Text(button.0)
+                            .font(.title)
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 20)
+                    }
+                    Divider()
+                }
+            }
+        }
+        .if(user.name != nil) {
+            $0.navigationBarTitle(user.name!)
         }
     }
 }
