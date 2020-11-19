@@ -12,7 +12,7 @@ import Combine
 struct UsersDataSource: BaseDataSource {
     
     func getAllUsers() -> AnyPublisher<[User], DefaultAppError> {
-        return performRequest(withRelativeURL: "users")
+        performRequest(withRelativeURL: "users")
     }
     
 }

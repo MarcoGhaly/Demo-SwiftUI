@@ -12,8 +12,7 @@ import Combine
 struct ToDosDataSource: BaseDataSource {
     
     func getToDos() -> AnyPublisher<[ToDo], DefaultAppError> {
-        let urlString = "todos"
-        return performRequest(withRelativeURL: urlString)
+        performRequest(withRelativeURL: "todos")
     }
     
 }

@@ -19,24 +19,24 @@ struct ErrorView: View {
     
     var body: some View {
         VStack(spacing: spacing) {
-            if title != nil {
-                Text(title!)
+            title.map { title in
+                Text(title)
                     .font(.title)
             }
             
-            if message != nil {
-                Text(message!)
+            message.map { message in
+                Text(message)
                     .font(.body)
             }
             
-            if image != nil {
-                image!.image
+            image.map { image in
+                image.image
                     .resizable()
-                    .frame(width: image!.size.width, height: image!.size.height)
+                    .frame(width: image.size.width, height: image.size.height)
             }
             
-            if retry != nil {
-                Button(retry!.label, action: retry!.action)
+            retry.map { retry in
+                Button(retry.label, action: retry.action)
             }
         }
         .padding(padding)

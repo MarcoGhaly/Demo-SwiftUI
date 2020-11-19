@@ -12,7 +12,7 @@ import Combine
 struct PostsDataSource: BaseDataSource {
     
     func getAllPosts() -> AnyPublisher<[Post], DefaultAppError> {
-        return performRequest(withRelativeURL: "posts")
+        performRequest(withRelativeURL: "posts")
     }
     
 }

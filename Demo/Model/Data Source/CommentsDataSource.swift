@@ -13,9 +13,7 @@ struct CommentsDataSource: BaseDataSource {
     
     func getComments(postID: Int? = nil) -> AnyPublisher<[Comment], DefaultAppError> {
         var urlString = "comments"
-        postID.map {
-            urlString += "?postId=\($0)"
-        }
+        postID.map { urlString += "?postId=\($0)" }
         return performRequest(withRelativeURL: urlString)
     }
     
