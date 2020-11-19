@@ -11,8 +11,10 @@ import Combine
 
 struct PostsDataSource: BaseDataSource {
     
-    func getAllPosts() -> AnyPublisher<[Post], DefaultAppError> {
-        performRequest(withRelativeURL: "posts")
+    func getPosts(userID: Int? = nil) -> AnyPublisher<[Post], DefaultAppError> {
+        var urlString = "posts"
+        userID.map { urlString += "?userId=\($0)" }
+        return performRequest(withRelativeURL: urlString)
     }
     
 }

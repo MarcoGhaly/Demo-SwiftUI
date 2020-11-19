@@ -10,9 +10,9 @@ import Foundation
 
 class AlbumsViewModel: LCEViewModel<[Album]> {
     
-    init() {
+    init(userID: Int? = nil) {
         let albumsDataSource = AlbumsDataSource()
-        super.init(model: [], publisher: albumsDataSource.getAllAlbums())
+        super.init(model: [], publisher: albumsDataSource.getAlbums(userID: userID))
     }
     
 }

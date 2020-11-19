@@ -10,9 +10,9 @@ import Foundation
 
 class ToDosViewModel: LCEViewModel<[ToDo]> {
     
-    init() {
+    init(userID: Int? = nil) {
         let toDosDataSource = ToDosDataSource()
-        super.init(model: [], publisher: toDosDataSource.getToDos())
+        super.init(model: [], publisher: toDosDataSource.getToDos(userID: userID))
     }
     
 }

@@ -10,9 +10,9 @@ import Foundation
 
 class PostsViewModel: LCEViewModel<[Post]> {
     
-    init() {
+    init(userID: Int? = nil) {
         let postsDataSource = PostsDataSource()
-        super.init(model: [], publisher: postsDataSource.getAllPosts())
+        super.init(model: [], publisher: postsDataSource.getPosts(userID: userID))
     }
     
 }
