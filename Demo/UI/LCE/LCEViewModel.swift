@@ -19,24 +19,15 @@ class LCEViewModel<Model>: ObservableObject {
         case error(title: String?, message: String?)
     }
     
+    private static var generalErrorText: String {
+        "An Error Occurred"
+    }
+    
     // MARK:- Variables
     
     var subscriptions: [AnyCancellable] = []
     @Published var state = State.loading
     @Published var model: Model?
-    
-    var receiveCompletion: (Subscribers.Completion<DefaultAppError>) -> () {
-        { [weak self] completion in
-            switch completion {
-            case .finished:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self?.state = .content
-                }
-            case .failure(let error):
-                self?.state = .error(title: "An Error Occurred", message: error.localizedDescription)
-            }
-        }
-    }
     
     // MARK:- Initializers
     
@@ -57,10 +48,21 @@ class LCEViewModel<Model>: ObservableObject {
     func fetchData() {
         state = .loading
         
-        dataPublisher().receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: receiveCompletion) { [weak self] (users) in
+        dataPublisher()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self?.state = .content
+                    }
+                case .failure(let error):
+                    self?.state = .error(title: LCEViewModel.generalErrorText, message: error.localizedDescription)
+                }
+            }) { [weak self] (users) in
                 self?.model = users
-            }.store(in: &subscriptions)
+            }
+            .store(in: &subscriptions)
     }
     
 }
