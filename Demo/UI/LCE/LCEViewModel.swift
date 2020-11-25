@@ -22,21 +22,21 @@ class LCEViewModel<Model>: ObservableObject {
     // MARK:- Variables
     
     var subscriptions: [AnyCancellable] = []
-    
     @Published var state = State.loading
+    @Published var model: Model?
     
-    lazy var receiveCompletion = { [weak self] (completion: Subscribers.Completion<DefaultAppError>) in
-        switch completion {
-        case .finished:
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self?.state = .content
+    var receiveCompletion: (Subscribers.Completion<DefaultAppError>) -> () {
+        { [weak self] completion in
+            switch completion {
+            case .finished:
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self?.state = .content
+                }
+            case .failure(let error):
+                self?.state = .error(title: "An Error Occurred", message: error.localizedDescription)
             }
-        case .failure(let error):
-            self?.state = .error(title: "An Error Occurred", message: error.localizedDescription)
         }
     }
-    
-    @Published var model: Model?
     
     // MARK:- Initializers
     
