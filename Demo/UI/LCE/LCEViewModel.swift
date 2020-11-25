@@ -35,6 +35,7 @@ class LCEViewModel<Model>: ObservableObject {
         if let model = model {
             self.model = model
         } else {
+            state = .loading
             fetchData()
         }
     }
@@ -46,8 +47,6 @@ class LCEViewModel<Model>: ObservableObject {
     }
     
     func fetchData() {
-        state = .loading
-        
         dataPublisher()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
@@ -59,8 +58,8 @@ class LCEViewModel<Model>: ObservableObject {
                 case .failure(let error):
                     self?.state = .error(title: LCEViewModel.generalErrorText, message: error.localizedDescription)
                 }
-            }) { [weak self] (users) in
-                self?.model = users
+            }) { [weak self] (model) in
+                self?.model = model
             }
             .store(in: &subscriptions)
     }
