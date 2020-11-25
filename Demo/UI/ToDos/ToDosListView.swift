@@ -13,8 +13,8 @@ struct ToDosListView: View {
     @ObservedObject var viewModel: ToDosViewModel
     
     var body: some View {
-        LCEView(viewModel: viewModel) {
-            List(viewModel.model) { toDo in
+        LCEView(viewModel: viewModel) { model in
+            List(model) { toDo in
                 ToDoRowView(toDo: toDo)
             }
         }

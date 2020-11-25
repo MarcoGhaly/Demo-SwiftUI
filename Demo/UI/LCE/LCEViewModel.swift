@@ -36,27 +36,31 @@ class LCEViewModel<Model>: ObservableObject {
         }
     }
     
-    @Published var model: Model
+    @Published var model: Model?
     
     // MARK:- Initializers
     
-    init(model: Model, publisher: AnyPublisher<Model, DefaultAppError>? = nil) {
-        self.model = model
-        if let publisher = publisher {
-            fetchData(publisher: publisher)
+    init(model: Model? = nil) {
+        if let model = model {
+            self.model = model
+        } else {
+            fetchData()
         }
     }
     
     // MARK:- Fetch Data
     
-    func fetchData(publisher: AnyPublisher<Model, DefaultAppError>) {
+    func dataPublisher() -> AnyPublisher<Model, DefaultAppError> {
+        fatalError("Subclass must implement this publisher")
+    }
+    
+    func fetchData() {
         state = .loading
         
-        publisher.receive(on: DispatchQueue.main)
+        dataPublisher().receive(on: DispatchQueue.main)
             .sink(receiveCompletion: receiveCompletion) { [weak self] (users) in
                 self?.model = users
             }.store(in: &subscriptions)
-        
     }
     
 }

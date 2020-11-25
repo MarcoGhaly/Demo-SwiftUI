@@ -7,12 +7,12 @@
 //
 
 import Foundation
+import Combine
 
 class UsersViewModel: LCEViewModel<[User]> {
     
-    init() {
-        let usersDataSource = UsersDataSource()
-        super.init(model: [], publisher: usersDataSource.getAllUsers())
+    override func dataPublisher() -> AnyPublisher<[User], DefaultAppError> {
+        UsersDataSource().getAllUsers()
     }
     
 }

@@ -7,12 +7,18 @@
 //
 
 import Foundation
+import Combine
 
 class PostsViewModel: LCEViewModel<[Post]> {
     
+    private var userID: Int?
+    
     init(userID: Int? = nil) {
-        let postsDataSource = PostsDataSource()
-        super.init(model: [], publisher: postsDataSource.getPosts(userID: userID))
+        self.userID = userID
+    }
+    
+    override func dataPublisher() -> AnyPublisher<[Post], DefaultAppError> {
+        PostsDataSource().getPosts(userID: userID)
     }
     
 }

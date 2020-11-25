@@ -7,12 +7,18 @@
 //
 
 import Foundation
+import Combine
 
 class ToDosViewModel: LCEViewModel<[ToDo]> {
     
+    private var userID: Int?
+    
     init(userID: Int? = nil) {
-        let toDosDataSource = ToDosDataSource()
-        super.init(model: [], publisher: toDosDataSource.getToDos(userID: userID))
+        self.userID = userID
+    }
+    
+    override func dataPublisher() -> AnyPublisher<[ToDo], DefaultAppError> {
+        ToDosDataSource().getToDos(userID: userID)
     }
     
 }

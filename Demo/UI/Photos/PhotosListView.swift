@@ -14,8 +14,8 @@ struct PhotosListView: View {
     @ObservedObject var viewModel: PhotosViewModel
     
     var body: some View {
-        LCEView(viewModel: viewModel) {
-            QGrid(viewModel.model, columns: 3) { photo in
+        LCEView(viewModel: viewModel) { model in
+            QGrid(model, columns: 3) { photo in
                 PhotoCellView(photo: photo)
             }
         }

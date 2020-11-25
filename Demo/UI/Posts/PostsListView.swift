@@ -13,8 +13,8 @@ struct PostsListView: View {
     @ObservedObject var viewModel: PostsViewModel
     
     var body: some View {
-        LCEView(viewModel: viewModel) {
-            List(viewModel.model) { post in
+        LCEView(viewModel: viewModel) { model in
+            List(model) { post in
                 NavigationLink(destination: NavigationLazyView(PostDetailsView(viewModel: PostViewModel(post: post)))) {
                     PostRowView(post: post)
                 }

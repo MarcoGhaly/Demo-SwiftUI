@@ -7,12 +7,18 @@
 //
 
 import Foundation
+import Combine
 
 class CommentsViewModel: LCEViewModel<[Comment]> {
     
+    private var postID: Int?
+    
     init(postID: Int? = nil) {
-        let commentsDataSource = CommentsDataSource()
-        super.init(model: [], publisher: commentsDataSource.getComments(postID: postID))
+        self.postID = postID
+    }
+    
+    override func dataPublisher() -> AnyPublisher<[Comment], DefaultAppError> {
+        CommentsDataSource().getComments(postID: postID)
     }
     
 }

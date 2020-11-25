@@ -13,8 +13,8 @@ struct AlbumsListView: View {
     @ObservedObject var viewModel: AlbumsViewModel
     
     var body: some View {
-        LCEView(viewModel: viewModel) {
-            List(viewModel.model) { album in
+        LCEView(viewModel: viewModel) { model in
+            List(model) { album in
                 NavigationLink(
                     destination: NavigationLazyView(PhotosListView(viewModel: PhotosViewModel(albumID: album.id)))) {
                     AlbumRowView(album: album)

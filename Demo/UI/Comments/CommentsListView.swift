@@ -13,8 +13,8 @@ struct CommentsListView: View {
     @ObservedObject var viewModel: CommentsViewModel
     
     var body: some View {
-        LCEView(viewModel: viewModel) {
-            List(viewModel.model) { comment in
+        LCEView(viewModel: viewModel) { model in
+            List(model) { comment in
                 CommentRowView(comment: comment)
             }
         }

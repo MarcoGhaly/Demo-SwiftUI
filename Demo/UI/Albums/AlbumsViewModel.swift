@@ -7,12 +7,18 @@
 //
 
 import Foundation
+import Combine
 
 class AlbumsViewModel: LCEViewModel<[Album]> {
     
+    private var userID: Int?
+    
     init(userID: Int? = nil) {
-        let albumsDataSource = AlbumsDataSource()
-        super.init(model: [], publisher: albumsDataSource.getAlbums(userID: userID))
+        self.userID = userID
+    }
+    
+    override func dataPublisher() -> AnyPublisher<[Album], DefaultAppError> {
+        AlbumsDataSource().getAlbums(userID: userID)
     }
     
 }

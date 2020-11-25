@@ -11,7 +11,7 @@ import SwiftUI
 struct LCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: LCEViewModel<Model> {
     
     @ObservedObject var viewModel: ViewModel
-    var content: () -> Content
+    var content: (Model) -> Content
     
     var body: some View {
         ZStack {
@@ -21,7 +21,9 @@ struct LCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: 
             case .error(let title, let message):
                 ErrorView(title: title, message: message)
             case .content:
-                content()
+                viewModel.model.map {
+                    content($0)
+                }
             }
         }
     }
@@ -40,7 +42,7 @@ struct LCEView_Previews: PreviewProvider {
     private static func getLCEView(state: LCEViewModel<Any>.State) -> LCEView<Text, LCEViewModel<Any>, Any> {
         let viewModel = LCEViewModel<Any>(model: [])
         viewModel.state = state
-        return LCEView(viewModel: viewModel) {
+        return LCEView(viewModel: viewModel) { model in
             Text("Content")
                 .font(.largeTitle)
         }
