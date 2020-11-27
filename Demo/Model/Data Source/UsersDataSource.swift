@@ -11,8 +11,12 @@ import Combine
 
 struct UsersDataSource: BaseDataSource {
     
-    func getAllUsers() -> AnyPublisher<[User], DefaultAppError> {
-        performRequest(withRelativeURL: "users")
+    func getAllUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
+        var urlString = "users"
+        if let page = page, let limit = limit {
+            urlString += "?_page=\(page)&_limit=\(limit)"
+        }
+        return performRequest(withRelativeURL: urlString)
     }
     
 }

@@ -9,10 +9,14 @@
 import Foundation
 import Combine
 
-class UsersViewModel: LCEViewModel<[User]> {
+class UsersViewModel: LCEListViewModel<User> {
     
-    override func dataPublisher() -> AnyPublisher<[User], DefaultAppError> {
-        UsersDataSource().getAllUsers()
+    init() {
+        super.init(limit: 5)
+    }
+    
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
+        UsersDataSource().getAllUsers(page: page, limit: limit)
     }
     
 }

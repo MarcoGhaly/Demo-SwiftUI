@@ -13,11 +13,9 @@ struct UsersListView: View {
     @ObservedObject var viewModel: UsersViewModel
     
     var body: some View {
-        LCEView(viewModel: viewModel) { model in
-            List(model) { user in
-                NavigationLink(destination: NavigationLazyView(UserDetailsView(user: user))) {
-                    UserRowView(user: user)
-                }
+        LCEListView(viewModel: viewModel) { user in
+            NavigationLink(destination: NavigationLazyView(UserDetailsView(user: user))) {
+                UserRowView(user: user)
             }
         }
         .navigationBarTitle(Text("Users"))
