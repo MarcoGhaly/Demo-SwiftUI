@@ -15,7 +15,10 @@ struct UsersListView: View {
     var body: some View {
         LCEListView(viewModel: viewModel) { user in
             NavigationLink(destination: NavigationLazyView(UserDetailsView(user: user))) {
-                UserRowView(user: user)
+                VStack {
+                    UserRowView(user: user)
+                    Divider()
+                }
             }
         }
         .navigationBarTitle(Text("Users"))

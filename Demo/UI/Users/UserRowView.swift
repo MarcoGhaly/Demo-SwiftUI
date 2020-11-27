@@ -20,17 +20,14 @@ struct UserRowView: View {
                     ("Website:", user.website),
                     ("Company:", user.company?.name)]
         
-        return VStack {
-            InfoView(info: info)
-            Divider()
-        }
-        .padding(.horizontal)
+        return InfoView(info: info)
+            .padding(.horizontal)
     }
 }
 
 struct UserRowView_Previews: PreviewProvider {
     static var previews: some View {
         return UserRowView(user: testUser)
-            .previewLayout(.fixed(width: 400, height: 150))
+            .previewLayout(.sizeThatFits)
     }
 }
