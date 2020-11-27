@@ -10,8 +10,7 @@ import Foundation
 import Combine
 
 protocol BaseDataSource {
-    func performRequest<DataModel: Codable, ErrorModel: Codable>(withRelativeURL relativeURLString: String) -> AnyPublisher<DataModel, AppError<ErrorModel>>
-    func performRequest<DataModel: Codable, ErrorModel: Codable>(withURL urlString: String) -> AnyPublisher<DataModel, AppError<ErrorModel>>
+    func performRequest<DataModel: Codable, ErrorModel: Codable>(_ request: Request) -> AnyPublisher<DataModel, AppError<ErrorModel>>
     func performRequest<DataModel: Codable>(urlString: String, completion: @escaping (Result<DataModel>) -> Void)
 }
 
@@ -22,20 +21,19 @@ private extension BaseDataSource {
 
 extension BaseDataSource {
     
-    func performRequest<DataModel: Codable, ErrorModel: Codable>(withRelativeURL relativeURLString: String) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
-        let urlString = baseURL + relativeURLString
-        return performRequest(withURL: urlString)
-    }
-    
-    func performRequest<DataModel: Codable, ErrorModel: Codable>(withURL urlString: String) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
+    func performRequest<DataModel: Codable, ErrorModel: Codable>(_ request: Request) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
+        let urlString = baseURL + request.formattedURL
         guard let url = URL(string: urlString) else {
             return Fail(error: .invalidURL(urlString: urlString)).eraseToAnyPublisher()
         }
         
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = request.httpMethod.rawValue
+        
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .secondsSince1970
         
-        return URLSession.shared.dataTaskPublisher(for: url)
+        return URLSession.shared.dataTaskPublisher(for: urlRequest)
             .tryMap { data, urlResponse in
                 let statusCode = (urlResponse as? HTTPURLResponse)?.statusCode
                 if let statusCode = statusCode, statusCode == self.successCode {

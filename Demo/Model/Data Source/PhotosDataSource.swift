@@ -12,9 +12,11 @@ import Combine
 struct PhotosDataSource: BaseDataSource {
     
     func getPhotos(albumID: Int? = nil) -> AnyPublisher<[Photo], DefaultAppError> {
-        var urlString = "photos"
-        albumID.map { urlString += "?albumId=\($0)" }
-        return performRequest(withRelativeURL: urlString)
+        var queryParameters = [String: String]()
+        albumID.map { queryParameters["albumId"] = String($0) }
+        
+        let request = Request(url: "photos", queryParameters: queryParameters)
+        return performRequest(request)
     }
     
 }

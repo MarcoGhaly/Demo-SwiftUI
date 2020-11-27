@@ -12,11 +12,12 @@ import Combine
 struct UsersDataSource: BaseDataSource {
     
     func getAllUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
-        var urlString = "users"
-        if let page = page, let limit = limit {
-            urlString += "?_page=\(page)&_limit=\(limit)"
-        }
-        return performRequest(withRelativeURL: urlString)
+        var queryParameters = [String: String]()
+        page.map { queryParameters["_page"] = String($0) }
+        limit.map { queryParameters["_limit"] = String($0) }
+        
+        let request = Request(url: "users", queryParameters: queryParameters)
+        return performRequest(request)
     }
     
 }

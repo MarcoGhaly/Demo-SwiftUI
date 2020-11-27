@@ -12,9 +12,11 @@ import Combine
 struct CommentsDataSource: BaseDataSource {
     
     func getComments(postID: Int? = nil) -> AnyPublisher<[Comment], DefaultAppError> {
-        var urlString = "comments"
-        postID.map { urlString += "?postId=\($0)" }
-        return performRequest(withRelativeURL: urlString)
+        var queryParameters = [String: String]()
+        postID.map { queryParameters["postId"] = String($0) }
+        
+        let request = Request(url: "comments", queryParameters: queryParameters)
+        return performRequest(request)
     }
     
 }

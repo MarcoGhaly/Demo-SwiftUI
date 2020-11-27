@@ -12,9 +12,11 @@ import Combine
 struct ToDosDataSource: BaseDataSource {
     
     func getToDos(userID: Int? = nil) -> AnyPublisher<[ToDo], DefaultAppError> {
-        var urlString = "todos"
-        userID.map { urlString += "?userId=\($0)" }
-        return performRequest(withRelativeURL: urlString)
+        var queryParameters = [String: String]()
+        userID.map { queryParameters["userId"] = String($0) }
+        
+        let request = Request(url: "todos", queryParameters: queryParameters)
+        return performRequest(request)
     }
     
 }
