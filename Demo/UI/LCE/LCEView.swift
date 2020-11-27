@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: LCEViewModel<Model> {
     @ObservedObject var viewModel: ViewModel
-    var content: (Model) -> Content
+    let content: (Model) -> Content
     
     var body: some View {
         ZStack {
