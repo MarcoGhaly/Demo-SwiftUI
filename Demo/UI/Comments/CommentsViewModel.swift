@@ -18,7 +18,7 @@ class CommentsViewModel: LCEViewModel<[Comment]> {
     }
     
     override func dataPublisher() -> AnyPublisher<[Comment], DefaultAppError> {
-        CommentsDataSource().getComments(postID: postID)
+        DemoDataSource().getComments(postID: postID)
     }
     
 }

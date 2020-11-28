@@ -10,18 +10,38 @@ import Foundation
 import Combine
 
 protocol BaseDataSource {
+    var baseURL: String { get }
+    var timeoutInterval: TimeInterval { get }
+    var headers: [String: String]? { get }
+    var pathParameters: [String]? { get }
+    var queryParameters: [String: String]? { get }
+    
     func performRequest<DataModel: Codable, ErrorModel: Codable>(_ request: Request) -> AnyPublisher<DataModel, AppError<ErrorModel>>
     func performRequest<DataModel: Codable>(urlString: String, completion: @escaping (Result<DataModel>) -> Void)
 }
 
-private extension BaseDataSource {
-    private var baseURL: String { "https://jsonplaceholder.typicode.com/" }
-    private var successCode: Int { 200 }
+extension BaseDataSource {
+    var timeoutInterval: TimeInterval { 30 }
+    var headers: [String: String]? { return nil }
+    var pathParameters: [String]? { return nil }
+    var queryParameters: [String: String]? { return nil }
 }
 
 extension BaseDataSource {
+    private var successCode: Int { 200 }
     
     func performRequest<DataModel: Codable, ErrorModel: Codable>(_ request: Request) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
+        var request = request
+        if let headers = self.headers {
+            request.headers?.merge(headers, uniquingKeysWith: { (current, _) in current })
+        }
+        if let pathParameters = self.pathParameters {
+            request.pathParameters?.insert(contentsOf: pathParameters, at: 0)
+        }
+        if let queryParameters = self.queryParameters {
+            request.queryParameters?.merge(queryParameters, uniquingKeysWith: { (current, _) in current })
+        }
+        
         let urlString = baseURL + request.formattedURL
         guard let url = URL(string: urlString) else {
             return Fail(error: .invalidURL(urlString: urlString)).eraseToAnyPublisher()
@@ -29,6 +49,7 @@ extension BaseDataSource {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.httpMethod.rawValue
+        urlRequest.timeoutInterval = request.timeoutInterval ?? timeoutInterval
         
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .secondsSince1970
@@ -50,11 +71,9 @@ extension BaseDataSource {
         .receive(on: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
-    
 }
 
 extension BaseDataSource {
-    
     func performRequest<DataModel: Codable>(urlString: String, completion: @escaping (Result<DataModel>) -> Void) {
         guard let url = URL(string: urlString) else {
             DispatchQueue.main.async {
@@ -92,7 +111,6 @@ extension BaseDataSource {
         }
         task.resume()
     }
-    
 }
 
 struct Result<Data> {

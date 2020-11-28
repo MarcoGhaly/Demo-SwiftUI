@@ -18,7 +18,7 @@ class PhotosViewModel: LCEViewModel<[Photo]> {
     }
     
     override func dataPublisher() -> AnyPublisher<[Photo], DefaultAppError> {
-        PhotosDataSource().getPhotos(albumID: albumID)
+        DemoDataSource().getPhotos(albumID: albumID)
     }
     
 }

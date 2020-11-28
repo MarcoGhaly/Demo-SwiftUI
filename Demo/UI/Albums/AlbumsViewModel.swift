@@ -18,7 +18,7 @@ class AlbumsViewModel: LCEViewModel<[Album]> {
     }
     
     override func dataPublisher() -> AnyPublisher<[Album], DefaultAppError> {
-        AlbumsDataSource().getAlbums(userID: userID)
+        DemoDataSource().getAlbums(userID: userID)
     }
     
 }

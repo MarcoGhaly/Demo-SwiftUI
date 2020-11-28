@@ -16,7 +16,7 @@ class UsersViewModel: LCEListViewModel<User> {
     }
     
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
-        UsersDataSource().getAllUsers(page: page, limit: limit)
+        DemoDataSource().getAllUsers(page: page, limit: limit)
     }
     
 }

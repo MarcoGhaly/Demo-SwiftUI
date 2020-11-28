@@ -18,7 +18,7 @@ class ToDosViewModel: LCEViewModel<[ToDo]> {
     }
     
     override func dataPublisher() -> AnyPublisher<[ToDo], DefaultAppError> {
-        ToDosDataSource().getToDos(userID: userID)
+        DemoDataSource().getToDos(userID: userID)
     }
     
 }

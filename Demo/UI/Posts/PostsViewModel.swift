@@ -18,7 +18,7 @@ class PostsViewModel: LCEViewModel<[Post]> {
     }
     
     override func dataPublisher() -> AnyPublisher<[Post], DefaultAppError> {
-        PostsDataSource().getPosts(userID: userID)
+        DemoDataSource().getPosts(userID: userID)
     }
     
 }
