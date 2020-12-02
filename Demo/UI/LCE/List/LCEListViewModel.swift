@@ -10,7 +10,6 @@ import Foundation
 import Combine
 
 class LCEListViewModel<Element>: LCEViewModel<[Element]> {
-    
     private var limit: Int?
     private var page = 1
     
@@ -54,5 +53,4 @@ class LCEListViewModel<Element>: LCEViewModel<[Element]> {
             objectWillChange.send()
         }
     }
-    
 }

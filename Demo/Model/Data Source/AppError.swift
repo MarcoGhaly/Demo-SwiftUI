@@ -11,7 +11,6 @@ import Foundation
 typealias DefaultAppError = AppError<String>
 
 enum AppError<ErrorModel>: Error, LocalizedError where ErrorModel: Codable, ErrorModel: CustomStringConvertible {
-    
     case invalidURL(urlString: String?)
     case invalidParameters
     case statusCode(code: Int?, errorModel: ErrorModel?)
@@ -28,5 +27,4 @@ enum AppError<ErrorModel>: Error, LocalizedError where ErrorModel: Codable, Erro
             return generalErrorDescription
         }
     }
-    
 }

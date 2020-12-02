@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct ErrorView: View {
-    
     var title: String?
     var message: String?
     var image: (image: Image, size: CGSize)?
@@ -41,7 +40,6 @@ struct ErrorView: View {
         }
         .padding(padding)
     }
-    
 }
 
 struct ErrorView_Previews: PreviewProvider {

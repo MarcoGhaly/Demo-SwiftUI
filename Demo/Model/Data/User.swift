@@ -1,7 +1,6 @@
 import Foundation
 
 struct User : Codable, Identifiable {
-    
 	let id : Int?
 	let name : String?
 	let username : String?
@@ -10,5 +9,4 @@ struct User : Codable, Identifiable {
 	let phone : String?
 	let website : String?
 	let company : Company?
-
 }

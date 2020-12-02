@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct UserDetailsView: View {
-    
     var user: User
     
     private var buttons: [(String, () -> AnyView)] {

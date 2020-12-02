@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct PostDetailsView: View {
-    
     @ObservedObject var viewModel: PostViewModel
     
     var body: some View {
@@ -17,6 +16,7 @@ struct PostDetailsView: View {
             viewModel.post.title.map {
                 Text($0).font(.headline)
             }
+            
             viewModel.post.body.map {
                 Text($0).font(.body)
             }

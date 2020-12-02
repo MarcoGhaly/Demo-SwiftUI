@@ -10,7 +10,6 @@ import SwiftUI
 import QGrid
 
 struct PhotosListView: View {
-    
     @ObservedObject var viewModel: PhotosViewModel
     
     var body: some View {
@@ -21,7 +20,6 @@ struct PhotosListView: View {
         }
         .navigationBarTitle("Photos")
     }
-    
 }
 
 struct PhotosListView_Previews: PreviewProvider {

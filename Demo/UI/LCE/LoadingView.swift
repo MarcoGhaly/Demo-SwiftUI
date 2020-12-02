@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct LoadingView: View {
-    
     var text = "Loading..."
     var padding: CGFloat = 25
     var spacing: CGFloat = 25
@@ -23,7 +22,6 @@ struct LoadingView: View {
         }
         .padding(padding)
     }
-    
 }
 
 struct LoadingView_Previews: PreviewProvider {

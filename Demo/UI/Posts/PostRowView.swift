@@ -32,6 +32,7 @@ struct PostRowView: View {
 
 struct PostRowView_Previews: PreviewProvider {
     static var previews: some View {
-        return PostRowView(post: testPost).previewLayout(.sizeThatFits)
+        return PostRowView(post: testPost)
+            .previewLayout(.sizeThatFits)
     }
 }

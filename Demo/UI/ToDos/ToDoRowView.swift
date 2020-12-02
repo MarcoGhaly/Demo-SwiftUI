@@ -32,6 +32,7 @@ struct ToDoRowView: View {
 
 struct ToDoRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoRowView(toDo: testToDo).previewLayout(.sizeThatFits)
+        ToDoRowView(toDo: testToDo)
+            .previewLayout(.sizeThatFits)
     }
 }

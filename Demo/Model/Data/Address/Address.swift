@@ -1,7 +1,6 @@
 import Foundation
 
 struct Address : Codable, CustomStringConvertible {
-    
 	let street : String?
 	let suite : String?
 	let city : String?
@@ -18,5 +17,4 @@ struct Address : Codable, CustomStringConvertible {
         }
         return address
     }
-
 }

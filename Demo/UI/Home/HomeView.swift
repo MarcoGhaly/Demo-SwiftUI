@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct HomeView: View {
-    
     private let spacing: CGFloat = 20
     
     private let buttons =
@@ -42,7 +41,6 @@ struct HomeView: View {
             .padding(spacing)
         }
     }
-    
 }
 
 struct HomeView_Previews: PreviewProvider {

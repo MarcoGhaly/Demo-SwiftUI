@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct ActivityIndicator: UIViewRepresentable {
-    
     @Binding var isAnimating: Bool
     let style: UIActivityIndicatorView.Style
 
@@ -20,7 +19,6 @@ struct ActivityIndicator: UIViewRepresentable {
     func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
         isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
     }
-    
 }
 
 struct ActivityIndicator_Previews: PreviewProvider {

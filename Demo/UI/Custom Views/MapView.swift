@@ -10,7 +10,6 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-    
     private static let delta = 0.01
     
     var coordinate: Geo
@@ -35,7 +34,6 @@ struct MapView: UIViewRepresentable {
         let longitude = Double(coordinate.lng ?? "0") ?? 0
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
-    
 }
 
 struct MapView_Previews: PreviewProvider {

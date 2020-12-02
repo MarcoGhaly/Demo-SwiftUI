@@ -10,7 +10,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct PhotoCellView: View {
-    
     var photo: Photo
     
     var body: some View {
@@ -22,7 +21,6 @@ struct PhotoCellView: View {
             }
         }
     }
-    
 }
 
 struct PhotoCellView_Previews: PreviewProvider {

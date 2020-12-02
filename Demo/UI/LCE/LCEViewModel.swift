@@ -10,7 +10,6 @@ import Foundation
 import Combine
 
 class LCEViewModel<Model>: ObservableObject {
-    
     // MARK:- Constants
     
     enum State: Equatable {
@@ -63,5 +62,4 @@ class LCEViewModel<Model>: ObservableObject {
             }
             .store(in: &subscriptions)
     }
-    
 }
