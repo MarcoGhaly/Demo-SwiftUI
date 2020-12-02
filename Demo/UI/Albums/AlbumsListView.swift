@@ -9,15 +9,15 @@
 import SwiftUI
 
 struct AlbumsListView: View {
-    
     @ObservedObject var viewModel: AlbumsViewModel
     
     var body: some View {
-        LCEView(viewModel: viewModel) { model in
-            List(model) { album in
-                NavigationLink(
-                    destination: NavigationLazyView(PhotosListView(viewModel: PhotosViewModel(albumID: album.id)))) {
+        LCEListView(viewModel: viewModel) { album in
+            NavigationLink(
+                destination: NavigationLazyView(PhotosListView(viewModel: PhotosViewModel(albumID: album.id)))) {
+                VStack {
                     AlbumRowView(album: album)
+                    Divider()
                 }
             }
         }

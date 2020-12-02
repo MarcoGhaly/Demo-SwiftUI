@@ -9,16 +9,15 @@
 import Foundation
 import Combine
 
-class AlbumsViewModel: LCEViewModel<[Album]> {
-    
+class AlbumsViewModel: LCEListViewModel<Album> {
     private var userID: Int?
     
     init(userID: Int? = nil) {
         self.userID = userID
+        super.init(limit: 20)
     }
     
-    override func dataPublisher() -> AnyPublisher<[Album], DefaultAppError> {
-        DemoDataSource().getAlbums(userID: userID)
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Album], DefaultAppError> {
+        DemoDataSource().getAlbums(userID: userID, page: page, limit: limit)
     }
-    
 }
