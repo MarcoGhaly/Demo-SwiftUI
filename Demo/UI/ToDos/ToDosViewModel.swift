@@ -9,16 +9,15 @@
 import Foundation
 import Combine
 
-class ToDosViewModel: LCEViewModel<[ToDo]> {
-    
+class ToDosViewModel: LCEListViewModel<ToDo> {
     private var userID: Int?
     
     init(userID: Int? = nil) {
         self.userID = userID
+        super.init(limit: 20)
     }
     
-    override func dataPublisher() -> AnyPublisher<[ToDo], DefaultAppError> {
-        DemoDataSource().getToDos(userID: userID)
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[ToDo], DefaultAppError> {
+        DemoDataSource().getToDos(userID: userID, page: page, limit: limit)
     }
-    
 }

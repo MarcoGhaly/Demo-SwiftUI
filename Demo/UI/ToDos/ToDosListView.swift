@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct ToDosListView: View {
-    
     @ObservedObject var viewModel: ToDosViewModel
     
     var body: some View {
-        LCEView(viewModel: viewModel) { model in
-            List(model) { toDo in
+        LCEListView(viewModel: viewModel) { toDo in
+            VStack {
                 ToDoRowView(toDo: toDo)
+                Divider()
             }
         }
         .navigationBarTitle(Text("ToDos"))
