@@ -9,18 +9,24 @@
 import SwiftUI
 
 struct PostRowView: View {
-    
     var post: Post
     
     var body: some View {
         VStack(alignment: .leading) {
             post.title.map {
-                Text($0).font(.headline)
-                }?.padding(.bottom, 20)
-            post.body.map {
-                Text($0).font(.subheadline)
+                Text($0)
+                    .font(.headline)
             }
-        }.padding()
+            
+            Spacer().frame(height: 10)
+            
+            post.body.map {
+                Text($0)
+                    .font(.subheadline)
+            }
+        }
+        .foregroundColor(.black)
+        .padding()
     }
 }
 

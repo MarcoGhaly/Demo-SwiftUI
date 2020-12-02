@@ -9,16 +9,15 @@
 import Foundation
 import Combine
 
-class PostsViewModel: LCEViewModel<[Post]> {
-    
+class PostsViewModel: LCEListViewModel<Post> {
     private var userID: Int?
     
     init(userID: Int? = nil) {
         self.userID = userID
+        super.init(limit: 5)
     }
     
-    override func dataPublisher() -> AnyPublisher<[Post], DefaultAppError> {
-        DemoDataSource().getPosts(userID: userID)
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Post], DefaultAppError> {
+        DemoDataSource().getPosts(userID: userID, page: page, limit: limit)
     }
-    
 }

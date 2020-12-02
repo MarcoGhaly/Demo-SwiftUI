@@ -9,14 +9,14 @@
 import SwiftUI
 
 struct PostsListView: View {
-    
     @ObservedObject var viewModel: PostsViewModel
     
     var body: some View {
-        LCEView(viewModel: viewModel) { model in
-            List(model) { post in
-                NavigationLink(destination: NavigationLazyView(PostDetailsView(viewModel: PostViewModel(post: post)))) {
+        LCEListView(viewModel: viewModel) { post in
+            NavigationLink(destination: NavigationLazyView(PostDetailsView(viewModel: PostViewModel(post: post)))) {
+                VStack {
                     PostRowView(post: post)
+                    Divider()
                 }
             }
         }
