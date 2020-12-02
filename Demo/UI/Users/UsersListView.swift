@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct UsersListView: View {
-    
     @ObservedObject var viewModel: UsersViewModel
     
     var body: some View {

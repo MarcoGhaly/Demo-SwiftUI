@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct UserRowView: View {
-    
     let user: User
     
     var body: some View {

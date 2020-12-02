@@ -10,7 +10,6 @@ import Foundation
 import Combine
 
 class UsersViewModel: LCEListViewModel<User> {
-    
     init() {
         super.init(limit: 5)
     }
@@ -18,5 +17,4 @@ class UsersViewModel: LCEListViewModel<User> {
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
         DemoDataSource().getAllUsers(page: page, limit: limit)
     }
-    
 }
