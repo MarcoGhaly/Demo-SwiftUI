@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct CommentsListView: View {
-    
     @ObservedObject var viewModel: CommentsViewModel
     
     var body: some View {
-        LCEView(viewModel: viewModel) { model in
-            List(model) { comment in
+        LCEListView(viewModel: viewModel) { comment in
+            VStack {
                 CommentRowView(comment: comment)
+                Divider()
             }
         }
         .navigationBarTitle(Text("Comments"))

@@ -9,16 +9,15 @@
 import Foundation
 import Combine
 
-class CommentsViewModel: LCEViewModel<[Comment]> {
-    
+class CommentsViewModel: LCEListViewModel<Comment> {
     private var postID: Int?
     
     init(postID: Int? = nil) {
         self.postID = postID
+        super.init(limit: 10)
     }
     
-    override func dataPublisher() -> AnyPublisher<[Comment], DefaultAppError> {
-        DemoDataSource().getComments(postID: postID)
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Comment], DefaultAppError> {
+        DemoDataSource().getComments(postID: postID, page: page, limit: limit)
     }
-    
 }
