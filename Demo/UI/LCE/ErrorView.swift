@@ -11,7 +11,7 @@ import SwiftUI
 struct ErrorView: View {
     var title: String?
     var message: String?
-    var image: (image: Image, size: CGSize)?
+    var image: (image: Image, size: CGSize?)?
     var retry: (label: String, action: () -> Void)?
     var padding: CGFloat = 25
     var spacing: CGFloat = 25
@@ -30,8 +30,10 @@ struct ErrorView: View {
             
             image.map { image in
                 image.image
-                    .resizable()
-                    .frame(width: image.size.width, height: image.size.height)
+                    .if(image.size != nil) {
+                        $0.resizable()
+                            .frame(width: image.size!.width, height: image.size!.height)
+                    }
             }
             
             retry.map { retry in
