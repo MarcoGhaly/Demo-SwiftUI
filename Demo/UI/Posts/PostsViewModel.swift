@@ -10,7 +10,9 @@ import Foundation
 import Combine
 
 class PostsViewModel: LCEListViewModel<Post> {
-    private var userID: Int?
+    var userID: Int?
+    
+    private let dataSource = DemoDataSource()
     
     init(userID: Int? = nil) {
         self.userID = userID
@@ -18,6 +20,17 @@ class PostsViewModel: LCEListViewModel<Post> {
     }
     
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Post], DefaultAppError> {
-        DemoDataSource().getPosts(userID: userID, page: page, limit: limit)
+        dataSource.getPosts(userID: userID, page: page, limit: limit)
+    }
+    
+    func add(post: Post) {
+        loading = true
+        dataSource.add(post: post).sink { [weak self] completion in
+            self?.loading = false
+        } receiveValue: { [weak self] id in
+            var post = post
+            post.id = id.id
+            self?.model?.insert(post, at: 0)
+        }.store(in: &subscriptions)
     }
 }

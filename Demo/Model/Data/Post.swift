@@ -1,9 +1,9 @@
 import Foundation
 
 struct Post: Codable, Identifiable {
-    let userId : Int?
-    let id : Int?
-    let title : String?
-    let body : String?
+    var userId : Int?
+    var id : Int?
+    var title : String?
+    var body : String?
     var comments: [Comment]?
 }

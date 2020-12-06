@@ -28,6 +28,11 @@ extension DemoDataSource {
         return performRequest(&request, page: page, limit: limit)
     }
     
+    func add(post: Post) -> AnyPublisher<ID, DefaultAppError> {
+        let request = Request(httpMethod: .POST, url: "posts", body: post)
+        return performRequest(request)
+    }
+    
     func getComments(postID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Comment], DefaultAppError> {
         var queryParameters = [String: String]()
         postID.map { queryParameters["postId"] = String($0) }
