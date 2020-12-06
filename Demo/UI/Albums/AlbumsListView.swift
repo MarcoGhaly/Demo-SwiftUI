@@ -29,7 +29,7 @@ struct AlbumsListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = AlbumsViewModel()
         viewModel.model = [testAlbum]
-        viewModel.state = .content
+        viewModel.viewState = .content
         return AlbumsListView(viewModel: viewModel)
     }
 }

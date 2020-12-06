@@ -28,7 +28,7 @@ struct UsersListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = UsersViewModel()
         viewModel.model = [testUser]
-        viewModel.state = .content
+        viewModel.viewState = .content
         return UsersListView(viewModel: viewModel)
     }
 }

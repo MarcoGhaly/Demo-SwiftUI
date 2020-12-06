@@ -26,7 +26,7 @@ struct CommentsListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = CommentsViewModel(postID: testPost.id)
         viewModel.model = [testComment]
-        viewModel.state = .content
+        viewModel.viewState = .content
         return CommentsListView(viewModel: viewModel)
     }
 }

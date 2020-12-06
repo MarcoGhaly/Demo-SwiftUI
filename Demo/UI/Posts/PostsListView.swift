@@ -28,7 +28,7 @@ struct PostsListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = PostsViewModel()
         viewModel.model = [testPost]
-        viewModel.state = .content
+        viewModel.viewState = .content
         return PostsListView(viewModel: viewModel)
     }
 }

@@ -14,7 +14,7 @@ struct LCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: 
     
     var body: some View {
         ZStack {
-            switch viewModel.state {
+            switch viewModel.viewState {
             case .loading:
                 LoadingView()
             case .error(let title, let message):
@@ -30,17 +30,17 @@ struct LCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: 
 
 struct LCEView_Previews: PreviewProvider {
     static var previews: some View {
-        let states: [LCEViewModel<String>.State] = [.loading, .error(title: "Error Title", message: "Error Message"), .content]
+        let states: [LCEViewModel<String>.ViewState] = [.loading, .error(title: "Error Title", message: "Error Message"), .content]
         return ForEach(states.indices) { index in
             getLCEView(state: states[index])
         }
         .previewLayout(.fixed(width: 400, height: 150))
     }
 
-    private static func getLCEView(state: LCEViewModel<String>.State) -> LCEView<Text, LCEViewModel<String>, String> {
+    private static func getLCEView(state: LCEViewModel<String>.ViewState) -> LCEView<Text, LCEViewModel<String>, String> {
         let viewModel = LCEViewModel<String>()
         viewModel.model = "Content"
-        viewModel.state = state
+        viewModel.viewState = state
         return LCEView(viewModel: viewModel) { model in
             Text(model)
                 .font(.largeTitle)

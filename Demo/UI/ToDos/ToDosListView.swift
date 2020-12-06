@@ -26,7 +26,7 @@ struct ToDosListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = ToDosViewModel()
         viewModel.model = [testToDo]
-        viewModel.state = .content
+        viewModel.viewState = .content
         return ToDosListView(viewModel: viewModel)
     }
 }

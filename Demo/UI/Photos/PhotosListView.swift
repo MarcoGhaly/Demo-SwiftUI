@@ -26,7 +26,7 @@ struct PhotosListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = PhotosViewModel()
         viewModel.model = [testPhoto]
-        viewModel.state = .content
+        viewModel.viewState = .content
         return PhotosListView(viewModel: viewModel)
     }
 }
