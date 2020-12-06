@@ -16,8 +16,8 @@ protocol BaseDataSource {
     var pathParameters: [String]? { get }
     var queryParameters: [String: String]? { get }
     
-    func performRequest<DataModel: Codable, ErrorModel: Codable>(_ request: Request) -> AnyPublisher<DataModel, AppError<ErrorModel>>
-    func performRequest<DataModel: Codable>(urlString: String, completion: @escaping (Result<DataModel>) -> Void)
+    func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: Request) -> AnyPublisher<DataModel, AppError<ErrorModel>>
+    func performRequest<DataModel: Decodable>(urlString: String, completion: @escaping (Result<DataModel>) -> Void)
 }
 
 extension BaseDataSource {
@@ -28,9 +28,9 @@ extension BaseDataSource {
 }
 
 extension BaseDataSource {
-    private var successCode: Int { 200 }
+    private var successCode: Range<Int> { 200..<300 }
     
-    func performRequest<DataModel: Codable, ErrorModel: Codable>(_ request: Request) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
+    func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: Request) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
         var request = request
         if let headers = self.headers {
             request.headers?.merge(headers, uniquingKeysWith: { (current, _) in current })
@@ -51,13 +51,15 @@ extension BaseDataSource {
         urlRequest.httpMethod = request.httpMethod.rawValue
         urlRequest.timeoutInterval = request.timeoutInterval ?? timeoutInterval
         
+        urlRequest.httpBody = request.body?.encode()
+        
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .secondsSince1970
         
         return URLSession.shared.dataTaskPublisher(for: urlRequest)
             .tryMap { data, urlResponse in
                 let statusCode = (urlResponse as? HTTPURLResponse)?.statusCode
-                if let statusCode = statusCode, statusCode == self.successCode {
+                if let statusCode = statusCode, self.successCode ~= statusCode {
                     return data
                 }
                 
@@ -74,7 +76,7 @@ extension BaseDataSource {
 }
 
 extension BaseDataSource {
-    func performRequest<DataModel: Codable>(urlString: String, completion: @escaping (Result<DataModel>) -> Void) {
+    func performRequest<DataModel: Decodable>(urlString: String, completion: @escaping (Result<DataModel>) -> Void) {
         guard let url = URL(string: urlString) else {
             DispatchQueue.main.async {
                 completion(Result(success: false, data: nil, error: NSError()))
@@ -117,4 +119,10 @@ struct Result<Data> {
     var success: Bool
     var data: Data?
     var error: Error?
+}
+
+extension Encodable {
+    func encode() -> Data? {
+        return try? JSONEncoder().encode(self)
+    }
 }

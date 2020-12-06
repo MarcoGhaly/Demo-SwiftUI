@@ -21,6 +21,7 @@ struct Request {
     var headers: [String: String]?
     var pathParameters: [String]?
     var queryParameters: [String: String]?
+    var body: Encodable?
     var timeoutInterval: TimeInterval?
 }
 
