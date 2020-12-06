@@ -16,6 +16,7 @@ struct PostRowView: View {
             post.title.map {
                 Text($0)
                     .font(.headline)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             
             Spacer().frame(height: 10)
@@ -23,6 +24,7 @@ struct PostRowView: View {
             post.body.map {
                 Text($0)
                     .font(.subheadline)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
         .foregroundColor(.black)
