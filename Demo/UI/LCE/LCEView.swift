@@ -24,6 +24,10 @@ struct LCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: 
                     content(model)
                 }
             }
+            
+            if viewModel.loading {
+                LoadingView(style: .dialog)
+            }
         }
     }
 }

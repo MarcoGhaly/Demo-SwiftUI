@@ -8,7 +8,13 @@
 
 import SwiftUI
 
+enum LoadingViewStyle: CaseIterable {
+    case normal
+    case dialog
+}
+
 struct LoadingView: View {
+    var style = LoadingViewStyle.normal
     var text = "Loading..."
     var padding: CGFloat = 25
     var spacing: CGFloat = 25
@@ -21,12 +27,21 @@ struct LoadingView: View {
                 .font(.body)
         }
         .padding(padding)
+        .if(style == .dialog) {
+            $0.cardify()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.opacity(0.3))
+                .edgesIgnoringSafeArea(.all)
+        }
     }
 }
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView()
-            .previewLayout(.fixed(width: 400, height: 200))
+        let styles = LoadingViewStyle.allCases
+        ForEach(styles.indices) { index in
+            LoadingView(style: styles[index])
+                .previewLayout(.fixed(width: 400, height: 300))
+        }
     }
 }
