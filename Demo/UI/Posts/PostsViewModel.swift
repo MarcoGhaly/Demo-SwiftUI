@@ -28,17 +28,11 @@ class PostsViewModel: LCEListViewModel<Post> {
         dataSource.add(post: post).sink { [weak self] completion in
             self?.loading = false
         } receiveValue: { [weak self] id in
-            if let postID = self?.getPostID(withInitialValue: id.id) {
+            if let postID = self?.dataSource.getNextPostID(withInitialValue: id.id) {
                 var post = post
                 post.id = postID
                 self?.model?.insert(post, at: 0)
             }
         }.store(in: &subscriptions)
-    }
-    
-    private func getPostID(withInitialValue postID: Int?) -> Int? {
-        guard let postID: Int = UserDefaultsManager.loadValue(forKey: "NextPostID") ?? postID else { return nil }
-        UserDefaultsManager.save(value: postID + 1, forKey: "NextPostID")
-        return postID
     }
 }

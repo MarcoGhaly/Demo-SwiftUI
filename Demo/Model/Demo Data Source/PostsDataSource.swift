@@ -10,6 +10,8 @@ import Foundation
 import Combine
 
 struct PostsDataSource: DemoDataSource {
+    private let nextPostIdKey = "NextPostID"
+    
     func getPosts(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Post], DefaultAppError> {
         var queryParameters = [String: String]()
         userID.map { queryParameters["userId"] = String($0) }
@@ -21,5 +23,11 @@ struct PostsDataSource: DemoDataSource {
     func add(post: Post) -> AnyPublisher<ID, DefaultAppError> {
         let request = Request(httpMethod: .POST, url: "posts", body: post)
         return performRequest(request)
+    }
+    
+    func getNextPostID(withInitialValue postID: Int?) -> Int? {
+        guard let postID: Int = UserDefaultsManager.loadValue(forKey: nextPostIdKey) ?? postID else { return nil }
+        UserDefaultsManager.save(value: postID + 1, forKey: nextPostIdKey)
+        return postID
     }
 }
