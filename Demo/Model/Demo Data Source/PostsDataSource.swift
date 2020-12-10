@@ -20,12 +20,17 @@ struct PostsDataSource: DemoDataSource {
         return performRequest(&request, page: page, limit: limit)
     }
     
-    func add(post: Post) -> AnyPublisher<ID, DefaultAppError> {
+    func add(post: Post) -> AnyPublisher<Post, DefaultAppError> {
         let request = Request(httpMethod: .POST, url: "posts", body: post)
-        return performRequest(request)
+        let publisher: AnyPublisher<ID, DefaultAppError> = performRequest(request)
+        return publisher.map { id in
+            var post = post
+            post.id = getNextPostID(withInitialValue: id.id)
+            return post
+        }.eraseToAnyPublisher()
     }
     
-    func getNextPostID(withInitialValue postID: Int?) -> Int? {
+    private func getNextPostID(withInitialValue postID: Int?) -> Int? {
         guard let postID: Int = UserDefaultsManager.loadValue(forKey: nextPostIdKey) ?? postID else { return nil }
         UserDefaultsManager.save(value: postID + 1, forKey: nextPostIdKey)
         return postID

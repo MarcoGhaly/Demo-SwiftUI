@@ -27,12 +27,8 @@ class PostsViewModel: LCEListViewModel<Post> {
         loading = true
         dataSource.add(post: post).sink { [weak self] completion in
             self?.loading = false
-        } receiveValue: { [weak self] id in
-            if let postID = self?.dataSource.getNextPostID(withInitialValue: id.id) {
-                var post = post
-                post.id = postID
-                self?.model?.insert(post, at: 0)
-            }
+        } receiveValue: { [weak self] post in
+            self?.model?.insert(post, at: 0)
         }.store(in: &subscriptions)
     }
 }
