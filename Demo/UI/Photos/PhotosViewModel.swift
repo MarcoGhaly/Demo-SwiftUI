@@ -18,6 +18,6 @@ class PhotosViewModel: LCEListViewModel<Photo> {
     }
     
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Photo], DefaultAppError> {
-        DemoDataSource().getPhotos(albumID: albumID, page: page, limit: limit)
+        PhotosDataSource().getPhotos(albumID: albumID, page: page, limit: limit)
     }
 }

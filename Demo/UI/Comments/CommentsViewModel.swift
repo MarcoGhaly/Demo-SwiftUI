@@ -18,6 +18,6 @@ class CommentsViewModel: LCEListViewModel<Comment> {
     }
     
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Comment], DefaultAppError> {
-        DemoDataSource().getComments(postID: postID, page: page, limit: limit)
+        CommentsDataSource().getComments(postID: postID, page: page, limit: limit)
     }
 }

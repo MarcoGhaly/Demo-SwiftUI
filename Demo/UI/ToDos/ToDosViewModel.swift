@@ -18,6 +18,6 @@ class ToDosViewModel: LCEListViewModel<ToDo> {
     }
     
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[ToDo], DefaultAppError> {
-        DemoDataSource().getToDos(userID: userID, page: page, limit: limit)
+        ToDosDataSource().getToDos(userID: userID, page: page, limit: limit)
     }
 }

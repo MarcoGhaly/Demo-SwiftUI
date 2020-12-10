@@ -18,6 +18,6 @@ class AlbumsViewModel: LCEListViewModel<Album> {
     }
     
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Album], DefaultAppError> {
-        DemoDataSource().getAlbums(userID: userID, page: page, limit: limit)
+        AlbumsDataSource().getAlbums(userID: userID, page: page, limit: limit)
     }
 }

@@ -12,7 +12,7 @@ import Combine
 class PostsViewModel: LCEListViewModel<Post> {
     var userID: Int?
     
-    private let dataSource = DemoDataSource()
+    private let dataSource = PostsDataSource()
     
     init(userID: Int? = nil) {
         self.userID = userID
