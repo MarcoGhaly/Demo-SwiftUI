@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F0BA7AD2583B7630012CD85 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 2F0BA7AC2583B7630012CD85 /* Realm */; };
+		2F0BA7AF2583B7630012CD85 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2F0BA7AE2583B7630012CD85 /* RealmSwift */; };
 		2F0D45642556AB0E00C44971 /* LCEView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0D45632556AB0E00C44971 /* LCEView.swift */; };
 		2F0D45682556ABCA00C44971 /* LCEViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0D45672556ABCA00C44971 /* LCEViewModel.swift */; };
 		2F0D456B2556B53800C44971 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0D456A2556B53800C44971 /* ErrorView.swift */; };
@@ -149,6 +151,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F0BA7AF2583B7630012CD85 /* RealmSwift in Frameworks */,
+				2F0BA7AD2583B7630012CD85 /* Realm in Frameworks */,
 				2FB6B5F525648E5E00A7FBDD /* SDWebImageSwiftUI in Frameworks */,
 				2FB6B5E5256479B900A7FBDD /* QGrid in Frameworks */,
 			);
@@ -448,6 +452,8 @@
 			packageProductDependencies = (
 				2FB6B5E4256479B900A7FBDD /* QGrid */,
 				2FB6B5F425648E5E00A7FBDD /* SDWebImageSwiftUI */,
+				2F0BA7AC2583B7630012CD85 /* Realm */,
+				2F0BA7AE2583B7630012CD85 /* RealmSwift */,
 			);
 			productName = Demo;
 			productReference = 6C15569524FABA7A000980BE /* Demo.app */;
@@ -480,6 +486,7 @@
 			packageReferences = (
 				2FB6B5E3256479B900A7FBDD /* XCRemoteSwiftPackageReference "QGrid" */,
 				2FB6B5F325648E5E00A7FBDD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				2F0BA7AB2583B7630012CD85 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
 			productRefGroup = 6C15569624FABA7A000980BE /* Products */;
 			projectDirPath = "";
@@ -762,6 +769,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2F0BA7AB2583B7630012CD85 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.4.0;
+			};
+		};
 		2FB6B5E3256479B900A7FBDD /* XCRemoteSwiftPackageReference "QGrid" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Q-Mobile/QGrid";
@@ -781,6 +796,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2F0BA7AC2583B7630012CD85 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F0BA7AB2583B7630012CD85 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		2F0BA7AE2583B7630012CD85 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F0BA7AB2583B7630012CD85 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
 		2FB6B5E4256479B900A7FBDD /* QGrid */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2FB6B5E3256479B900A7FBDD /* XCRemoteSwiftPackageReference "QGrid" */;
