@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import RealmSwift
 
 struct PostsDataSource: DemoDataSource {
     private let nextPostIdKey = "NextPostID"
@@ -17,15 +18,24 @@ struct PostsDataSource: DemoDataSource {
         userID.map { queryParameters["userId"] = String($0) }
         
         var request = Request(url: "posts", queryParameters: queryParameters)
-        return performRequest(&request, page: page, limit: limit)
+        var postsPublisher: AnyPublisher<[Post], DefaultAppError> = performRequest(&request, page: page, limit: limit)
+        
+        if page == 1, let localPostsPublisher = try? loadPosts() {
+            postsPublisher = Publishers.CombineLatest(postsPublisher, localPostsPublisher).map { remotePosts, localPosts in
+                localPosts + remotePosts
+            }.eraseToAnyPublisher()
+        }
+        
+        return postsPublisher
     }
     
     func add(post: Post) -> AnyPublisher<Post, DefaultAppError> {
         let request = Request(httpMethod: .POST, url: "posts", body: post)
         let publisher: AnyPublisher<ID, DefaultAppError> = performRequest(request)
         return publisher.map { id in
-            var post = post
-            post.id = getNextPostID(withInitialValue: id.id)
+            let post = post
+            post.id = getNextPostID(withInitialValue: id.id) ?? 0
+            try? save(post: post)
             return post
         }.eraseToAnyPublisher()
     }
@@ -34,5 +44,25 @@ struct PostsDataSource: DemoDataSource {
         guard let postID: Int = UserDefaultsManager.loadValue(forKey: nextPostIdKey) ?? postID else { return nil }
         UserDefaultsManager.save(value: postID + 1, forKey: nextPostIdKey)
         return postID
+    }
+    
+    private func save(post: Post) throws {
+        let realm = try Realm()
+        try realm.write {
+            realm.add(post)
+        }
+    }
+    
+    private func loadPosts() throws -> AnyPublisher<[Post], DefaultAppError> {
+        let publisher = PassthroughSubject<[Post], DefaultAppError>()
+        
+        let realm = try Realm()
+        let posts = Array(realm.objects(Post.self))
+        DispatchQueue.main.async {
+            publisher.send(posts)
+            publisher.send(completion: .finished)
+        }
+        
+        return publisher.eraseToAnyPublisher()
     }
 }
