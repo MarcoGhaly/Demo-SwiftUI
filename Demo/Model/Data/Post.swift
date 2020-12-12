@@ -16,4 +16,6 @@ class Post: Object, Codable, Identifiable {
         self.title = title
         self.body = body
     }
+    
+    override class func primaryKey() -> String? { "id" }
 }
