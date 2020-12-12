@@ -20,7 +20,7 @@ struct PostsDataSource: DemoDataSource {
         var request = Request(url: "posts", queryParameters: queryParameters)
         var postsPublisher: AnyPublisher<[Post], DefaultAppError> = performRequest(&request, page: page, limit: limit)
         
-        if page == 1, let localPostsPublisher = try? loadPosts() {
+        if page == 1, let userID = userID, let localPostsPublisher = try? loadPosts(userID: userID) {
             postsPublisher = Publishers.CombineLatest(postsPublisher, localPostsPublisher).map { remotePosts, localPosts in
                 localPosts + remotePosts
             }.eraseToAnyPublisher()
@@ -53,11 +53,11 @@ struct PostsDataSource: DemoDataSource {
         }
     }
     
-    private func loadPosts() throws -> AnyPublisher<[Post], DefaultAppError> {
+    private func loadPosts(userID: Int) throws -> AnyPublisher<[Post], DefaultAppError> {
         let publisher = PassthroughSubject<[Post], DefaultAppError>()
         
         let realm = try Realm()
-        let posts = Array(realm.objects(Post.self))
+        let posts = Array(realm.objects(Post.self).filter("userId = %d", userID))
         DispatchQueue.main.async {
             publisher.send(posts)
             publisher.send(completion: .finished)
