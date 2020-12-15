@@ -7,29 +7,40 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    private let databaseVersion: UInt64 = 0
+    private let realmCompactConfigurations: (fileSizeMB: Int, usageRatio: Double) = (100 * 1024 * 1024, 0.5)
+    
+    private var encryptionKey: Data {
+        LocalStore.loadEncryptionKey() ?? createEncryptionKey()
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        initRealm()
         return true
     }
-
-    // MARK: UISceneSession Lifecycle
-
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    
+    private func initRealm() {
+        let configuration = Realm.Configuration(encryptionKey: encryptionKey, schemaVersion: databaseVersion) { migration, oldSchemaVersion in
+            if oldSchemaVersion < 1 {
+            }
+        } shouldCompactOnLaunch: { totalBytes, usedBytes in
+            let fileSizeMB = self.realmCompactConfigurations.fileSizeMB
+            let usageRatio = self.realmCompactConfigurations.usageRatio
+            return (totalBytes > fileSizeMB) && (Double(usedBytes) / Double(totalBytes)) < usageRatio
+        }
+        Realm.Configuration.defaultConfiguration = configuration
     }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    
+    private func createEncryptionKey() -> Data {
+        var key = Data(count: 64)
+        _ = key.withUnsafeMutableBytes { bytes in
+            SecRandomCopyBytes(kSecRandomDefault, 64, bytes)
+        }
+        LocalStore.save(encryptionKey: key)
+        return key
     }
-
-
 }
-
