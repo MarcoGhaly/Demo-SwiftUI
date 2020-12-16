@@ -31,6 +31,7 @@
 		2F84C77F258A42F400E9C83D /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F84C77E258A42F400E9C83D /* LoadingViewModel.swift */; };
 		2F84C787258A4D3600E9C83D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F84C786258A4D3600E9C83D /* ErrorView.swift */; };
 		2F84C78A258A4D4D00E9C83D /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F84C789258A4D4D00E9C83D /* ErrorViewModel.swift */; };
+		2F84C78E258A73E700E9C83D /* DefaultLCEView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F84C78D258A73E700E9C83D /* DefaultLCEView.swift */; };
 		2FB6B5D425645AD500A7FBDD /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5D325645AD500A7FBDD /* Album.swift */; };
 		2FB6B5D725645B8D00A7FBDD /* AlbumsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5D625645B8D00A7FBDD /* AlbumsViewModel.swift */; };
 		2FB6B5DB25645BC200A7FBDD /* AlbumsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5DA25645BC200A7FBDD /* AlbumsListView.swift */; };
@@ -105,6 +106,7 @@
 		2F84C77E258A42F400E9C83D /* LoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
 		2F84C786258A4D3600E9C83D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		2F84C789258A4D4D00E9C83D /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
+		2F84C78D258A73E700E9C83D /* DefaultLCEView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLCEView.swift; sourceTree = "<group>"; };
 		2FB6B5D325645AD500A7FBDD /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		2FB6B5D625645B8D00A7FBDD /* AlbumsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsViewModel.swift; sourceTree = "<group>"; };
 		2FB6B5DA25645BC200A7FBDD /* AlbumsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsListView.swift; sourceTree = "<group>"; };
@@ -174,8 +176,9 @@
 		2F0D45622556AAC900C44971 /* LCE */ = {
 			isa = PBXGroup;
 			children = (
-				2F0D45632556AB0E00C44971 /* LCEView.swift */,
 				2F0D45672556ABCA00C44971 /* LCEViewModel.swift */,
+				2F0D45632556AB0E00C44971 /* LCEView.swift */,
+				2F84C78D258A73E700E9C83D /* DefaultLCEView.swift */,
 				2F84C781258A4C5300E9C83D /* Loading View */,
 				2F84C782258A4C8000E9C83D /* Error View */,
 				2FBD98EB256E8FA500CBFB1B /* List */,
@@ -599,6 +602,7 @@
 				6CD3AD4224FAE44900D8BF77 /* PostDetailsView.swift in Sources */,
 				2F84C787258A4D3600E9C83D /* ErrorView.swift in Sources */,
 				2FB6B5DB25645BC200A7FBDD /* AlbumsListView.swift in Sources */,
+				2F84C78E258A73E700E9C83D /* DefaultLCEView.swift in Sources */,
 				6CD3AD5924FB155E00D8BF77 /* Company.swift in Sources */,
 				6CD3AD6C24FB299500D8BF77 /* TestData.swift in Sources */,
 				6CD3AD4A24FAEE5600D8BF77 /* CommentRowView.swift in Sources */,

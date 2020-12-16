@@ -15,7 +15,7 @@ struct LCEListView<CellContent, ViewModel, Element, ID>: View where CellContent:
     let loadingView: AnyView? = nil
     
     var body: some View {
-        LCEView(viewModel: viewModel) { model in
+        DefaultLCEView(viewModel: viewModel) { model in
             GeometryReader { outerGeometry in
                 ScrollView {
                     LazyVStack {

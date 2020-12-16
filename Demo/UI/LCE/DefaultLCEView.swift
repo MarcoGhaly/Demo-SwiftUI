@@ -1,0 +1,58 @@
+//
+//  DefaultLCEView.swift
+//  Demo
+//
+//  Created by Marco Ghaly on 16/12/2020.
+//  Copyright © 2020 Marco Ghaly. All rights reserved.
+//
+
+import SwiftUI
+
+struct DefaultLCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: LCEViewModel<Model> {
+    @ObservedObject var viewModel: ViewModel
+    let content: (Model) -> Content
+    
+    var body: some View {
+        LCEView(viewModel: viewModel) { model in
+            content(model)
+        } loading: { loadingViewModel in
+            DefaultLoadingView(loadingViewModel: loadingViewModel)
+        } error: { errorViewModel in
+            DefaultErrorView(errorViewModel: errorViewModel)
+        }
+    }
+}
+
+struct DefaultLCEView_Previews: PreviewProvider {
+    static var previews: some View {
+        let loadingViewModel = LoadingViewModel(style: .normal,
+                                                title: "Loading...",
+                                                message: "Please Wait")
+        
+        let errorViewModel = ErrorViewModel(image: (type: .system, name: "multiply.circle", mode: .original),
+                                            title: "Error!",
+                                            message: "An Error Occurred",
+                                            retry: (label: "Retry", action: {}))
+        
+        let states: [LCEViewModel<String>.ViewState] = [
+            .loading(model: loadingViewModel),
+            .error(model: errorViewModel),
+            .content
+        ]
+        
+        return ForEach(states.indices) { index in
+            getDefaultLCEView(state: states[index])
+        }
+        .previewLayout(.fixed(width: 400, height: 150))
+    }
+    
+    private static func getDefaultLCEView(state: LCEViewModel<String>.ViewState) -> DefaultLCEView<Text, LCEViewModel<String>, String> {
+        let viewModel = LCEViewModel<String>()
+        viewModel.model = "Content"
+        viewModel.viewState = state
+        return DefaultLCEView(viewModel: viewModel) { model in
+            Text(model)
+                .font(.largeTitle)
+        }
+    }
+}

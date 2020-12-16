@@ -8,17 +8,19 @@
 
 import SwiftUI
 
-struct LCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: LCEViewModel<Model> {
+struct LCEView<Content, Loading, Error, ViewModel, Model>: View where Content: View, Loading: LoadingView, Error: ErrorView, ViewModel: LCEViewModel<Model> {
     @ObservedObject var viewModel: ViewModel
     let content: (Model) -> Content
+    let loading: (LoadingViewModel) -> Loading
+    let error: (ErrorViewModel) -> Error
     
     var body: some View {
         ZStack {
             switch viewModel.viewState {
             case .loading(let loadingViewModel):
-                DefaultLoadingView(loadingViewModel: loadingViewModel)
+                loading(loadingViewModel)
             case .error(let errorViewModel):
-                DefaultErrorView(errorViewModel: errorViewModel)
+                error(errorViewModel)
             case .content:
                 viewModel.model.map { model in
                     content(model)
@@ -55,13 +57,17 @@ struct LCEView_Previews: PreviewProvider {
         .previewLayout(.fixed(width: 400, height: 150))
     }
     
-    private static func getLCEView(state: LCEViewModel<String>.ViewState) -> LCEView<Text, LCEViewModel<String>, String> {
+    private static func getLCEView(state: LCEViewModel<String>.ViewState) -> LCEView<Text, DefaultLoadingView, DefaultErrorView, LCEViewModel<String>, String> {
         let viewModel = LCEViewModel<String>()
         viewModel.model = "Content"
         viewModel.viewState = state
-        return LCEView(viewModel: viewModel) { model in
+        return LCEView(viewModel: viewModel, content: { model in
             Text(model)
                 .font(.largeTitle)
-        }
+        }, loading: { loadingViewModel in
+            DefaultLoadingView(loadingViewModel: loadingViewModel)
+        }, error: { errorViewModel in
+            DefaultErrorView(errorViewModel: errorViewModel)
+        })
     }
 }

@@ -13,7 +13,7 @@ struct PhotosListView: View {
     @ObservedObject var viewModel: PhotosViewModel
     
     var body: some View {
-        LCEView(viewModel: viewModel) { model in
+        DefaultLCEView(viewModel: viewModel) { model in
             QGrid(model, columns: 3) { photo in
                 PhotoCellView(photo: photo)
             }
