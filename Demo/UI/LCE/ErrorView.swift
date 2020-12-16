@@ -8,16 +8,36 @@
 
 import SwiftUI
 
+enum ImageType {
+    case normal
+    case system
+}
+
+enum ImageMode {
+    case original
+    case icon
+}
+
 struct ErrorView: View {
+    private let padding: CGFloat = 25
+    private let spacing: CGFloat = 25
+    private let iconDimension: CGFloat = 50
+    
     var title: String?
     var message: String?
-    var image: (image: Image, size: CGSize?)?
+    var image: (type: ImageType, name: String, mode: ImageMode?)?
     var retry: (label: String, action: () -> Void)?
-    var padding: CGFloat = 25
-    var spacing: CGFloat = 25
     
     var body: some View {
         VStack(spacing: spacing) {
+            image.map { image in
+                (image.type == .normal ? Image(image.name) : Image(systemName: image.name))
+                    .if(image.mode == .icon) {
+                        $0.resizable()
+                            .frame(width: iconDimension, height: iconDimension)
+                    }
+            }
+            
             title.map { title in
                 Text(title)
                     .font(.title)
@@ -26,14 +46,6 @@ struct ErrorView: View {
             message.map { message in
                 Text(message)
                     .font(.body)
-            }
-            
-            image.map { image in
-                image.image
-                    .if(image.size != nil) {
-                        $0.resizable()
-                            .frame(width: image.size!.width, height: image.size!.height)
-                    }
             }
             
             retry.map { retry in
@@ -48,7 +60,7 @@ struct ErrorView_Previews: PreviewProvider {
     static var previews: some View {
         ErrorView(title: "Error Title",
                   message: "Error Message",
-                  image: (image: Image(systemName: "xmark.octagon"), size: CGSize(width: 50, height: 50)),
+                  image: (type: .system, name: "multiply.circle", mode: .icon),
                   retry: (label: "Retry", action: {}))
             .previewLayout(.fixed(width: 400, height: 300))
     }

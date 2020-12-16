@@ -14,15 +14,16 @@ enum LoadingViewStyle: CaseIterable {
 }
 
 struct LoadingView: View {
+    private let padding: CGFloat = 25
+    private let spacing: CGFloat = 25
+    private let background = Color.black.opacity(0.3)
+    
     var style = LoadingViewStyle.normal
     var text = "Loading..."
-    var padding: CGFloat = 25
-    var spacing: CGFloat = 25
     
     var body: some View {
         VStack(spacing: spacing) {
             ActivityIndicator(isAnimating: .constant(true), style: .large)
-            
             Text(text)
                 .font(.body)
         }
@@ -30,7 +31,7 @@ struct LoadingView: View {
         .if(style == .dialog) {
             $0.cardify()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.3))
+                .background(background)
                 .edgesIgnoringSafeArea(.all)
         }
     }
