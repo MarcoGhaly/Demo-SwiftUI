@@ -17,14 +17,14 @@ struct LCEView<Content, Loading, Error, ViewModel, Model>: View where Content: V
     var body: some View {
         ZStack {
             switch viewModel.viewState {
-            case .loading(let loadingViewModel):
-                loading(loadingViewModel)
-            case .error(let errorViewModel):
-                error(errorViewModel)
             case .content:
                 viewModel.model.map { model in
                     content(model)
                 }
+            case .loading(let loadingViewModel):
+                loading(loadingViewModel)
+            case .error(let errorViewModel):
+                error(errorViewModel)
             }
             
             if viewModel.loading {
