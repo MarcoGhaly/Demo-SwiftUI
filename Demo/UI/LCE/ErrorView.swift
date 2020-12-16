@@ -20,12 +20,12 @@ enum ImageMode {
 
 struct ErrorView: View {
     private let padding: CGFloat = 25
-    private let spacing: CGFloat = 25
+    private let spacing: CGFloat = 15
     private let iconDimension: CGFloat = 50
     
+    var image: (type: ImageType, name: String, mode: ImageMode?)?
     var title: String?
     var message: String?
-    var image: (type: ImageType, name: String, mode: ImageMode?)?
     var retry: (label: String, action: () -> Void)?
     
     var body: some View {
@@ -58,10 +58,10 @@ struct ErrorView: View {
 
 struct ErrorView_Previews: PreviewProvider {
     static var previews: some View {
-        ErrorView(title: "Error Title",
+        ErrorView(image: (type: .system, name: "multiply.circle", mode: .icon),
+                  title: "Error Title",
                   message: "Error Message",
-                  image: (type: .system, name: "multiply.circle", mode: .icon),
                   retry: (label: "Retry", action: {}))
-            .previewLayout(.fixed(width: 400, height: 300))
+            .previewLayout(.fixed(width: 400, height: 250))
     }
 }
