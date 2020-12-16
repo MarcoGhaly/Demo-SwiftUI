@@ -8,29 +8,16 @@
 
 import SwiftUI
 
-enum ImageType {
-    case normal
-    case system
-}
-
-enum ImageMode {
-    case original
-    case icon
-}
-
-struct ErrorView: View {
+struct DefaultErrorView: ErrorView {
     private let padding: CGFloat = 25
     private let spacing: CGFloat = 15
     private let iconDimension: CGFloat = 50
     
-    var image: (type: ImageType, name: String, mode: ImageMode?)?
-    var title: String?
-    var message: String?
-    var retry: (label: String, action: () -> Void)?
+    var errorViewModel: ErrorViewModel
     
     var body: some View {
         VStack(spacing: spacing) {
-            image.map { image in
+            errorViewModel.image.map { image in
                 (image.type == .normal ? Image(image.name) : Image(systemName: image.name))
                     .if(image.mode == .icon) {
                         $0.resizable()
@@ -38,17 +25,17 @@ struct ErrorView: View {
                     }
             }
             
-            title.map { title in
+            errorViewModel.title.map { title in
                 Text(title)
                     .font(.title)
             }
             
-            message.map { message in
+            errorViewModel.message.map { message in
                 Text(message)
                     .font(.body)
             }
             
-            retry.map { retry in
+            errorViewModel.retry.map { retry in
                 Button(retry.label, action: retry.action)
             }
         }
@@ -58,10 +45,11 @@ struct ErrorView: View {
 
 struct ErrorView_Previews: PreviewProvider {
     static var previews: some View {
-        ErrorView(image: (type: .system, name: "multiply.circle", mode: .icon),
-                  title: "Error Title",
-                  message: "Error Message",
-                  retry: (label: "Retry", action: {}))
+        let errorViewModel = ErrorViewModel(image: (type: .system, name: "multiply.circle", mode: .icon),
+                                            title: "Error Title",
+                                            message: "Error Message",
+                                            retry: (label: "Retry", action: {}))
+        DefaultErrorView(errorViewModel: errorViewModel)
             .previewLayout(.fixed(width: 400, height: 250))
     }
 }

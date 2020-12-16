@@ -15,10 +15,10 @@ struct LCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: 
     var body: some View {
         ZStack {
             switch viewModel.viewState {
-            case .loading:
-                LoadingView()
-            case .error(let title, let message):
-                ErrorView(title: title, message: message)
+            case .loading(let loadingViewModel):
+                DefaultLoadingView(loadingViewModel: loadingViewModel)
+            case .error(let errorViewModel):
+                DefaultErrorView(errorViewModel: errorViewModel)
             case .content:
                 viewModel.model.map { model in
                     content(model)
@@ -26,7 +26,7 @@ struct LCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: 
             }
             
             if viewModel.loading {
-                LoadingView(style: .dialog)
+                DefaultLoadingView(loadingViewModel: LoadingViewModel(style: .dialog))
             }
         }
     }
@@ -34,13 +34,27 @@ struct LCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: 
 
 struct LCEView_Previews: PreviewProvider {
     static var previews: some View {
-        let states: [LCEViewModel<String>.ViewState] = [.loading, .error(title: "Error Title", message: "Error Message"), .content]
+        let loadingViewModel = LoadingViewModel(style: .normal,
+                                                title: "Loading...",
+                                                message: "Please Wait")
+        
+        let errorViewModel = ErrorViewModel(image: (type: .system, name: "multiply.circle", mode: .original),
+                                            title: "Error!",
+                                            message: "An Error Occurred",
+                                            retry: (label: "Retry", action: {}))
+        
+        let states: [LCEViewModel<String>.ViewState] = [
+            .loading(model: loadingViewModel),
+            .error(model: errorViewModel),
+            .content
+        ]
+        
         return ForEach(states.indices) { index in
             getLCEView(state: states[index])
         }
         .previewLayout(.fixed(width: 400, height: 150))
     }
-
+    
     private static func getLCEView(state: LCEViewModel<String>.ViewState) -> LCEView<Text, LCEViewModel<String>, String> {
         let viewModel = LCEViewModel<String>()
         viewModel.model = "Content"

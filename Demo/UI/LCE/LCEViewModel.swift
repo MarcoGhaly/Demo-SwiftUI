@@ -12,20 +12,16 @@ import Combine
 class LCEViewModel<Model>: ObservableObject {
     // MARK:- Constants
     
-    enum ViewState: Equatable {
-        case loading
+    enum ViewState {
         case content
-        case error(title: String?, message: String?)
-    }
-    
-    private static var generalErrorText: String {
-        "An Error Occurred"
+        case loading(model: LoadingViewModel)
+        case error(model: ErrorViewModel)
     }
     
     // MARK:- Variables
     
     var subscriptions: [AnyCancellable] = []
-    @Published var viewState = ViewState.loading
+    @Published var viewState = ViewState.content
     @Published var loading = false
     @Published var model: Model?
     
@@ -35,9 +31,19 @@ class LCEViewModel<Model>: ObservableObject {
         if let model = model {
             self.model = model
         } else {
-            viewState = .loading
+            viewState = .loading(model: loadingViewModel())
             fetchData()
         }
+    }
+    
+    // MARK:- Loading & Error
+    
+    func loadingViewModel() -> LoadingViewModel {
+        LoadingViewModel(style: .normal, title: "Loading...", message: "Please Wait")
+    }
+    
+    func errorViewModel(fromError error: Error) -> ErrorViewModel {
+        ErrorViewModel(title: "Error!", message: error.localizedDescription)
     }
     
     // MARK:- Fetch Data
@@ -56,7 +62,9 @@ class LCEViewModel<Model>: ObservableObject {
                         self?.viewState = .content
                     }
                 case .failure(let error):
-                    self?.viewState = .error(title: LCEViewModel.generalErrorText, message: error.localizedDescription)
+                    if let errorViewModel = self?.errorViewModel(fromError: error) {
+                        self?.viewState = .error(model: errorViewModel)
+                    }
                 }
             }) { [weak self] (model) in
                 self?.model = model
