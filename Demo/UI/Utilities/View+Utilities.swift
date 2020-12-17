@@ -1,8 +1,8 @@
 //
-//  View+ConditionalModifier.swift
+//  View+Utilities.swift
 //  Demo
 //
-//  Created by Marco Ghaly on 11/19/20.
+//  Created by Marco Ghaly on 18/12/2020.
 //  Copyright © 2020 Marco Ghaly. All rights reserved.
 //
 
@@ -16,5 +16,9 @@ extension View {
         } else {
             self
         }
+    }
+    
+    func navigationLink<Destination: View>(destination: Destination) -> NavigationLink<Self, Destination> {
+        NavigationLink(destination: destination) { self }
     }
 }
