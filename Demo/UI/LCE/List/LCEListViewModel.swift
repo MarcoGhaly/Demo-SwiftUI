@@ -18,6 +18,12 @@ class LCEListViewModel<Element>: LCEViewModel<[Element]> {
     init(models: [Element]? = nil, limit: Int? = nil) {
         self.limit = limit
         super.init(model: models)
+        
+        $model.compactMap{$0}.sink { [weak self] model in
+            if let limit = self?.limit, model.count < limit {
+                self?.limit = nil
+            }
+        }.store(in: &subscriptions)
     }
     
     override func dataPublisher() -> AnyPublisher<[Element], DefaultAppError> {
@@ -36,9 +42,6 @@ class LCEListViewModel<Element>: LCEViewModel<[Element]> {
         } receiveValue: { [weak self] model in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self?.model?.append(contentsOf: model)
-                if let limit = self?.limit, model.count < limit {
-                    self?.limit = nil
-                }
             }
         }
         .store(in: &subscriptions)
