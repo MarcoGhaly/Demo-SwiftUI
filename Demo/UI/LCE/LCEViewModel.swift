@@ -22,7 +22,6 @@ class LCEViewModel<Model>: ObservableObject {
     
     var subscriptions: [AnyCancellable] = []
     @Published var viewState = ViewState.content
-    @Published var loading = false
     @Published var model: Model?
     
     // MARK:- Initializers

@@ -24,9 +24,9 @@ class PostsViewModel: LCEListViewModel<Post> {
     }
     
     func add(post: Post) {
-        loading = true
+        viewState = .loading(model: LoadingViewModel(style: .dialog))
         dataSource.add(post: post).sink { [weak self] completion in
-            self?.loading = false
+            self?.viewState = .content
         } receiveValue: { [weak self] post in
             self?.model?.insert(post, at: 0)
         }.store(in: &subscriptions)

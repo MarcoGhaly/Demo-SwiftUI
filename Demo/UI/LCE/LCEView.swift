@@ -18,18 +18,21 @@ struct LCEView<Model, ViewModel, Content, Loading, Error>: View where ViewModel:
         ZStack {
             switch viewModel.viewState {
             case .content:
-                viewModel.model.map { model in
-                    content(model)
-                }
+                contentView
             case .loading(let loadingViewModel):
+                if loadingViewModel.style == .dialog {
+                    contentView
+                }
                 loading(loadingViewModel)
             case .error(let errorViewModel):
                 error(errorViewModel)
             }
-            
-            if viewModel.loading {
-                DefaultLoadingView(loadingViewModel: LoadingViewModel(style: .dialog))
-            }
+        }
+    }
+    
+    var contentView: some View {
+        viewModel.model.map { model in
+            content(model)
         }
     }
 }
