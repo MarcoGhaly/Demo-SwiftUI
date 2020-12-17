@@ -8,13 +8,13 @@
 
 import SwiftUI
 
-struct LCEListView<CellContent, Loading, Error, ViewModel, Element, ID>: View where CellContent: View, Loading: LoadingView, Error: ErrorView, ViewModel: LCEListViewModel<Element>, ID: Hashable {
+struct LCEListView<CellContent, Loading, Error, PaginationLoading, ViewModel, Element, ID>: View where CellContent: View, Loading: LoadingView, Error: ErrorView, PaginationLoading: View, ViewModel: LCEListViewModel<Element>, ID: Hashable {
     @ObservedObject var viewModel: ViewModel
     let cellContent: (Element) -> CellContent
     let loading: (LoadingViewModel) -> Loading
     let error: (ErrorViewModel) -> Error
     let id: KeyPath<Element, ID>
-    let loadingView: AnyView? = nil
+    let paginationLoading: () -> PaginationLoading
     
     var body: some View {
         LCEView(viewModel: viewModel) { model in
@@ -26,7 +26,7 @@ struct LCEListView<CellContent, Loading, Error, ViewModel, Element, ID>: View wh
                         }
                         
                         if viewModel.isLoading {
-                            (loadingView ?? AnyView(ActivityIndicator(isAnimating: .constant(true), style: .large)))
+                            paginationLoading()
                                 .frame(maxWidth: .infinity)
                         }
                         
@@ -52,8 +52,8 @@ struct LCEListView<CellContent, Loading, Error, ViewModel, Element, ID>: View wh
 }
 
 extension LCEListView where Element: Identifiable, ID == Element.ID {
-    init(viewModel: ViewModel, cellContent: @escaping (Element) -> CellContent, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error) {
-        self.init(viewModel: viewModel, cellContent: cellContent, loading: loading, error: error, id: \Element.id)
+    init(viewModel: ViewModel, cellContent: @escaping (Element) -> CellContent, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
+        self.init(viewModel: viewModel, cellContent: cellContent, loading: loading, error: error, id: \Element.id, paginationLoading: paginationLoading)
     }
 }
 
@@ -68,7 +68,9 @@ struct LCEListView_Previews: PreviewProvider {
             DefaultLoadingView(loadingViewModel: loadingViewModel)
         }, error: { errorViewModel in
             DefaultErrorView(errorViewModel: errorViewModel)
-        }, id: \.self)
+        }, id: \.self, paginationLoading: {
+            ActivityIndicator(isAnimating: .constant(true), style: .large)
+        })
         .previewLayout(.sizeThatFits)
     }
 }

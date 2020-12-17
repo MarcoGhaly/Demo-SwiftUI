@@ -21,7 +21,9 @@ struct DefaultLCEListView<CellContent, ViewModel, Element, ID>: View where CellC
             DefaultLoadingView(loadingViewModel: loadingViewModel)
         }, error: { errorViewModel in
             DefaultErrorView(errorViewModel: errorViewModel)
-        }, id: id)
+        }, id: id, paginationLoading: {
+            ActivityIndicator(isAnimating: .constant(true), style: .large)
+        })
     }
 }
 
