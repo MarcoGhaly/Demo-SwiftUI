@@ -17,7 +17,7 @@ struct PostsListView: View {
         let userID = viewModel.userID
         
         ZStack {
-            LCEListView(viewModel: viewModel) { post in
+            DefaultLCEListView(viewModel: viewModel) { post in
                 NavigationLink(destination: NavigationLazyView(PostDetailsView(viewModel: PostViewModel(post: post)))) {
                     VStack {
                         PostRowView(post: post)

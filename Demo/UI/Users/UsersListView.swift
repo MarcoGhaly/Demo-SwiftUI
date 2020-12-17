@@ -12,7 +12,7 @@ struct UsersListView: View {
     @ObservedObject var viewModel: UsersViewModel
     
     var body: some View {
-        LCEListView(viewModel: viewModel) { user in
+        DefaultLCEListView(viewModel: viewModel) { user in
             NavigationLink(destination: NavigationLazyView(UserDetailsView(user: user))) {
                 VStack {
                     UserRowView(user: user)

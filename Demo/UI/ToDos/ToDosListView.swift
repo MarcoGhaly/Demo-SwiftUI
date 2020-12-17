@@ -12,7 +12,7 @@ struct ToDosListView: View {
     @ObservedObject var viewModel: ToDosViewModel
     
     var body: some View {
-        LCEListView(viewModel: viewModel) { toDo in
+        DefaultLCEListView(viewModel: viewModel) { toDo in
             VStack {
                 ToDoRowView(toDo: toDo)
                 Divider()

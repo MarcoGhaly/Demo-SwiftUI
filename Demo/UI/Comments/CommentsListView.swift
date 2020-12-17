@@ -12,7 +12,7 @@ struct CommentsListView: View {
     @ObservedObject var viewModel: CommentsViewModel
     
     var body: some View {
-        LCEListView(viewModel: viewModel) { comment in
+        DefaultLCEListView(viewModel: viewModel) { comment in
             VStack {
                 CommentRowView(comment: comment)
                 Divider()

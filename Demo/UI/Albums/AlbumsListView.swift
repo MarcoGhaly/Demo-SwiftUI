@@ -12,7 +12,7 @@ struct AlbumsListView: View {
     @ObservedObject var viewModel: AlbumsViewModel
     
     var body: some View {
-        LCEListView(viewModel: viewModel) { album in
+        DefaultLCEListView(viewModel: viewModel) { album in
             NavigationLink(
                 destination: NavigationLazyView(PhotosListView(viewModel: PhotosViewModel(albumID: album.id)))) {
                 VStack {
