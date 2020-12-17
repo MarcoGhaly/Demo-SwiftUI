@@ -56,19 +56,21 @@ class LCEViewModel<Model>: ObservableObject {
         dataPublisher()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case .finished:
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self?.viewState = .content
-                    }
-                case .failure(let error):
-                    if let errorViewModel = self?.errorViewModel(fromError: error) {
-                        self?.viewState = .error(model: errorViewModel)
-                    }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self?.updateViewState(completion: completion)
                 }
             }) { [weak self] (model) in
                 self?.model = model
             }
             .store(in: &subscriptions)
+    }
+    
+    func updateViewState(completion: Subscribers.Completion<DefaultAppError>) {
+        switch completion {
+        case .finished:
+            viewState = .content
+        case .failure(let error):
+            viewState = .error(model: errorViewModel(fromError: error))
+        }
     }
 }
