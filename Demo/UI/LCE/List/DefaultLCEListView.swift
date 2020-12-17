@@ -8,28 +8,28 @@
 
 import SwiftUI
 
-struct DefaultLCEListView<CellContent, ViewModel, Element, ID>: View where CellContent: View, ViewModel: LCEListViewModel<Element>, ID: Hashable {
+struct DefaultLCEListView<Element, ViewModel, ID, CellContent>: View where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View {
     @ObservedObject var viewModel: ViewModel
-    let cellContent: (Element) -> CellContent
     let id: KeyPath<Element, ID>
+    let cellContent: (Element) -> CellContent
     let loadingView: AnyView? = nil
     
     var body: some View {
-        LCEListView(viewModel: viewModel, cellContent: { model in
+        LCEListView(viewModel: viewModel, id: id) { model in
             cellContent(model)
-        }, loading: { loadingViewModel in
+        } loading: { loadingViewModel in
             DefaultLoadingView(loadingViewModel: loadingViewModel)
-        }, error: { errorViewModel in
+        } error: { errorViewModel in
             DefaultErrorView(errorViewModel: errorViewModel)
-        }, id: id, paginationLoading: {
+        } paginationLoading: {
             ActivityIndicator(isAnimating: .constant(true), style: .large)
-        })
+        }
     }
 }
 
 extension DefaultLCEListView where Element: Identifiable, ID == Element.ID {
     init(viewModel: ViewModel, cellContent: @escaping (Element) -> CellContent) {
-        self.init(viewModel: viewModel, cellContent: cellContent, id: \Element.id)
+        self.init(viewModel: viewModel, id: \Element.id, cellContent: cellContent)
     }
 }
 
@@ -38,8 +38,8 @@ struct DefaultLCEListView_Previews: PreviewProvider {
         let viewModel = LCEListViewModel<String>()
         viewModel.model = ["Hello", "World"]
         
-        return DefaultLCEListView(viewModel: viewModel, cellContent: { element in
+        return DefaultLCEListView(viewModel: viewModel, id: \.self) { element in
             Text(element)
-        }, id: \.self)
+        }
     }
 }

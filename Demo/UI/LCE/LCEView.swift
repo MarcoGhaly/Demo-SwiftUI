@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct LCEView<Content, Loading, Error, ViewModel, Model>: View where Content: View, Loading: LoadingView, Error: ErrorView, ViewModel: LCEViewModel<Model> {
+struct LCEView<Model, ViewModel, Content, Loading, Error>: View where ViewModel: LCEViewModel<Model>, Content: View, Loading: LoadingView, Error: ErrorView {
     @ObservedObject var viewModel: ViewModel
     let content: (Model) -> Content
     let loading: (LoadingViewModel) -> Loading
@@ -57,17 +57,17 @@ struct LCEView_Previews: PreviewProvider {
         .previewLayout(.fixed(width: 400, height: 150))
     }
     
-    private static func getLCEView(state: LCEViewModel<String>.ViewState) -> LCEView<Text, DefaultLoadingView, DefaultErrorView, LCEViewModel<String>, String> {
+    private static func getLCEView(state: LCEViewModel<String>.ViewState) -> LCEView<String, LCEViewModel<String>, Text, DefaultLoadingView, DefaultErrorView> {
         let viewModel = LCEViewModel<String>()
         viewModel.model = "Content"
         viewModel.viewState = state
-        return LCEView(viewModel: viewModel, content: { model in
+        return LCEView(viewModel: viewModel) { model in
             Text(model)
                 .font(.largeTitle)
-        }, loading: { loadingViewModel in
+        } loading: { loadingViewModel in
             DefaultLoadingView(loadingViewModel: loadingViewModel)
-        }, error: { errorViewModel in
+        } error: { errorViewModel in
             DefaultErrorView(errorViewModel: errorViewModel)
-        })
+        }
     }
 }

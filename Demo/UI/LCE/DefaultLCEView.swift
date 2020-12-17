@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct DefaultLCEView<Content, ViewModel, Model>: View where Content: View, ViewModel: LCEViewModel<Model> {
+struct DefaultLCEView<Model, ViewModel, Content>: View where ViewModel: LCEViewModel<Model>, Content: View {
     @ObservedObject var viewModel: ViewModel
     let content: (Model) -> Content
     
@@ -46,7 +46,7 @@ struct DefaultLCEView_Previews: PreviewProvider {
         .previewLayout(.fixed(width: 400, height: 150))
     }
     
-    private static func getDefaultLCEView(state: LCEViewModel<String>.ViewState) -> DefaultLCEView<Text, LCEViewModel<String>, String> {
+    private static func getDefaultLCEView(state: LCEViewModel<String>.ViewState) -> DefaultLCEView<String, LCEViewModel<String>, Text> {
         let viewModel = LCEViewModel<String>()
         viewModel.model = "Content"
         viewModel.viewState = state

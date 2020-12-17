@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-struct LCEListView<CellContent, Loading, Error, PaginationLoading, ViewModel, Element, ID>: View where CellContent: View, Loading: LoadingView, Error: ErrorView, PaginationLoading: View, ViewModel: LCEListViewModel<Element>, ID: Hashable {
+struct LCEListView<Element, ViewModel, ID, CellContent, Loading, Error, PaginationLoading>: View where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View, Loading: LoadingView, Error: ErrorView, PaginationLoading: View {
     @ObservedObject var viewModel: ViewModel
+    let id: KeyPath<Element, ID>
     let cellContent: (Element) -> CellContent
     let loading: (LoadingViewModel) -> Loading
     let error: (ErrorViewModel) -> Error
-    let id: KeyPath<Element, ID>
     let paginationLoading: () -> PaginationLoading
     
     var body: some View {
@@ -53,7 +53,7 @@ struct LCEListView<CellContent, Loading, Error, PaginationLoading, ViewModel, El
 
 extension LCEListView where Element: Identifiable, ID == Element.ID {
     init(viewModel: ViewModel, cellContent: @escaping (Element) -> CellContent, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
-        self.init(viewModel: viewModel, cellContent: cellContent, loading: loading, error: error, id: \Element.id, paginationLoading: paginationLoading)
+        self.init(viewModel: viewModel, id: \Element.id, cellContent: cellContent, loading: loading, error: error, paginationLoading: paginationLoading)
     }
 }
 
@@ -62,15 +62,15 @@ struct LCEListView_Previews: PreviewProvider {
         let viewModel = LCEListViewModel<String>()
         viewModel.model = ["Hello", "World"]
         
-        return LCEListView(viewModel: viewModel, cellContent: { element in
+        return LCEListView(viewModel: viewModel, id: \.self) { element in
             Text(element)
-        }, loading: { loadingViewModel in
+        } loading: { loadingViewModel in
             DefaultLoadingView(loadingViewModel: loadingViewModel)
-        }, error: { errorViewModel in
+        } error: { errorViewModel in
             DefaultErrorView(errorViewModel: errorViewModel)
-        }, id: \.self, paginationLoading: {
+        } paginationLoading: {
             ActivityIndicator(isAnimating: .constant(true), style: .large)
-        })
+        }
         .previewLayout(.sizeThatFits)
     }
 }
