@@ -12,14 +12,14 @@ struct PostsListView: View {
     @ObservedObject var viewModel: PostsViewModel
     
     @State private var isEditMode = false
-    @State private var selectedIndices = Set<Post.ID>()
+    @State private var selectedIDs = Set<Post.ID>()
     @State private var presentAddPostView = false
     
     var body: some View {
         let userID = viewModel.userID
         
         ZStack {
-            DefaultLCEListView(viewModel: viewModel, isEditMode: isEditMode, selectedIndices: $selectedIndices) { post in
+            DefaultLCEListView(viewModel: viewModel, isEditMode: isEditMode, selectedIDs: $selectedIDs) { post in
                 NavigationLink(destination: NavigationLazyView(PostDetailsView(viewModel: PostViewModel(post: post)))) {
                     HStack {
                         VStack {
@@ -27,7 +27,7 @@ struct PostsListView: View {
                             Divider()
                         }
                         if isEditMode {
-                            Image(systemName: selectedIndices.contains(post.id) ? "checkmark.circle.fill" : "circle")
+                            Image(systemName: selectedIDs.contains(post.id) ? "checkmark.circle.fill" : "circle")
                                 .resizable()
                                 .frame(width: 25, height: 25)
                                 .foregroundColor(.black)
@@ -50,7 +50,7 @@ struct PostsListView: View {
         .if(userID != nil) {
             $0.navigationBarItems(trailing: HStack {
                 Button(action: {
-                    selectedIndices = []
+                    selectedIDs = []
                     isEditMode.toggle()
                 }, label: {
                     Image(systemName: isEditMode ? "multiply.circle.fill" : "pencil.circle.fill")
