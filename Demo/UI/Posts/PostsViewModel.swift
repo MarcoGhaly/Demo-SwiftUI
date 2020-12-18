@@ -25,10 +25,27 @@ class PostsViewModel: LCEListViewModel<Post> {
     
     func add(post: Post) {
         viewState = .loading(model: LoadingViewModel(style: .dialog))
+        
         dataSource.add(post: post).sink { [weak self] completion in
             self?.viewState = .content
         } receiveValue: { [weak self] post in
             self?.model?.insert(post, at: 0)
-        }.store(in: &subscriptions)
+        }
+        .store(in: &subscriptions)
+    }
+    
+    func deletePosts(wihtIDs postsIDs: Set<Post.ID>) {
+        viewState = .loading(model: LoadingViewModel(style: .dialog))
+        
+        let posts = postsIDs.compactMap { postID in
+            model?.first(where: { $0.id == postID })
+        }
+        
+        dataSource.remove(posts: posts).sink { [weak self] completion in
+            self?.viewState = .content
+        } receiveValue: { [weak self] _ in
+            self?.model?.removeAll(where: { postsIDs.contains($0.id) })
+        }
+        .store(in: &subscriptions)
     }
 }

@@ -9,6 +9,8 @@
 import Foundation
 import Combine
 
+struct EmptyResponse: Decodable {}
+
 protocol BaseDataSource {
     var baseURL: String { get }
     var timeoutInterval: TimeInterval { get }

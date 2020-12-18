@@ -10,8 +10,10 @@ import Foundation
 import Combine
 import RealmSwift
 
-struct PostsDataSource: DemoDataSource {
+class PostsDataSource: DemoDataSource {
     private let nextPostIdKey = "NextPostID"
+    
+    var subscriptions: [AnyCancellable] = []
     
     func getPosts(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Post], DefaultAppError> {
         var queryParameters = [String: String]()
@@ -33,10 +35,8 @@ struct PostsDataSource: DemoDataSource {
         let request = Request(httpMethod: .POST, url: "posts", body: post)
         let publisher: AnyPublisher<ID, DefaultAppError> = performRequest(request)
         return publisher.map { id in
-            let post = post
-            post.id = getNextPostID(withInitialValue: id.id) ?? 0
-            try? save(post: post)
-            return post
+            post.id = self.getNextPostID(withInitialValue: id.id) ?? 0
+            return (try? self.save(post: post)) ?? post
         }.eraseToAnyPublisher()
     }
     
@@ -46,23 +46,56 @@ struct PostsDataSource: DemoDataSource {
         return postID
     }
     
-    private func save(post: Post) throws {
+    func remove(posts: [Post]) -> AnyPublisher<Void, DefaultAppError> {
+        let publishers: [AnyPublisher<Void, DefaultAppError>] = posts.map { post in
+            let request = Request(httpMethod: .DELETE, url: "posts", pathParameters: [String(post.id)])
+            let publisher: AnyPublisher<EmptyResponse, DefaultAppError> = performRequest(request)
+            
+            publisher.sink { _ in
+            } receiveValue: { [weak self] response in
+                try? self?.delete(post: post)
+            }
+            .store(in: &subscriptions)
+            
+            return publisher.map { _ in () }
+            .eraseToAnyPublisher()
+        }
+        
+        return Publishers.MergeMany(publishers)
+            .reduce((), { (_, _) in () })
+            .eraseToAnyPublisher()
+    }
+    
+    private func save(post: Post) throws -> Post {
         let realm = try Realm()
         try realm.write {
             realm.add(post)
         }
+        return post.freeze()
     }
     
     private func loadPosts(userID: Int) throws -> AnyPublisher<[Post], DefaultAppError> {
         let publisher = PassthroughSubject<[Post], DefaultAppError>()
         
         let realm = try Realm()
-        let posts = Array(realm.objects(Post.self).filter("userId = %d", userID))
+        let posts = Array(realm.objects(Post.self).filter("userId = %d", userID).freeze())
         DispatchQueue.main.async {
             publisher.send(posts)
             publisher.send(completion: .finished)
         }
         
         return publisher.eraseToAnyPublisher()
+    }
+    
+    private func delete(post: Post) throws {
+        try delete(posts: [post])
+    }
+    
+    private func delete(posts: [Post]) throws {
+        let realm = try Realm()
+        let posts = realm.objects(Post.self).filter(NSPredicate(format: "id = %@", argumentArray: posts.map { $0.id }))
+        try realm.write {
+            realm.delete(posts)
+        }
     }
 }
