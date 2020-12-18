@@ -11,11 +11,21 @@ import SwiftUI
 struct DefaultLCEListView<Element, ViewModel, ID, CellContent>: View where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View {
     @ObservedObject var viewModel: ViewModel
     let id: KeyPath<Element, ID>
+    let isEditMode: Bool
+    @Binding var selectedIndices: Set<ID>
     let cellContent: (Element) -> CellContent
     let loadingView: AnyView? = nil
     
+    init(viewModel: ViewModel, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIndices: Binding<Set<ID>> = .constant([]), cellContent: @escaping (Element) -> CellContent) {
+        self.viewModel = viewModel
+        self.id = id
+        self.isEditMode = isEditMode
+        self._selectedIndices = selectedIndices
+        self.cellContent = cellContent
+    }
+    
     var body: some View {
-        LCEListView(viewModel: viewModel, id: id) { model in
+        LCEListView(viewModel: viewModel, id: id, isEditMode: isEditMode, selectedIndices: _selectedIndices) { model in
             cellContent(model)
         } loading: { loadingViewModel in
             DefaultLoadingView(loadingViewModel: loadingViewModel)
@@ -28,8 +38,8 @@ struct DefaultLCEListView<Element, ViewModel, ID, CellContent>: View where ViewM
 }
 
 extension DefaultLCEListView where Element: Identifiable, ID == Element.ID {
-    init(viewModel: ViewModel, cellContent: @escaping (Element) -> CellContent) {
-        self.init(viewModel: viewModel, id: \Element.id, cellContent: cellContent)
+    init(viewModel: ViewModel, isEditMode: Bool = false, selectedIndices: Binding<Set<ID>> = .constant([]), cellContent: @escaping (Element) -> CellContent) {
+        self.init(viewModel: viewModel, id: \Element.id, isEditMode: isEditMode, selectedIndices: selectedIndices, cellContent: cellContent)
     }
 }
 

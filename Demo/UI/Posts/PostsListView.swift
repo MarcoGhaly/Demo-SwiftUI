@@ -11,19 +11,30 @@ import SwiftUI
 struct PostsListView: View {
     @ObservedObject var viewModel: PostsViewModel
     
+    @State private var isEditMode = false
+    @State private var selectedIndices = Set<Post.ID>()
     @State private var presentAddPostView = false
     
     var body: some View {
         let userID = viewModel.userID
         
         ZStack {
-            DefaultLCEListView(viewModel: viewModel) { post in
+            DefaultLCEListView(viewModel: viewModel, isEditMode: isEditMode, selectedIndices: $selectedIndices) { post in
                 NavigationLink(destination: NavigationLazyView(PostDetailsView(viewModel: PostViewModel(post: post)))) {
-                    VStack {
-                        PostRowView(post: post)
-                        Divider()
+                    HStack {
+                        VStack {
+                            PostRowView(post: post)
+                            Divider()
+                        }
+                        if isEditMode {
+                            Image(systemName: selectedIndices.contains(post.id) ? "checkmark.circle.fill" : "circle")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .foregroundColor(.black)
+                                .padding()
+                        }
                     }
-                }
+                }.disabled(isEditMode)
             }
             
             userID.map {
@@ -37,13 +48,22 @@ struct PostsListView: View {
         }
         .navigationBarTitle(Text("Posts"))
         .if(userID != nil) {
-            $0.navigationBarItems(trailing: Button(action: {
-                withAnimation {
-                    presentAddPostView = true
-                }
-            }, label: {
-                Image(systemName: "note.text.badge.plus")
-            }))
+            $0.navigationBarItems(trailing: HStack {
+                Button(action: {
+                    selectedIndices = []
+                    isEditMode.toggle()
+                }, label: {
+                    Image(systemName: isEditMode ? "multiply.circle.fill" : "pencil.circle.fill")
+                })
+                
+                Button(action: {
+                    withAnimation {
+                        presentAddPostView = true
+                    }
+                }, label: {
+                    Image(systemName: "note.text.badge.plus")
+                })
+            })
         }
     }
 }
