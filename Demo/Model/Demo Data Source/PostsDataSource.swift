@@ -8,7 +8,6 @@
 
 import Foundation
 import Combine
-import RealmSwift
 
 class PostsDataSource: DemoDataSource {
     private let nextPostIdKey = "NextPostID"
@@ -22,10 +21,13 @@ class PostsDataSource: DemoDataSource {
         var request = Request(url: "posts", queryParameters: queryParameters)
         var postsPublisher: AnyPublisher<[Post], DefaultAppError> = performRequest(&request, page: page, limit: limit)
         
-        if page == 1, let userID = userID, let localPostsPublisher = try? loadPosts(userID: userID) {
-            postsPublisher = Publishers.CombineLatest(postsPublisher, localPostsPublisher).map { remotePosts, localPosts in
-                localPosts + remotePosts
-            }.eraseToAnyPublisher()
+        if page == 1, let userID = userID {
+            let predicate = NSPredicate(format: "userId = %d", userID)
+            if let localPostsPublisher: AnyPublisher<[Post], DefaultAppError> = try? DatabaseManager.loadObjects(predicate: predicate) {
+                postsPublisher = Publishers.CombineLatest(postsPublisher, localPostsPublisher).map { remotePosts, localPosts in
+                    localPosts + remotePosts
+                }.eraseToAnyPublisher()
+            }
         }
         
         return postsPublisher
@@ -36,7 +38,7 @@ class PostsDataSource: DemoDataSource {
         let publisher: AnyPublisher<ID, DefaultAppError> = performRequest(request)
         return publisher.map { id in
             post.id = self.getNextPostID(withInitialValue: id.id) ?? 0
-            return (try? self.save(post: post)) ?? post
+            return (try? DatabaseManager.save(object: post)) ?? post
         }.eraseToAnyPublisher()
     }
     
@@ -52,8 +54,9 @@ class PostsDataSource: DemoDataSource {
             let publisher: AnyPublisher<EmptyResponse, DefaultAppError> = performRequest(request)
             
             publisher.sink { _ in
-            } receiveValue: { [weak self] response in
-                try? self?.delete(post: post)
+            } receiveValue: { response in
+                let predicate = NSPredicate(format: "id = %@", argumentArray: posts.map { $0.id })
+                let _: [Post]? = try? DatabaseManager.deleteObjects(predicate: predicate)
             }
             .store(in: &subscriptions)
             
@@ -64,38 +67,5 @@ class PostsDataSource: DemoDataSource {
         return Publishers.MergeMany(publishers)
             .reduce((), { (_, _) in () })
             .eraseToAnyPublisher()
-    }
-    
-    private func save(post: Post) throws -> Post {
-        let realm = try Realm()
-        try realm.write {
-            realm.add(post)
-        }
-        return post.freeze()
-    }
-    
-    private func loadPosts(userID: Int) throws -> AnyPublisher<[Post], DefaultAppError> {
-        let publisher = PassthroughSubject<[Post], DefaultAppError>()
-        
-        let realm = try Realm()
-        let posts = Array(realm.objects(Post.self).filter("userId = %d", userID).freeze())
-        DispatchQueue.main.async {
-            publisher.send(posts)
-            publisher.send(completion: .finished)
-        }
-        
-        return publisher.eraseToAnyPublisher()
-    }
-    
-    private func delete(post: Post) throws {
-        try delete(posts: [post])
-    }
-    
-    private func delete(posts: [Post]) throws {
-        let realm = try Realm()
-        let posts = realm.objects(Post.self).filter(NSPredicate(format: "id = %@", argumentArray: posts.map { $0.id }))
-        try realm.write {
-            realm.delete(posts)
-        }
     }
 }
