@@ -38,13 +38,13 @@ class PostsViewModel: LCEListViewModel<Post> {
         viewState = .loading(model: LoadingViewModel(style: .dialog))
         
         let posts = postsIDs.compactMap { postID in
-            model?.first(where: { $0.id == postID })
+            model?.first { $0.id == postID }
         }
         
-        dataSource.remove(posts: posts).sink { [weak self] completion in
+        dataSource.remove(posts: posts).sink { [weak self] _ in
             self?.viewState = .content
         } receiveValue: { [weak self] _ in
-            self?.model?.removeAll(where: { postsIDs.contains($0.id) })
+            self?.model?.removeAll { postsIDs.contains($0.id) }
         }
         .store(in: &subscriptions)
     }
