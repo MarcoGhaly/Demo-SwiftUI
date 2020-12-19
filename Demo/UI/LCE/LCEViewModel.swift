@@ -41,7 +41,7 @@ class LCEViewModel<Model>: ObservableObject {
     }
     
     func errorViewModel(fromError error: Error) -> ErrorViewModel {
-        ErrorViewModel(title: "Error!", message: error.localizedDescription)
+        ErrorViewModel(title: "Error!", message: error.localizedDescription, retry: (label: "Retry", action: { self.fetchData() }))
     }
     
     // MARK:- Fetch Data
