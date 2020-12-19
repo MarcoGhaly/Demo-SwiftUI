@@ -19,13 +19,16 @@ struct DatabaseManager {
         return object.freeze()
     }
     
-    static func loadObjects<T>(predicate: NSPredicate) throws -> AnyPublisher<[T], DefaultAppError> where T: Object {
+    static func loadObjects<T>(predicate: NSPredicate? = nil) throws -> AnyPublisher<[T], DefaultAppError> where T: Object {
         let publisher = PassthroughSubject<[T], DefaultAppError>()
         
         let realm = try Realm()
-        let objects = Array(realm.objects(T.self).filter(predicate).freeze())
+        var objects = realm.objects(T.self)
+        if let predicate = predicate {
+            objects = objects.filter(predicate)
+        }
         DispatchQueue.main.async {
-            publisher.send(objects)
+            publisher.send(Array(objects.freeze()))
             publisher.send(completion: .finished)
         }
         
@@ -38,6 +41,6 @@ struct DatabaseManager {
         try realm.write {
             realm.delete(objects)
         }
-        return Array(objects)
+        return Array(objects.freeze())
     }
 }
