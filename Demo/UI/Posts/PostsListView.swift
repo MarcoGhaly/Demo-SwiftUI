@@ -28,6 +28,7 @@ struct PostsListView: View {
                             PostRowView(post: post)
                             Divider()
                         }
+                        
                         if isEditMode {
                             Image(systemName: selectedIDs.contains(post.id) ? "checkmark.circle.fill" : "circle")
                                 .resizable()
@@ -59,8 +60,9 @@ struct PostsListView: View {
                 .transition(.move(edge: .bottom))
             }
             
-            userID.map {
-                AddPostView(isPresented: $presentAddPostView, userID: $0, onConfirm: { post in
+            userID.map { userID in
+                AddPostView(isPresented: $presentAddPostView, onConfirm: { post in
+                    post.userId = userID
                     viewModel.add(post: post)
                     withAnimation {
                         presentAddPostView = false

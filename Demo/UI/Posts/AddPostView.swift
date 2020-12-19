@@ -13,7 +13,6 @@ struct AddPostView: View {
     
     @Binding var isPresented: Bool
     var widthRatio: CGFloat = 0.9
-    var userID: Int
     var onConfirm: (Post) -> Void
     
     @State private var title = ""
@@ -42,7 +41,7 @@ struct AddPostView: View {
                         Divider()
                         
                         Button("Add Post") {
-                            let post = Post(userId: userID, title: title, body: message)
+                            let post = Post(title: title, body: message)
                             onConfirm(post)
                         }
                         .frame(maxWidth: .infinity)
@@ -82,6 +81,6 @@ struct AddPostView: View {
 
 struct AddPostView_Previews: PreviewProvider {
     static var previews: some View {
-        AddPostView(isPresented: .constant(true), userID: 0, onConfirm: { post in })
+        AddPostView(isPresented: .constant(true), onConfirm: { post in })
     }
 }
