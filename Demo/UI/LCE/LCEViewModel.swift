@@ -30,7 +30,6 @@ class LCEViewModel<Model>: ObservableObject {
         if let model = model {
             self.model = model
         } else {
-            viewState = .loading(model: loadingViewModel())
             fetchData()
         }
     }
@@ -52,6 +51,8 @@ class LCEViewModel<Model>: ObservableObject {
     }
     
     func fetchData() {
+        viewState = .loading(model: loadingViewModel())
+        
         dataPublisher()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
