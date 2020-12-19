@@ -11,8 +11,7 @@ import Combine
 
 class PostsDataSource: DemoDataSource {
     private let nextPostIdKey = "NextPostID"
-    
-    var subscriptions: [AnyCancellable] = []
+    private var subscriptions: [AnyCancellable] = []
     
     func getPosts(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Post], DefaultAppError> {
         var queryParameters = [String: String]()
