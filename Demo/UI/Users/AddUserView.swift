@@ -8,18 +8,18 @@
 
 import SwiftUI
 
-typealias Entry = (label: String, value: String, keyPath: WritableKeyPath<User, String?>)
+typealias Entry = (label: String, keyboardType: UIKeyboardType, value: String, keyPath: WritableKeyPath<User, String?>)
 
 struct AddUserView: View {
     @Binding var isPresented: Bool
     var onConfirm: (User) -> Void
     
-    @State private var entries: [Entry] = [("Username", \User.username),
-                                           ("Name", \User.name),
-                                           ("Email", \User.email),
-                                           ("Phone", \User.phone),
-                                           ("Website", \User.website)]
-        .map { Entry(label: $0.0, value: "", keyPath: $0.1) }
+    @State private var entries: [Entry] = [("Username", UIKeyboardType.default, \User.username),
+                                           ("Name", UIKeyboardType.default, \User.name),
+                                           ("Email", UIKeyboardType.emailAddress, \User.email),
+                                           ("Phone", UIKeyboardType.phonePad, \User.phone),
+                                           ("Website", UIKeyboardType.URL, \User.website)]
+        .map { Entry(label: $0.0, keyboardType: $0.1, value: "", keyPath: $0.2) }
     
     var body: some View {
         ScrollView {
@@ -28,7 +28,7 @@ struct AddUserView: View {
                     .font(.title)
                 
                 ForEach(entries.indices) { index in
-                    EntryView(title: entries[index].label, placeHolder: entries[index].label, text: $entries[index].value)
+                    EntryView(title: entries[index].label, placeHolder: entries[index].label, keyboardType: entries[index].keyboardType, text: $entries[index].value)
                     Divider()
                 }
                 
