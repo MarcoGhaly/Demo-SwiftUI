@@ -44,7 +44,7 @@ struct AddUserView: View {
                 })
                 .disabled(entries.contains { $0.value.isEmpty })
             }
-            .padding(.horizontal, 20)
+            .padding(20)
         }
     }
 }
