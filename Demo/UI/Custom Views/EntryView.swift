@@ -11,6 +11,7 @@ import SwiftUI
 struct EntryView: View {
     var title: String
     var placeHolder: String
+    var keyboardType: UIKeyboardType = .default
     @Binding var text: String
     
     var body: some View {
@@ -19,6 +20,7 @@ struct EntryView: View {
                 .font(.body)
             
             TextField(placeHolder, text: _text)
+                .keyboardType(keyboardType)
                 .padding(8)
                 .overlay(RoundedRectangle(cornerRadius: 5)
                             .stroke(Color.gray, lineWidth: 1))
