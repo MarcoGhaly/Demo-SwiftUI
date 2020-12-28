@@ -46,15 +46,11 @@ class LCEListViewModel<Element>: LCEViewModel<[Element]> {
         }
     }
     
-    func fetchMoreData() {
+    private func fetchMoreData() {
         dataPublisher().sink { [weak self] completion in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self?.isLoading = false
-            }
+            self?.isLoading = false
         } receiveValue: { [weak self] model in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self?.model?.append(contentsOf: model)
-            }
+            self?.model?.append(contentsOf: model)
         }
         .store(in: &subscriptions)
     }
