@@ -19,11 +19,14 @@ class LCEListViewModel<Element>: LCEViewModel<[Element]> {
         self.limit = limit
         super.init(model: models)
         
-        $model.compactMap{$0}.sink { [weak self] model in
-            if let limit = self?.limit, model.count < limit {
-                self?.limit = nil
-            }
-        }.store(in: &subscriptions)
+        if let limit = self.limit {
+            $model.compactMap{$0}.sink { [weak self] model in
+                let count = self?.model?.count ?? 0
+                if model.count - count < limit {
+                    self?.limit = nil
+                }
+            }.store(in: &subscriptions)
+        }
     }
     
     func emptyModelErrorViewModel() -> ErrorViewModel {
