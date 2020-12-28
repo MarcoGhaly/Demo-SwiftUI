@@ -46,7 +46,10 @@ class LCEListViewModelTests: LCEViewModelTests {
     private func testPagination(pages: Int, limit: Int, lastPageLimit: Int) {
         let totalCount = (pages - 1) * limit + lastPageLimit
         let viewModel = LCEListViewModelTest(totalCount: totalCount, pages: pages, limit: limit)
-        
+        testPagination(viewModel: viewModel, pages: pages, limit: limit, totalCount: totalCount)
+    }
+    
+    func testPagination<T>(viewModel: LCEListViewModel<T>, pages: Int, limit: Int, totalCount: Int) {
         testViewStates(viewModel: viewModel)
         XCTAssertEqual(viewModel.model?.count, limit)
         
