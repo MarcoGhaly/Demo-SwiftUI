@@ -12,7 +12,7 @@ struct HomeView: View {
     private let spacing: CGFloat = 20
     
     private let buttons =
-        [[("Users", {AnyView(UsersListView(viewModel: UsersViewModel()))}),
+        [[("Users", {AnyView(UsersListView(viewModel: UsersViewModel(dataSource: UsersRepository())))}),
           ("Posts", {AnyView(PostsListView(viewModel: PostsViewModel()))})],
          [("Comments", {AnyView(CommentsListView(viewModel: CommentsViewModel()))}),
           ("ToDos", {AnyView(ToDosListView(viewModel: ToDosViewModel()))})],

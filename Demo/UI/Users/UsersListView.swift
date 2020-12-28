@@ -90,7 +90,7 @@ struct UsersListView: View {
 
 struct UsersListView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = UsersViewModel()
+        let viewModel = UsersViewModel(dataSource: UsersRepository())
         viewModel.model = [testUser]
         viewModel.viewState = .content
         return UsersListView(viewModel: viewModel)

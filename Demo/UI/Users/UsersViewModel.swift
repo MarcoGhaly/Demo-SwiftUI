@@ -10,9 +10,10 @@ import Foundation
 import Combine
 
 class UsersViewModel: LCEListViewModel<User> {
-    private let dataSource = UsersDataSource()
+    private let dataSource: UsersDataSource
     
-    init() {
+    init(dataSource: UsersDataSource) {
+        self.dataSource = dataSource
         super.init(limit: 5)
     }
     

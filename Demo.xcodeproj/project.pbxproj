@@ -20,6 +20,7 @@
 		2F350DBC2571236600DBD14C /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F350DBB2571236600DBD14C /* InfoView.swift */; };
 		2F350DBF25714FB400DBD14C /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F350DBE25714FB400DBD14C /* Request.swift */; };
 		2F55F97C259A012D00AACCAA /* LCEListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F55F97B259A012D00AACCAA /* LCEListViewModelTests.swift */; };
+		2F55F980259A86AC00AACCAA /* UsersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F55F97F259A86AC00AACCAA /* UsersRepository.swift */; };
 		2F6DB70E2557377A002817B5 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DB70D2557377A002817B5 /* NavigationLazyView.swift */; };
 		2F6DB71925574D41002817B5 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DB71825574D41002817B5 /* PostViewModel.swift */; };
 		2F6DB71D25575D51002817B5 /* DefaultLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DB71C25575D51002817B5 /* DefaultLoadingView.swift */; };
@@ -113,6 +114,7 @@
 		2F350DBB2571236600DBD14C /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		2F350DBE25714FB400DBD14C /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		2F55F97B259A012D00AACCAA /* LCEListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCEListViewModelTests.swift; sourceTree = "<group>"; };
+		2F55F97F259A86AC00AACCAA /* UsersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersRepository.swift; sourceTree = "<group>"; };
 		2F6DB70D2557377A002817B5 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		2F6DB71825574D41002817B5 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		2F6DB71C25575D51002817B5 /* DefaultLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLoadingView.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			children = (
 				2F1258092572E41A00026346 /* DemoDataSource.swift */,
 				2F74F43D2581AF5D00B956E9 /* UsersDataSource.swift */,
+				2F55F97F259A86AC00AACCAA /* UsersRepository.swift */,
 				2F74F4412581AF7500B956E9 /* PostsDataSource.swift */,
 				2F74F4442581AF8E00B956E9 /* CommentsDataSource.swift */,
 				2F74F4472581AFD600B956E9 /* ToDosDataSource.swift */,
@@ -652,6 +655,7 @@
 				2F6DB71D25575D51002817B5 /* DefaultLoadingView.swift in Sources */,
 				2FECD700255B46B100054AC1 /* AppError.swift in Sources */,
 				2F0D45682556ABCA00C44971 /* LCEViewModel.swift in Sources */,
+				2F55F980259A86AC00AACCAA /* UsersRepository.swift in Sources */,
 				2FC7AB0D257C0B0D00695303 /* AddPostView.swift in Sources */,
 				6CD3AD3924FAC3D100D8BF77 /* PostRowView.swift in Sources */,
 				6C40E1AF24FBF1F2007D0393 /* ToDo.swift in Sources */,
