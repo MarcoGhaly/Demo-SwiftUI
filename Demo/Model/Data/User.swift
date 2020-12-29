@@ -2,7 +2,7 @@ import Foundation
 import RealmSwift
 
 @objcMembers
-class User: Object, Codable, Identifiable {
+class User: Object, Codable, Identifiable, Identified {
     dynamic var id = 0
     dynamic var name : String?
     dynamic var username : String?
