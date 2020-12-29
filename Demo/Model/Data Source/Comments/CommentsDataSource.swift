@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-struct CommentsDataSource: DemoDataSource {
+class CommentsDataSource: BaseDemoDataSource {
     func getComments(postID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Comment], DefaultAppError> {
         var queryParameters = [String: String]()
         postID.map { queryParameters["postId"] = String($0) }

@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-struct ToDosDataSource: DemoDataSource {
+class ToDosDataSource: BaseDemoDataSource {
     func getToDos(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[ToDo], DefaultAppError> {
         var queryParameters = [String: String]()
         userID.map { queryParameters["userId"] = String($0) }

@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-struct AlbumsDataSource: DemoDataSource {
+class AlbumsDataSource: BaseDemoDataSource {
     func getAlbums(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Album], DefaultAppError> {
         var queryParameters = [String: String]()
         userID.map { queryParameters["userId"] = String($0) }

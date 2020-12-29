@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-struct PhotosDataSource: DemoDataSource {
+class PhotosDataSource: BaseDemoDataSource {
     func getPhotos(albumID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Photo], DefaultAppError> {
         var queryParameters = [String: String]()
         albumID.map { queryParameters["albumId"] = String($0) }

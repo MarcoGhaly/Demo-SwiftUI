@@ -10,6 +10,37 @@ import Foundation
 import Combine
 import RealmSwift
 
+protocol DemoDataSource: BaseDataSource {
+    var baseURL: String { get }
+    var queryParameters: [String: String]? { get }
+    
+    func performRequest<DataModel: Codable, ErrorModel: Codable>(_ request: inout Request, page: Int?, limit: Int?) -> AnyPublisher<DataModel, AppError<ErrorModel>>
+    
+    func getNextID(withInitialValue id: Int?, key: String) -> Int?
+    func add<T>(object: T, method: String, idKey: String) -> AnyPublisher<T, DefaultAppError> where T: Object, T: Encodable, T: Identified
+    func remove<T>(objects: [T], method: String) -> AnyPublisher<Void, DefaultAppError> where T: Object, T: Identified
+}
+
+extension DemoDataSource {
+    var baseURL: String { "https://jsonplaceholder.typicode.com/" }
+    var queryParameters: [String: String]? { ["_limit": String(5)] }
+}
+
+extension DemoDataSource {
+    func performRequest<DataModel: Codable, ErrorModel: Codable>(_ request: inout Request) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
+        performRequest(&request, page: nil, limit: nil)
+    }
+    
+    func performRequest<DataModel: Codable, ErrorModel: Codable>(_ request: inout Request, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
+        var queryParameters = request.queryParameters ?? [:]
+        page.map { queryParameters["_page"] = String($0) }
+        limit.map { queryParameters["_limit"] = String($0) }
+        
+        request.queryParameters = queryParameters
+        return performRequest(request)
+    }
+}
+
 class BaseDemoDataSource: DemoDataSource {
     private var subscriptions: [AnyCancellable] = []
     

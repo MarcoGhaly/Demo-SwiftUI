@@ -1,5 +1,5 @@
 import Foundation
 
-struct ID: Codable {
+struct ID: Decodable {
     var id: Int?
 }
