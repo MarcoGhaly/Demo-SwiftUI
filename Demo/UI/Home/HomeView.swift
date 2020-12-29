@@ -13,7 +13,7 @@ struct HomeView: View {
     
     private let buttons =
         [[("Users", {AnyView(UsersListView(viewModel: UsersViewModel(dataSource: UsersRepository())))}),
-          ("Posts", {AnyView(PostsListView(viewModel: PostsViewModel()))})],
+          ("Posts", {AnyView(PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository())))})],
          [("Comments", {AnyView(CommentsListView(viewModel: CommentsViewModel()))}),
           ("ToDos", {AnyView(ToDosListView(viewModel: ToDosViewModel()))})],
          [("Albums", {AnyView(AlbumsListView(viewModel: AlbumsViewModel()))}),

@@ -10,11 +10,11 @@ import Foundation
 import Combine
 
 class PostsViewModel: LCEListViewModel<Post> {
+    private let dataSource: PostsDataSource
     var userID: Int?
     
-    private let dataSource = PostsDataSource()
-    
-    init(userID: Int? = nil) {
+    init(dataSource: PostsDataSource, userID: Int? = nil) {
+        self.dataSource = dataSource
         self.userID = userID
         super.init(limit: 5)
     }

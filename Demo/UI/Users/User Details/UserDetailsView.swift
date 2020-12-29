@@ -12,7 +12,7 @@ struct UserDetailsView: View {
     var user: User
     
     private var buttons: [(String, () -> AnyView)] {
-        [("Posts", {AnyView(PostsListView(viewModel: PostsViewModel(userID: user.id)))}),
+        [("Posts", {AnyView(PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository(), userID: user.id)))}),
          ("ToDos", {AnyView(ToDosListView(viewModel: ToDosViewModel(userID: user.id)))}),
          ("Albums", {AnyView(AlbumsListView(viewModel: AlbumsViewModel(userID: user.id)))})]
     }

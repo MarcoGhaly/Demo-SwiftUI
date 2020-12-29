@@ -99,7 +99,7 @@ struct PostsListView: View {
 
 struct PostsListView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = PostsViewModel()
+        let viewModel = PostsViewModel(dataSource: PostsRepository())
         viewModel.model = [testPost]
         viewModel.viewState = .content
         return PostsListView(viewModel: viewModel)
