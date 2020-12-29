@@ -10,13 +10,13 @@ import Foundation
 import Combine
 
 protocol UsersDataSource: DemoDataSource {
-    func getAllUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAppError>
+    func getUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAppError>
     func add(user: User) -> AnyPublisher<User, DefaultAppError>
     func remove(users: [User]) -> AnyPublisher<Void, DefaultAppError>
 }
 
 extension UsersDataSource {
-    func getAllUsers() -> AnyPublisher<[User], DefaultAppError> { getAllUsers(page: nil, limit: nil) }
-    func getAllUsers(page: Int?) -> AnyPublisher<[User], DefaultAppError> { getAllUsers(page: page, limit: nil) }
-    func getAllUsers(limit: Int?) -> AnyPublisher<[User], DefaultAppError> { getAllUsers(page: nil, limit: limit)}
+    func getUsers() -> AnyPublisher<[User], DefaultAppError> { getUsers(page: nil, limit: nil) }
+    func getUsers(page: Int?) -> AnyPublisher<[User], DefaultAppError> { getUsers(page: page, limit: nil) }
+    func getUsers(limit: Int?) -> AnyPublisher<[User], DefaultAppError> { getUsers(page: nil, limit: limit)}
 }

@@ -64,7 +64,7 @@ class UsersViewModelTests: LCEListViewModelTests {
 }
 
 private class UsersTestRepository: UsersDataSource {
-    func getAllUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
+    func getUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
         let publisher = PassthroughSubject<[User], DefaultAppError>()
         DispatchQueue.main.async {
             let users = [User](repeating: User(), count: page! < 3 ? limit! : 0)

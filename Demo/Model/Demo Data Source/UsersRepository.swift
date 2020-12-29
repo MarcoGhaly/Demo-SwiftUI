@@ -13,7 +13,7 @@ import RealmSwift
 class UsersRepository: BaseDemoDataSource, UsersDataSource {
     private let nextUserIdKey = "NextUserID"
     
-    func getAllUsers(page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[User], DefaultAppError> {
+    func getUsers(page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[User], DefaultAppError> {
         var request = Request(url: "users", queryParameters: queryParameters)
         var usersPublisher: AnyPublisher<[User], DefaultAppError> = performRequest(&request, page: page, limit: limit)
         
