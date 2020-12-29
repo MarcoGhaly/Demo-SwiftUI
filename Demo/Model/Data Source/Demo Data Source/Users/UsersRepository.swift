@@ -8,7 +8,6 @@
 
 import Foundation
 import Combine
-import RealmSwift
 
 class UsersRepository: BaseDemoDataSource, UsersDataSource {
     private let nextUserIdKey = "NextUserID"

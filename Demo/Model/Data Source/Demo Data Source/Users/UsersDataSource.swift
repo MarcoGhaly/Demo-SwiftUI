@@ -17,6 +17,4 @@ protocol UsersDataSource: DemoDataSource {
 
 extension UsersDataSource {
     func getUsers() -> AnyPublisher<[User], DefaultAppError> { getUsers(page: nil, limit: nil) }
-    func getUsers(page: Int?) -> AnyPublisher<[User], DefaultAppError> { getUsers(page: page, limit: nil) }
-    func getUsers(limit: Int?) -> AnyPublisher<[User], DefaultAppError> { getUsers(page: nil, limit: limit)}
 }
