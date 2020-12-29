@@ -245,11 +245,70 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		2F55F991259AB5EB00AACCAA /* Data Source */ = {
+			isa = PBXGroup;
+			children = (
+				6CD3AD3024FABD4200D8BF77 /* Base Data Source */,
+				2F74F43C2581AF4400B956E9 /* Demo Data Source */,
+			);
+			path = "Data Source";
+			sourceTree = "<group>";
+		};
+		2F55F994259AB63400AACCAA /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				2F74F43D2581AF5D00B956E9 /* UsersDataSource.swift */,
+				2F55F97F259A86AC00AACCAA /* UsersRepository.swift */,
+			);
+			path = Users;
+			sourceTree = "<group>";
+		};
+		2F55F995259AB65400AACCAA /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				2F74F4412581AF7500B956E9 /* PostsDataSource.swift */,
+			);
+			path = Posts;
+			sourceTree = "<group>";
+		};
+		2F55F996259AB66000AACCAA /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				2F74F4442581AF8E00B956E9 /* CommentsDataSource.swift */,
+			);
+			path = Comments;
+			sourceTree = "<group>";
+		};
+		2F55F997259AB67300AACCAA /* ToDos */ = {
+			isa = PBXGroup;
+			children = (
+				2F74F4472581AFD600B956E9 /* ToDosDataSource.swift */,
+			);
+			path = ToDos;
+			sourceTree = "<group>";
+		};
+		2F55F998259AB68500AACCAA /* Albums */ = {
+			isa = PBXGroup;
+			children = (
+				2F74F44A2581AFFF00B956E9 /* AlbumsDataSource.swift */,
+			);
+			path = Albums;
+			sourceTree = "<group>";
+		};
+		2F55F999259AB69600AACCAA /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				2F74F44D2581B19F00B956E9 /* PhotosDataSource.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
 		2F74F42925816B4E00B956E9 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
 				2F74F43325816C1700B956E9 /* UserDefaultsManager.swift */,
 				2F0F41DB258E782800271C93 /* DatabaseManager.swift */,
+				2FC26CDD2588F8B500731B67 /* LocalStore.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -258,15 +317,13 @@
 			isa = PBXGroup;
 			children = (
 				2F1258092572E41A00026346 /* DemoDataSource.swift */,
-				2F74F43D2581AF5D00B956E9 /* UsersDataSource.swift */,
-				2F55F97F259A86AC00AACCAA /* UsersRepository.swift */,
-				2F74F4412581AF7500B956E9 /* PostsDataSource.swift */,
-				2F74F4442581AF8E00B956E9 /* CommentsDataSource.swift */,
-				2F74F4472581AFD600B956E9 /* ToDosDataSource.swift */,
-				2F74F44A2581AFFF00B956E9 /* AlbumsDataSource.swift */,
-				2F74F44D2581B19F00B956E9 /* PhotosDataSource.swift */,
-				2FC26CDD2588F8B500731B67 /* LocalStore.swift */,
 				2F55F98D259AAB1D00AACCAA /* BaseDemoDataSource.swift */,
+				2F55F994259AB63400AACCAA /* Users */,
+				2F55F995259AB65400AACCAA /* Posts */,
+				2F55F996259AB66000AACCAA /* Comments */,
+				2F55F997259AB67300AACCAA /* ToDos */,
+				2F55F998259AB68500AACCAA /* Albums */,
+				2F55F999259AB69600AACCAA /* Photos */,
 			);
 			path = "Demo Data Source";
 			sourceTree = "<group>";
@@ -393,8 +450,7 @@
 			isa = PBXGroup;
 			children = (
 				6CD3AD2D24FABC5200D8BF77 /* Data */,
-				6CD3AD3024FABD4200D8BF77 /* Base Data Source */,
-				2F74F43C2581AF4400B956E9 /* Demo Data Source */,
+				2F55F991259AB5EB00AACCAA /* Data Source */,
 				2F74F42925816B4E00B956E9 /* Storage */,
 			);
 			path = Model;
