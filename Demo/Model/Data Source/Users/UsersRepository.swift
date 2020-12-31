@@ -9,11 +9,15 @@
 import Foundation
 import Combine
 
-class UsersRepository: BaseDemoDataSource, UsersDataSource {
-    private let nextUserIdKey = "NextUserID"
+class UsersRepository: UsersDataSource {
+    var methodName: String { "users" }
+    
+    var idKey: String { "NextUserID" }
+    
+    var subscriptions: [AnyCancellable] = []
     
     func getUsers(page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[User], DefaultAppError> {
-        var request = Request(url: "users", queryParameters: queryParameters)
+        var request = Request(url: methodName, queryParameters: queryParameters)
         var usersPublisher: AnyPublisher<[User], DefaultAppError> = performRequest(&request, page: page, limit: limit)
         
         if page == 1 {
@@ -28,10 +32,10 @@ class UsersRepository: BaseDemoDataSource, UsersDataSource {
     }
     
     func add(user: User) -> AnyPublisher<User, DefaultAppError> {
-        add(object: user, method: "users", idKey: nextUserIdKey)
+        add(object: user)
     }
     
     func remove(users: [User]) -> AnyPublisher<Void, DefaultAppError> {
-        remove(objects: users, method: "users")
+        remove(objects: users)
     }
 }

@@ -9,12 +9,18 @@
 import Foundation
 import Combine
 
-class PhotosDataSource: BaseDemoDataSource {
+class PhotosDataSource: DemoDataSource {
+    var methodName: String { "photos" }
+    
+    var idKey: String { "NextPhotoID" }
+    
+    var subscriptions: [AnyCancellable] = []
+    
     func getPhotos(albumID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Photo], DefaultAppError> {
         var queryParameters = [String: String]()
         albumID.map { queryParameters["albumId"] = String($0) }
         
-        var request = Request(url: "photos", queryParameters: queryParameters)
+        var request = Request(url: methodName, queryParameters: queryParameters)
         return performRequest(&request, page: page, limit: limit)
     }
 }

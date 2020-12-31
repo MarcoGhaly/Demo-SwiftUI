@@ -10,15 +10,19 @@ import Foundation
 import Combine
 import RealmSwift
 
-protocol DemoDataSource: BaseDataSource {
+protocol DemoDataSource: class, BaseDataSource {
     var baseURL: String { get }
+    var methodName: String { get }
     var queryParameters: [String: String]? { get }
+    var idKey: String { get }
+    
+    var subscriptions: [AnyCancellable] { get set }
     
     func performRequest<DataModel: Codable, ErrorModel: Codable>(_ request: inout Request, page: Int?, limit: Int?) -> AnyPublisher<DataModel, AppError<ErrorModel>>
     
-    func getNextID(withInitialValue id: Int?, key: String) -> Int?
-    func add<T>(object: T, method: String, idKey: String) -> AnyPublisher<T, DefaultAppError> where T: Object, T: Encodable, T: Identified
-    func remove<T>(objects: [T], method: String) -> AnyPublisher<Void, DefaultAppError> where T: Object, T: Identified
+    func getNextID(withInitialValue id: Int?) -> Int?
+    func add<T>(object: T) -> AnyPublisher<T, DefaultAppError> where T: Object, T: Encodable, T: Identified
+    func remove<T>(objects: [T]) -> AnyPublisher<Void, DefaultAppError> where T: Object, T: Identified
 }
 
 extension DemoDataSource {
@@ -41,27 +45,25 @@ extension DemoDataSource {
     }
 }
 
-class BaseDemoDataSource: DemoDataSource {
-    private var subscriptions: [AnyCancellable] = []
-    
-    func getNextID(withInitialValue id: Int?, key: String) -> Int? {
-        guard let userID: Int = UserDefaultsManager.loadValue(forKey: key) ?? id else { return nil }
-        UserDefaultsManager.save(value: userID + 1, forKey: key)
+extension DemoDataSource {
+    func getNextID(withInitialValue id: Int?) -> Int? {
+        guard let userID: Int = UserDefaultsManager.loadValue(forKey: idKey) ?? id else { return nil }
+        UserDefaultsManager.save(value: userID + 1, forKey: idKey)
         return userID
     }
     
-    func add<T>(object: T, method: String, idKey: String) -> AnyPublisher<T, DefaultAppError> where T: Object, T: Encodable, T: Identified {
-        let request = Request(httpMethod: .POST, url: method, body: object)
+    func add<T>(object: T) -> AnyPublisher<T, DefaultAppError> where T: Object, T: Encodable, T: Identified {
+        let request = Request(httpMethod: .POST, url: methodName, body: object)
         let publisher: AnyPublisher<ID, DefaultAppError> = performRequest(request)
         return publisher.map { id in
-            object.id = self.getNextID(withInitialValue: id.id, key: idKey) ?? 0
+            object.id = self.getNextID(withInitialValue: id.id) ?? 0
             return (try? DatabaseManager.save(object: object)) ?? object
         }.eraseToAnyPublisher()
     }
     
-    func remove<T>(objects: [T], method: String) -> AnyPublisher<Void, DefaultAppError> where T: Object, T: Identified {
+    func remove<T>(objects: [T]) -> AnyPublisher<Void, DefaultAppError> where T: Object, T: Identified {
         let publishers: [AnyPublisher<Void, DefaultAppError>] = objects.map { object in
-            let request = Request(httpMethod: .DELETE, url: method, pathParameters: [String(object.id)])
+            let request = Request(httpMethod: .DELETE, url: methodName, pathParameters: [String(object.id)])
             let publisher: AnyPublisher<EmptyResponse, DefaultAppError> = performRequest(request)
             
             publisher.sink { _ in

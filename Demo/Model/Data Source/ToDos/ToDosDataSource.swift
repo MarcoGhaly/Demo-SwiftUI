@@ -9,12 +9,18 @@
 import Foundation
 import Combine
 
-class ToDosDataSource: BaseDemoDataSource {
+class ToDosDataSource: DemoDataSource {
+    var methodName: String { "todos" }
+    
+    var idKey: String { "NextToDoID" }
+    
+    var subscriptions: [AnyCancellable] = []
+    
     func getToDos(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[ToDo], DefaultAppError> {
         var queryParameters = [String: String]()
         userID.map { queryParameters["userId"] = String($0) }
         
-        var request = Request(url: "todos", queryParameters: queryParameters)
+        var request = Request(url: methodName, queryParameters: queryParameters)
         return performRequest(&request, page: page, limit: limit)
     }
 }

@@ -9,14 +9,18 @@
 import Foundation
 import Combine
 
-class PostsRepository: BaseDemoDataSource, PostsDataSource {
-    private let nextPostIdKey = "NextPostID"
+class PostsRepository: PostsDataSource {
+    var methodName: String { "posts" }
+    
+    var idKey: String { "NextPostID" }
+    
+    var subscriptions: [AnyCancellable] = []
     
     func getPosts(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Post], DefaultAppError> {
         var queryParameters = [String: String]()
         userID.map { queryParameters["userId"] = String($0) }
         
-        var request = Request(url: "posts", queryParameters: queryParameters)
+        var request = Request(url: methodName, queryParameters: queryParameters)
         var postsPublisher: AnyPublisher<[Post], DefaultAppError> = performRequest(&request, page: page, limit: limit)
         
         if page == 1, let userID = userID {
@@ -32,10 +36,10 @@ class PostsRepository: BaseDemoDataSource, PostsDataSource {
     }
     
     func add(post: Post) -> AnyPublisher<Post, DefaultAppError> {
-        add(object: post, method: "posts", idKey: nextPostIdKey)
+        add(object: post)
     }
     
     func remove(posts: [Post]) -> AnyPublisher<Void, DefaultAppError> {
-        remove(objects: posts, method: "posts")
+        remove(objects: posts)
     }
 }
