@@ -21,9 +21,13 @@ class LCEListViewModel<Element>: LCEViewModel<[Element]> {
         
         if let limit = self.limit {
             $model.compactMap{$0}.sink { [weak self] model in
-                let count = self?.model?.count ?? 0
-                if model.count - count < limit {
+                let oldCount = self?.model?.count ?? 0
+                let newCount = model.count
+                if newCount - oldCount < limit {
                     self?.limit = nil
+                    if newCount == 0, case .content = self?.viewState, let errorViewModel = self?.emptyModelErrorViewModel() {
+                        self?.viewState = .error(model: errorViewModel)
+                    }
                 }
             }.store(in: &subscriptions)
         }
