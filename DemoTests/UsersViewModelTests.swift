@@ -11,6 +11,14 @@ import Combine
 @testable import Demo
 
 class UsersViewModelTests: LCEListViewModelTests {
+    func testModelChanges() {
+        let user = User(id: 1, name: "Test Name", username: "Test Username")
+        let viewModel = UsersViewModel(dataSource: UsersTestRepository(), users: [user])
+        validateContent(viewModel: viewModel)
+        viewModel.model?.remove(at: 0)
+        validateError(viewModel: viewModel)
+    }
+    
     func testUsersViewModel() {
         let viewModel = UsersViewModel(dataSource: UsersTestRepository())
         testGetUsers(viewModel: viewModel)
