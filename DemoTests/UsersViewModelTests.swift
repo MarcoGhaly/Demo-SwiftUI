@@ -73,8 +73,13 @@ class UsersViewModelTests: LCEListViewModelTests {
         waitForExpectations(timeout: 1)
         cancellable.cancel()
         
-        validateContent(viewModel: viewModel)
         XCTAssertEqual(viewModel.model?.count, newCount)
+        
+        if newCount == 0 {
+            validateError(viewModel: viewModel)
+        } else {
+            validateContent(viewModel: viewModel)
+        }
     }
 }
 
