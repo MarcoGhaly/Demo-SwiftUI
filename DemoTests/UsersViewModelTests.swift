@@ -15,7 +15,8 @@ class UsersViewModelTests: LCEListViewModelTests {
         let viewModel = UsersViewModel(dataSource: UsersTestRepository())
         testGetUsers(viewModel: viewModel)
         testAddUser(viewModel: viewModel)
-        testDeleteUsers(viewModel: viewModel)
+        testDeleteFirstUser(viewModel: viewModel)
+        testDeleteAllUsers(viewModel: viewModel)
     }
     
     private func testGetUsers(viewModel: UsersViewModel<UsersTestRepository>) {
@@ -42,9 +43,25 @@ class UsersViewModelTests: LCEListViewModelTests {
         XCTAssertEqual(viewModel.model?.first, user)
     }
     
-    private func testDeleteUsers(viewModel: UsersViewModel<UsersTestRepository>) {
-        let user = viewModel.model?.first
-        viewModel.deleteUsers(wihtIDs: [user!.id])
+    private func testDeleteFirstUser(viewModel: UsersViewModel<UsersTestRepository>) {
+        let user = viewModel.model![0]
+        let nextUser = viewModel.model![1]
+        testDelete(users: [user], viewModel: viewModel)
+        XCTAssertEqual(viewModel.model?.count, 10)
+        XCTAssertEqual(viewModel.model?.first, nextUser)
+    }
+    
+    private func testDeleteAllUsers(viewModel: UsersViewModel<UsersTestRepository>) {
+        testDelete(users: viewModel.model!, viewModel: viewModel)
+        XCTAssertEqual(viewModel.model?.count, 0)
+        validateError(viewModel: viewModel)
+    }
+    
+    private func testDelete(users: [User], viewModel: UsersViewModel<UsersTestRepository>) {
+        let newCount = viewModel.model!.count - users.count
+        
+        let userIDs = users.map { $0.id }
+        viewModel.deleteUsers(wihtIDs: Set(userIDs))
         
         validateLoading(viewModel: viewModel)
         
@@ -57,9 +74,7 @@ class UsersViewModelTests: LCEListViewModelTests {
         cancellable.cancel()
         
         validateContent(viewModel: viewModel)
-        
-        XCTAssertEqual(viewModel.model?.count, 10)
-        XCTAssertNotEqual(viewModel.model?.first, user)
+        XCTAssertEqual(viewModel.model?.count, newCount)
     }
 }
 
