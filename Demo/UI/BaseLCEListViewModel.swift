@@ -21,7 +21,7 @@ class BaseLCEListViewModel<Element: Object & Identified & Encodable, DataSource:
         viewState = .loading(model: LoadingViewModel(style: .dialog))
         
         dataSource.add(object: object).sink { [weak self] completion in
-            self?.viewState = .content
+            self?.updateViewState(completion: completion)
         } receiveValue: { [weak self] object in
             self?.model?.insert(object, at: 0)
         }
@@ -35,8 +35,8 @@ class BaseLCEListViewModel<Element: Object & Identified & Encodable, DataSource:
             model?.first { $0.id == objectID }
         }
         
-        dataSource.remove(objects: objects).sink { [weak self] _ in
-            self?.viewState = .content
+        dataSource.remove(objects: objects).sink { [weak self] completion in
+            self?.updateViewState(completion: completion)
         } receiveValue: { [weak self] _ in
             self?.model?.removeAll { ids.contains($0.id) }
         }
