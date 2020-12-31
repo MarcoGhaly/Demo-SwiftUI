@@ -10,8 +10,8 @@ import Foundation
 import Combine
 
 class UsersViewModel<DataSource: UsersDataSource>: BaseLCEListViewModel<User, DataSource> {
-    init(dataSource: DataSource) {
-        super.init(dataSource: dataSource, limit: 5)
+    init(dataSource: DataSource, users: [User]? = nil) {
+        super.init(dataSource: dataSource, models: users, limit: 5)
     }
     
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
