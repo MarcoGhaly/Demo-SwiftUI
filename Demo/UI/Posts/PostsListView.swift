@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct PostsListView: View {
-    @ObservedObject var viewModel: PostsViewModel
+struct PostsListView<DataSource: PostsDataSource>: View {
+    @ObservedObject var viewModel: PostsViewModel<DataSource>
     
     @State private var isEditMode = false
     @State private var selectedIDs = Set<Post.ID>()
