@@ -47,14 +47,11 @@ class UsersViewModelTests: LCEListViewModelTests {
         let user = viewModel.model![0]
         let nextUser = viewModel.model![1]
         testDelete(users: [user], viewModel: viewModel)
-        XCTAssertEqual(viewModel.model?.count, 10)
         XCTAssertEqual(viewModel.model?.first, nextUser)
     }
     
     private func testDeleteAllUsers(viewModel: UsersViewModel<UsersTestRepository>) {
         testDelete(users: viewModel.model!, viewModel: viewModel)
-        XCTAssertEqual(viewModel.model?.count, 0)
-        validateError(viewModel: viewModel)
     }
     
     private func testDelete(users: [User], viewModel: UsersViewModel<UsersTestRepository>) {
