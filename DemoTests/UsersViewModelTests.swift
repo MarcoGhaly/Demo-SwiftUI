@@ -18,11 +18,11 @@ class UsersViewModelTests: LCEListViewModelTests {
         testDeleteUsers(viewModel: viewModel)
     }
     
-    private func testGetUsers(viewModel: UsersViewModel) {
+    private func testGetUsers(viewModel: UsersViewModel<UsersTestRepository>) {
         testPagination(viewModel: viewModel, pages: 3, limit: 5, totalCount: 10)
     }
     
-    private func testAddUser(viewModel: UsersViewModel) {
+    private func testAddUser(viewModel: UsersViewModel<UsersTestRepository>) {
         let user = User(id: 1, name: "Test Name", username: "Test Username")
         viewModel.add(user: user)
         
@@ -42,7 +42,7 @@ class UsersViewModelTests: LCEListViewModelTests {
         XCTAssertEqual(viewModel.model?.first, user)
     }
     
-    private func testDeleteUsers(viewModel: UsersViewModel) {
+    private func testDeleteUsers(viewModel: UsersViewModel<UsersTestRepository>) {
         let user = viewModel.model?.first
         viewModel.deleteUsers(wihtIDs: [user!.id])
         
@@ -63,7 +63,7 @@ class UsersViewModelTests: LCEListViewModelTests {
     }
 }
 
-private class UsersTestRepository: UsersDataSource {
+private class UsersTestRepository: TestDataSource, UsersDataSource {
     func getUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
         let publisher = PassthroughSubject<[User], DefaultAppError>()
         DispatchQueue.main.async {
@@ -75,20 +75,10 @@ private class UsersTestRepository: UsersDataSource {
     }
     
     func add(user: User) -> AnyPublisher<User, DefaultAppError> {
-        let publisher = PassthroughSubject<User, DefaultAppError>()
-        DispatchQueue.main.async {
-            publisher.send(user)
-            publisher.send(completion: .finished)
-        }
-        return publisher.eraseToAnyPublisher()
+        add(object: user)
     }
     
     func remove(users: [User]) -> AnyPublisher<Void, DefaultAppError> {
-        let publisher = PassthroughSubject<Void, DefaultAppError>()
-        DispatchQueue.main.async {
-            publisher.send()
-            publisher.send(completion: .finished)
-        }
-        return publisher.eraseToAnyPublisher()
+        remove(objects: users)
     }
 }
