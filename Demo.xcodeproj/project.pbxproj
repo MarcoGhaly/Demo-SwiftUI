@@ -75,7 +75,6 @@
 		6CD3AD3724FAC3C700D8BF77 /* PostsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD3AD3624FAC3C700D8BF77 /* PostsListView.swift */; };
 		6CD3AD3924FAC3D100D8BF77 /* PostRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD3AD3824FAC3D100D8BF77 /* PostRowView.swift */; };
 		6CD3AD3D24FAC3F600D8BF77 /* PostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD3AD3C24FAC3F600D8BF77 /* PostsViewModel.swift */; };
-		6CD3AD3F24FAD77700D8BF77 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD3AD3E24FAD77700D8BF77 /* ActivityIndicator.swift */; };
 		6CD3AD4224FAE44900D8BF77 /* PostDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD3AD4124FAE44900D8BF77 /* PostDetailsView.swift */; };
 		6CD3AD4624FAE70700D8BF77 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD3AD4524FAE70700D8BF77 /* Comment.swift */; };
 		6CD3AD4824FAEB4000D8BF77 /* BaseDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD3AD4724FAEB4000D8BF77 /* BaseDataSource.swift */; };
@@ -174,7 +173,6 @@
 		6CD3AD3624FAC3C700D8BF77 /* PostsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsListView.swift; sourceTree = "<group>"; };
 		6CD3AD3824FAC3D100D8BF77 /* PostRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRowView.swift; sourceTree = "<group>"; };
 		6CD3AD3C24FAC3F600D8BF77 /* PostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewModel.swift; sourceTree = "<group>"; };
-		6CD3AD3E24FAD77700D8BF77 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		6CD3AD4124FAE44900D8BF77 /* PostDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsView.swift; sourceTree = "<group>"; };
 		6CD3AD4524FAE70700D8BF77 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		6CD3AD4724FAEB4000D8BF77 /* BaseDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDataSource.swift; sourceTree = "<group>"; };
@@ -603,7 +601,6 @@
 			children = (
 				2F6DB70D2557377A002817B5 /* NavigationLazyView.swift */,
 				2FEECD80255C994E00654DF8 /* CardView.swift */,
-				6CD3AD3E24FAD77700D8BF77 /* ActivityIndicator.swift */,
 				2F350DBB2571236600DBD14C /* InfoView.swift */,
 				2FC7AB15257C513100695303 /* EntryView.swift */,
 				6CD3AD6924FB1F7000D8BF77 /* MapView.swift */,
@@ -806,7 +803,6 @@
 				2F55F99D259AB90E00AACCAA /* PostsRepository.swift in Sources */,
 				6CD3AD6C24FB299500D8BF77 /* TestData.swift in Sources */,
 				6CD3AD4A24FAEE5600D8BF77 /* CommentRowView.swift in Sources */,
-				6CD3AD3F24FAD77700D8BF77 /* ActivityIndicator.swift in Sources */,
 				2F74F44B2581AFFF00B956E9 /* AlbumsDataSource.swift in Sources */,
 				2FA24ECB258BC53C0093C03E /* DefaultLCEListView.swift in Sources */,
 				2F0F41DC258E782800271C93 /* DatabaseManager.swift in Sources */,

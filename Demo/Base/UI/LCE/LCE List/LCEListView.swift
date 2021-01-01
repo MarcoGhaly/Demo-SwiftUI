@@ -92,7 +92,10 @@ struct LCEListView_Previews: PreviewProvider {
         } error: { errorViewModel in
             DefaultErrorView(errorViewModel: errorViewModel)
         } paginationLoading: {
-            ActivityIndicator(isAnimating: .constant(true), style: .large)
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle())
+                .scaleEffect(CGSize(width: 2, height: 2))
+                .padding()
         }
         .previewLayout(.sizeThatFits)
     }

@@ -32,7 +32,10 @@ struct DefaultLCEListView<Element, ViewModel, ID, CellContent>: View where ViewM
         } error: { errorViewModel in
             DefaultErrorView(errorViewModel: errorViewModel)
         } paginationLoading: {
-            ActivityIndicator(isAnimating: .constant(true), style: .large)
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle())
+                .scaleEffect(CGSize(width: 2, height: 2))
+                .padding()
         }
     }
 }

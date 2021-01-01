@@ -17,7 +17,10 @@ struct DefaultLoadingView: LoadingView {
     
     var body: some View {
         VStack(spacing: spacing) {
-            ActivityIndicator(isAnimating: .constant(true), style: .large)
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle())
+                .scaleEffect(CGSize(width: 2, height: 2))
+                .padding()
             
             loadingViewModel.title.map {
                 Text($0)
