@@ -19,54 +19,66 @@ struct UsersListView<DataSource: UsersDataSource>: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             DefaultLCEListView(viewModel: viewModel, isEditMode: isEditMode, selectedIDs: $selectedIDs) { user in
-                NavigationLink(destination: NavigationLazyView(UserDetailsView(user: user))) {
-                    VStack {
-                        HStack {
-                            UserRowView(user: user)
-                            if isEditMode {
-                                Image(systemName: selectedIDs.contains(user.id) ? "checkmark.circle.fill" : "circle")
-                                    .resizable()
-                                    .frame(width: 25, height: 25)
-                                    .foregroundColor(.black)
-                                    .padding()
-                            }
-                        }
-                        Divider()
-                    }
-                }
-                .disabled(isEditMode)
+                cellView(forUser: user)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .animation(.none)
             
             if isEditMode {
-                HStack {
-                    Button {
-                        viewModel.deleteUsers(wihtIDs: selectedIDs)
-                        isEditMode = false
-                    } label: {
-                        VStack {
-                            Image(systemName: "trash")
-                            Text("Delete")
-                        }
-                    }
-                }
-                .disabled(selectedIDs.isEmpty)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .cardify()
-                .transition(.move(edge: .bottom))
+                editView
             }
         }
         .edgesIgnoringSafeArea(.bottom)
+        .navigationBarTitle(Text("Users"))
+        .navigationBarItems(trailing: navigationBarItems)
         .sheet(isPresented: $presentAddUserView, content: {
             AddUserView(isPresented: $presentAddUserView) { user in
                 viewModel.add(user: user)
                 presentAddUserView = false
             }
         })
-        .navigationBarTitle(Text("Users"))
-        .navigationBarItems(trailing: HStack {
+    }
+    
+    private func cellView(forUser user: User) -> some View {
+        NavigationLink(destination: NavigationLazyView(UserDetailsView(user: user))) {
+            VStack {
+                HStack {
+                    UserRowView(user: user)
+                    if isEditMode {
+                        Image(systemName: selectedIDs.contains(user.id) ? "checkmark.circle.fill" : "circle")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
+                }
+                Divider()
+            }
+        }
+        .disabled(isEditMode)
+    }
+    
+    private var editView: some View {
+        HStack {
+            Button {
+                viewModel.deleteUsers(wihtIDs: selectedIDs)
+                isEditMode = false
+            } label: {
+                VStack {
+                    Image(systemName: "trash")
+                    Text("Delete")
+                }
+            }
+        }
+        .disabled(selectedIDs.isEmpty)
+        .frame(maxWidth: .infinity)
+        .padding()
+        .cardify()
+        .transition(.move(edge: .bottom))
+    }
+    
+    private var navigationBarItems: some View {
+        HStack {
             if viewModel.model?.isEmpty == false {
                 Button(action: {
                     selectedIDs = []
@@ -87,7 +99,7 @@ struct UsersListView<DataSource: UsersDataSource>: View {
                     Image(systemName: "note.text.badge.plus")
                 })
             }
-        })
+        }
     }
 }
 
