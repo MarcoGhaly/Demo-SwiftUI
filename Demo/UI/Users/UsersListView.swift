@@ -43,6 +43,7 @@ struct UsersListView<DataSource: UsersDataSource>: View {
                 HStack {
                     Button {
                         viewModel.deleteUsers(wihtIDs: selectedIDs)
+                        isEditMode = false
                     } label: {
                         VStack {
                             Image(systemName: "trash")

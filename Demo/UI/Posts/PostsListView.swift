@@ -46,6 +46,7 @@ struct PostsListView<DataSource: PostsDataSource>: View {
                 HStack {
                     Button {
                         viewModel.deletePosts(wihtIDs: selectedIDs)
+                        isEditMode = false
                     } label: {
                         VStack {
                             Image(systemName: "trash")
