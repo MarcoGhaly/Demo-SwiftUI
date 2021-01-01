@@ -75,14 +75,16 @@ struct PostsListView<DataSource: PostsDataSource>: View {
         .navigationBarTitle(Text("Posts"))
         .if(userID != nil) {
             $0.navigationBarItems(trailing: HStack {
-                Button(action: {
-                    selectedIDs = []
-                    withAnimation {
-                        isEditMode.toggle()
-                    }
-                }, label: {
-                    Image(systemName: isEditMode ? "multiply.circle.fill" : "pencil.circle.fill")
-                })
+                if viewModel.model?.isEmpty == false {
+                    Button(action: {
+                        selectedIDs = []
+                        withAnimation {
+                            isEditMode.toggle()
+                        }
+                    }, label: {
+                        Image(systemName: isEditMode ? "multiply.circle.fill" : "pencil.circle.fill")
+                    })
+                }
                 
                 if !isEditMode {
                     Button(action: {
