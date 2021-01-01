@@ -20,21 +20,21 @@ struct UsersListView<DataSource: UsersDataSource>: View {
         ZStack(alignment: .bottom) {
             DefaultLCEListView(viewModel: viewModel, isEditMode: isEditMode, selectedIDs: $selectedIDs) { user in
                 NavigationLink(destination: NavigationLazyView(UserDetailsView(user: user))) {
-                    HStack {
-                        VStack {
+                    VStack {
+                        HStack {
                             UserRowView(user: user)
-                            Divider()
+                            if isEditMode {
+                                Image(systemName: selectedIDs.contains(user.id) ? "checkmark.circle.fill" : "circle")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                                    .foregroundColor(.black)
+                                    .padding()
+                            }
                         }
-                        
-                        if isEditMode {
-                            Image(systemName: selectedIDs.contains(user.id) ? "checkmark.circle.fill" : "circle")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                                .foregroundColor(.black)
-                                .padding()
-                        }
+                        Divider()
                     }
-                }.disabled(isEditMode)
+                }
+                .disabled(isEditMode)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .animation(.none)

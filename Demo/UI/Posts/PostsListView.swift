@@ -23,21 +23,21 @@ struct PostsListView<DataSource: PostsDataSource>: View {
             
             DefaultLCEListView(viewModel: viewModel, isEditMode: isEditMode, selectedIDs: $selectedIDs) { post in
                 NavigationLink(destination: NavigationLazyView(PostDetailsView(viewModel: PostViewModel(post: post)))) {
-                    HStack {
-                        VStack {
+                    VStack {
+                        HStack {
                             PostRowView(post: post)
-                            Divider()
+                            if isEditMode {
+                                Image(systemName: selectedIDs.contains(post.id) ? "checkmark.circle.fill" : "circle")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                                    .foregroundColor(.black)
+                                    .padding()
+                            }
                         }
-                        
-                        if isEditMode {
-                            Image(systemName: selectedIDs.contains(post.id) ? "checkmark.circle.fill" : "circle")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                                .foregroundColor(.black)
-                                .padding()
-                        }
+                        Divider()
                     }
-                }.disabled(isEditMode)
+                }
+                .disabled(isEditMode)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .animation(.none)
