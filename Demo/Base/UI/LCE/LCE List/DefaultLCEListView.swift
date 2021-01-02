@@ -48,9 +48,7 @@ extension DefaultLCEListView where Element: Identifiable, ID == Element.ID {
 
 struct DefaultLCEListView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = LCEListViewModel<String>()
-        viewModel.model = ["Hello", "World"]
-        
+        let viewModel = LCEListViewModel<String>(models: ["Hello", "World"])
         return DefaultLCEListView(viewModel: viewModel, id: \.self) { element in
             Text(element)
         }
