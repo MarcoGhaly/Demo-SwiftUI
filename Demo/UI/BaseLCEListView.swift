@@ -16,7 +16,7 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
     let destination: (Element) -> Destination
     
     @State private var isEditMode = false
-    @State private var selectedIDs = Set<User.ID>()
+    @State private var selectedIDs = Set<Int>()
     
     var body: some View {
         ZStack(alignment: .bottom) {
