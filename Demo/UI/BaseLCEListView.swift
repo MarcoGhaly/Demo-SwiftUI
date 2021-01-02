@@ -30,7 +30,6 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
             }
         }
         .edgesIgnoringSafeArea(.bottom)
-        .navigationBarTitle(Text("Users"))
         .navigationBarItems(trailing: navigationBarItems)
     }
     
