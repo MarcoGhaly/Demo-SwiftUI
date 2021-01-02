@@ -10,6 +10,7 @@ import SwiftUI
 
 struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>: View where Element: Identifiable, Element.ID == Int, DataSource: DemoDataSource, ViewModel: BaseLCEListViewModel<Element, DataSource>, CellContent: View, Destination: View {
     @ObservedObject var viewModel: ViewModel
+    var showNavigationBarItems = true
     @Binding var presentAddView: Bool
     let cellContent: (Element) -> CellContent
     let destination: (Element) -> Destination
@@ -30,7 +31,9 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
             }
         }
         .edgesIgnoringSafeArea(.bottom)
-        .navigationBarItems(trailing: navigationBarItems)
+        .if(showNavigationBarItems) {
+            $0.navigationBarItems(trailing: navigationBarItems)
+        }
     }
     
     private func cellView(forElement element: Element) -> some View {
