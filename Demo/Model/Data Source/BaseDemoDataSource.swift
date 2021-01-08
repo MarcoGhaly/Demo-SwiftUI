@@ -67,7 +67,7 @@ extension DemoDataSource {
             let publisher: AnyPublisher<EmptyResponse, DefaultAppError> = performRequest(request)
             
             publisher.sink { _ in
-            } receiveValue: { response in
+            } receiveValue: { _ in
                 let predicate = NSPredicate(format: "id = %@", argumentArray: [object.id])
                 let _: [T]? = try? DatabaseManager.deleteObjects(predicate: predicate)
             }
