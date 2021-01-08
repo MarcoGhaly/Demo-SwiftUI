@@ -30,12 +30,4 @@ class UsersRepository: UsersDataSource {
         
         return usersPublisher
     }
-    
-    func add(user: User) -> AnyPublisher<User, DefaultAppError> {
-        add(object: user)
-    }
-    
-    func remove(users: [User]) -> AnyPublisher<Void, DefaultAppError> {
-        remove(objects: users)
-    }
 }

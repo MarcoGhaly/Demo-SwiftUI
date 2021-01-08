@@ -11,8 +11,6 @@ import Combine
 
 protocol PostsDataSource: DemoDataSource {
     func getPosts(userID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Post], DefaultAppError>
-    func add(post: Post) -> AnyPublisher<Post, DefaultAppError>
-    func remove(posts: [Post]) -> AnyPublisher<Void, DefaultAppError>
 }
 
 extension PostsDataSource {

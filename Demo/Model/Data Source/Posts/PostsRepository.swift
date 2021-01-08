@@ -34,12 +34,4 @@ class PostsRepository: PostsDataSource {
         
         return postsPublisher
     }
-    
-    func add(post: Post) -> AnyPublisher<Post, DefaultAppError> {
-        add(object: post)
-    }
-    
-    func remove(posts: [Post]) -> AnyPublisher<Void, DefaultAppError> {
-        remove(objects: posts)
-    }
 }
