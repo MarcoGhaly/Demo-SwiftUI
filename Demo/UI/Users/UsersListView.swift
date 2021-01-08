@@ -22,7 +22,7 @@ struct UsersListView<DataSource: UsersDataSource>: View {
         .navigationBarTitle(Text("Users"))
         .sheet(isPresented: $presentAddUserView, content: {
             AddUserView(isPresented: $presentAddUserView) { user in
-                viewModel.add(user: user)
+                viewModel.add(object: user)
                 presentAddUserView = false
             }
         })

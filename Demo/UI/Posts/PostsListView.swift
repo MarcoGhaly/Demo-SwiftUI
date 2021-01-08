@@ -28,7 +28,7 @@ struct PostsListView<DataSource: PostsDataSource>: View {
             userID.map { userID in
                 AddPostView(isPresented: $presentAddPostView, onConfirm: { post in
                     post.userId = userID
-                    viewModel.add(post: post)
+                    viewModel.add(object: post)
                     withAnimation {
                         presentAddPostView = false
                     }

@@ -20,12 +20,4 @@ class PostsViewModel<DataSource: PostsDataSource>: BaseLCEListViewModel<Post, Da
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Post], DefaultAppError> {
         dataSource.getPosts(userID: userID, page: page, limit: limit)
     }
-    
-    func add(post: Post) {
-        add(object: post)
-    }
-    
-    func deletePosts(wihtIDs postsIDs: Set<Post.ID>) {
-        deleteObjects(withIDs: postsIDs)
-    }
 }

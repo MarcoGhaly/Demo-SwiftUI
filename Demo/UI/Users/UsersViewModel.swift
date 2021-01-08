@@ -17,12 +17,4 @@ class UsersViewModel<DataSource: UsersDataSource>: BaseLCEListViewModel<User, Da
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
         dataSource.getUsers(page: page, limit: limit)
     }
-    
-    func add(user: User) {
-        add(object: user)
-    }
-    
-    func deleteUsers(wihtIDs usersIDs: Set<User.ID>) {
-        deleteObjects(withIDs: usersIDs)
-    }
 }
