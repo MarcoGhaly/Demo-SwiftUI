@@ -28,3 +28,14 @@ extension View {
         modifier(CardView(backgroundColor: backgroundColor, cornerRadius: cornerRadius, shadowColor: shadowColor, shadowRadius: shadowRadius, shadowOffset: shadowOffset))
     }
 }
+
+struct CardView_Previews: PreviewProvider {
+    static var previews: some View {
+        Text("Hello World")
+            .font(.title)
+            .padding()
+            .cardify()
+            .padding()
+            .previewLayout(.sizeThatFits)
+    }
+}
