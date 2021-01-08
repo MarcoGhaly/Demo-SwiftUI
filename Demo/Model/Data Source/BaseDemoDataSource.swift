@@ -68,7 +68,7 @@ extension DemoDataSource {
             
             publisher.sink { _ in
             } receiveValue: { response in
-                let predicate = NSPredicate(format: "id = %@", argumentArray: objects.map { $0.id })
+                let predicate = NSPredicate(format: "id = %@", argumentArray: [object.id])
                 let _: [T]? = try? DatabaseManager.deleteObjects(predicate: predicate)
             }
             .store(in: &subscriptions)
