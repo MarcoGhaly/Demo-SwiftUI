@@ -49,7 +49,6 @@
 		2FB6B5D725645B8D00A7FBDD /* AlbumsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5D625645B8D00A7FBDD /* AlbumsViewModel.swift */; };
 		2FB6B5DB25645BC200A7FBDD /* AlbumsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5DA25645BC200A7FBDD /* AlbumsListView.swift */; };
 		2FB6B5DE25645F0F00A7FBDD /* AlbumRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5DD25645F0F00A7FBDD /* AlbumRowView.swift */; };
-		2FB6B5E5256479B900A7FBDD /* QGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 2FB6B5E4256479B900A7FBDD /* QGrid */; };
 		2FB6B5E82564807900A7FBDD /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5E72564807900A7FBDD /* Photo.swift */; };
 		2FB6B5EF2564836E00A7FBDD /* PhotoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5EE2564836E00A7FBDD /* PhotoCellView.swift */; };
 		2FB6B5F525648E5E00A7FBDD /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2FB6B5F425648E5E00A7FBDD /* SDWebImageSwiftUI */; };
@@ -209,7 +208,6 @@
 				2F0BA7AF2583B7630012CD85 /* RealmSwift in Frameworks */,
 				2F0BA7AD2583B7630012CD85 /* Realm in Frameworks */,
 				2FB6B5F525648E5E00A7FBDD /* SDWebImageSwiftUI in Frameworks */,
-				2FB6B5E5256479B900A7FBDD /* QGrid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,7 +653,6 @@
 			);
 			name = Demo;
 			packageProductDependencies = (
-				2FB6B5E4256479B900A7FBDD /* QGrid */,
 				2FB6B5F425648E5E00A7FBDD /* SDWebImageSwiftUI */,
 				2F0BA7AC2583B7630012CD85 /* Realm */,
 				2F0BA7AE2583B7630012CD85 /* RealmSwift */,
@@ -693,7 +690,6 @@
 			);
 			mainGroup = 6C15568C24FABA7A000980BE;
 			packageReferences = (
-				2FB6B5E3256479B900A7FBDD /* XCRemoteSwiftPackageReference "QGrid" */,
 				2FB6B5F325648E5E00A7FBDD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				2F0BA7AB2583B7630012CD85 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
@@ -1076,14 +1072,6 @@
 				minimumVersion = 10.4.0;
 			};
 		};
-		2FB6B5E3256479B900A7FBDD /* XCRemoteSwiftPackageReference "QGrid" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Q-Mobile/QGrid";
-			requirement = {
-				kind = exactVersion;
-				version = 0.1.4;
-			};
-		};
 		2FB6B5F325648E5E00A7FBDD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
@@ -1104,11 +1092,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2F0BA7AB2583B7630012CD85 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
 			productName = RealmSwift;
-		};
-		2FB6B5E4256479B900A7FBDD /* QGrid */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2FB6B5E3256479B900A7FBDD /* XCRemoteSwiftPackageReference "QGrid" */;
-			productName = QGrid;
 		};
 		2FB6B5F425648E5E00A7FBDD /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
