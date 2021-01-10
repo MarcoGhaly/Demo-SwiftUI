@@ -12,13 +12,35 @@ import QGrid
 struct PhotosListView: View {
     @ObservedObject var viewModel: PhotosViewModel
     
+    @State private var columns = 3
+    
     var body: some View {
         DefaultLCEView(viewModel: viewModel) { model in
-            QGrid(model, columns: 3) { photo in
-                PhotoCellView(photo: photo)
+            ScrollView {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: columns)) {
+                    ForEach(model) { photo in
+                        PhotoCellView(photo: photo)
+                            .transition(.slide)
+                    }
+                }
             }
         }
         .navigationBarTitle("Photos")
+        .navigationBarItems(trailing: navigationItems)
+    }
+    
+    private var navigationItems: some View {
+        HStack {
+            ForEach(1...3, id: \.self) { columns in
+                Button(action: {
+                    withAnimation {
+                        self.columns = columns
+                    }
+                }, label: {
+                    Image(systemName: "rectangle.grid.\(columns)x2.fill")
+                })
+            }
+        }
     }
 }
 
