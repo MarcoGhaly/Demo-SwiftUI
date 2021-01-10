@@ -12,17 +12,17 @@ struct HomeView: View {
     private let spacing: CGFloat = 20
     
     private let buttons =
-        [("Users", {AnyView(UsersListView(viewModel: UsersViewModel(dataSource: UsersRepository())))}),
-         ("Posts", {AnyView(PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository())))}),
-         ("Comments", {AnyView(CommentsListView(viewModel: CommentsViewModel()))}),
-         ("ToDos", {AnyView(ToDosListView(viewModel: ToDosViewModel()))}),
-         ("Albums", {AnyView(AlbumsListView(viewModel: AlbumsViewModel()))}),
-         ("Photos", {AnyView(PhotosListView(viewModel: PhotosViewModel()))})]
+        [("Users", AnyView(UsersListView(viewModel: UsersViewModel(dataSource: UsersRepository())))),
+         ("Posts", AnyView(PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository())))),
+         ("Comments", AnyView(CommentsListView(viewModel: CommentsViewModel()))),
+         ("ToDos", AnyView(ToDosListView(viewModel: ToDosViewModel()))),
+         ("Albums", AnyView(AlbumsListView(viewModel: AlbumsViewModel()))),
+         ("Photos", AnyView(PhotosListView(viewModel: PhotosViewModel())))]
     
     var body: some View {
         NavigationView {
             GridView(elements: buttons, columns: 2, spacing: spacing) { button in
-                NavigationLink(destination: NavigationLazyView(button.1())) {
+                NavigationLink(destination: NavigationLazyView(button.1)) {
                     Text(button.0)
                         .font(.title)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
