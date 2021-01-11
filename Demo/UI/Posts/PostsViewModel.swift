@@ -12,9 +12,9 @@ import Combine
 class PostsViewModel<DataSource: PostsDataSource>: BaseLCEListViewModel<Post, DataSource> {
     var userID: Int?
     
-    init(dataSource: DataSource, userID: Int? = nil) {
+    init(dataSource: DataSource, userID: Int? = nil, posts: [Post]? = nil) {
         self.userID = userID
-        super.init(dataSource: dataSource, limit: 5)
+        super.init(dataSource: dataSource, models: posts, limit: 5)
     }
     
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Post], DefaultAppError> {
