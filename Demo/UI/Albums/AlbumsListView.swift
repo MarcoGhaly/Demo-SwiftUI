@@ -14,7 +14,7 @@ struct AlbumsListView: View {
     var body: some View {
         DefaultLCEListView(viewModel: viewModel) { album in
             NavigationLink(
-                destination: NavigationLazyView(PhotosListView(viewModel: PhotosViewModel(albumID: album.id)))) {
+                destination: NavigationLazyView(PhotosListView(viewModel: PhotosViewModel(dataSource: PhotosDataSource(), albumID: album.id)))) {
                 VStack {
                     AlbumRowView(album: album)
                     Divider()

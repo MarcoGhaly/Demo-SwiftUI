@@ -9,21 +9,15 @@
 import SwiftUI
 import QGrid
 
-struct PhotosListView: View {
-    @ObservedObject var viewModel: PhotosViewModel
+struct PhotosListView<DataSource: PhotosDataSource>: View {
+    @ObservedObject var viewModel: PhotosViewModel<DataSource>
     
     @State private var columns = 3
     
     var body: some View {
-        DefaultLCEView(viewModel: viewModel) { model in
-            ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: columns)) {
-                    ForEach(model) { photo in
-                        PhotoCellView(photo: photo)
-                            .transition(.slide)
-                    }
-                }
-            }
+        DefaultLCEListView(viewModel: viewModel, columns: columns) { photo in
+            PhotoCellView(photo: photo)
+                .transition(.slide)
         }
         .navigationBarTitle("Photos")
         .navigationBarItems(trailing: navigationItems)
@@ -46,7 +40,7 @@ struct PhotosListView: View {
 
 struct PhotosListView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = PhotosViewModel()
+        let viewModel = PhotosViewModel(dataSource: PhotosDataSource())
         viewModel.model = [testPhoto]
         viewModel.viewState = .content
         return PhotosListView(viewModel: viewModel)

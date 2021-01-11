@@ -9,12 +9,12 @@
 import Foundation
 import Combine
 
-class PhotosViewModel: LCEListViewModel<Photo> {
+class PhotosViewModel<DataSource: PhotosDataSource>: BaseLCEListViewModel<Photo, DataSource> {
     private var albumID: Int?
     
-    init(albumID: Int? = nil) {
+    init(dataSource: DataSource, albumID: Int? = nil, photos: [Photo]? = nil) {
         self.albumID = albumID
-        super.init(limit: 50)
+        super.init(dataSource: dataSource, models: photos, limit: 50)
     }
     
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Photo], DefaultAppError> {

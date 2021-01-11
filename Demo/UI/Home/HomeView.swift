@@ -18,7 +18,7 @@ struct HomeView: View {
          ("Comments", {CommentsListView(viewModel: CommentsViewModel()).toAnyView()}),
          ("ToDos", {ToDosListView(viewModel: ToDosViewModel()).toAnyView()}),
          ("Albums", {AlbumsListView(viewModel: AlbumsViewModel()).toAnyView()}),
-         ("Photos", {PhotosListView(viewModel: PhotosViewModel()).toAnyView()})]
+         ("Photos", {PhotosListView(viewModel: PhotosViewModel(dataSource: PhotosDataSource())).toAnyView()})]
     
     var body: some View {
         NavigationView {
