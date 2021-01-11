@@ -10,6 +10,7 @@ import SwiftUI
 
 struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>: View where Element: Identifiable, Element.ID == Int, DataSource: DemoDataSource, ViewModel: BaseLCEListViewModel<Element, DataSource>, CellContent: View, Destination: View {
     @ObservedObject var viewModel: ViewModel
+    var columns: Int = 1
     var showNavigationBarItems = true
     @Binding var presentAddView: Bool
     let cellContent: (Element) -> CellContent
@@ -20,7 +21,7 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            DefaultLCEListView(viewModel: viewModel, isEditMode: isEditMode, selectedIDs: $selectedIDs) { element in
+            DefaultLCEListView(viewModel: viewModel, columns: columns, isEditMode: isEditMode, selectedIDs: $selectedIDs) { element in
                 cellView(forElement: element)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

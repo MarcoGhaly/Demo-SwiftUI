@@ -10,6 +10,7 @@ import SwiftUI
 
 struct LCEListView<Element, ViewModel, ID, CellContent, Loading, Error, PaginationLoading>: View where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View, Loading: LoadingView, Error: ErrorView, PaginationLoading: View {
     @ObservedObject var viewModel: ViewModel
+    let columns: Int
     let id: KeyPath<Element, ID>
     let isEditMode: Bool
     @Binding var selectedIDs: Set<ID>
@@ -18,8 +19,9 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Loading, Error, Paginati
     let error: (ErrorViewModel) -> Error
     let paginationLoading: () -> PaginationLoading
     
-    init(viewModel: ViewModel, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), cellContent: @escaping (Element) -> CellContent, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
+    init(viewModel: ViewModel, columns: Int = 1, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), cellContent: @escaping (Element) -> CellContent, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
         self.viewModel = viewModel
+        self.columns = columns
         self.id = id
         self.isEditMode = isEditMode
         self._selectedIDs = selectedIDs
@@ -33,17 +35,19 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Loading, Error, Paginati
         LCEView(viewModel: viewModel) { model in
             GeometryReader { outerGeometry in
                 ScrollView {
-                    LazyVStack {
-                        ForEach(model, id: id) { element in
-                            cellContent(element)
-                                .if(isEditMode) {
-                                    $0.simultaneousGesture(TapGesture().onEnded({ value in
-                                        let identifier = element[keyPath: id]
-                                        if selectedIDs.remove(identifier) == nil {
-                                            selectedIDs.insert(identifier)
-                                        }
-                                    }))
-                                }
+                    VStack {
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: columns)) {
+                            ForEach(model, id: id) { element in
+                                cellContent(element)
+                                    .if(isEditMode) {
+                                        $0.simultaneousGesture(TapGesture().onEnded({ value in
+                                            let identifier = element[keyPath: id]
+                                            if selectedIDs.remove(identifier) == nil {
+                                                selectedIDs.insert(identifier)
+                                            }
+                                        }))
+                                    }
+                            }
                         }
                         
                         if viewModel.isLoading {
@@ -75,8 +79,8 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Loading, Error, Paginati
 }
 
 extension LCEListView where Element: Identifiable, ID == Element.ID {
-    init(viewModel: ViewModel, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), cellContent: @escaping (Element) -> CellContent, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
-        self.init(viewModel: viewModel, id: \Element.id, isEditMode: isEditMode, selectedIDs: selectedIDs, cellContent: cellContent, loading: loading, error: error, paginationLoading: paginationLoading)
+    init(viewModel: ViewModel, columns: Int = 1, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), cellContent: @escaping (Element) -> CellContent, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
+        self.init(viewModel: viewModel, columns: columns, id: \Element.id, isEditMode: isEditMode, selectedIDs: selectedIDs, cellContent: cellContent, loading: loading, error: error, paginationLoading: paginationLoading)
     }
 }
 
