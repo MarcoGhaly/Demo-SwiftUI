@@ -11,18 +11,19 @@ import SwiftUI
 struct HomeView: View {
     private let spacing: CGFloat = 20
     
+    // Put views in closures to allow lazy navigation
     private let buttons =
-        [("Users", UsersListView(viewModel: UsersViewModel(dataSource: UsersRepository())).toAnyView()),
-         ("Posts", PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository())).toAnyView()),
-         ("Comments", CommentsListView(viewModel: CommentsViewModel()).toAnyView()),
-         ("ToDos", ToDosListView(viewModel: ToDosViewModel()).toAnyView()),
-         ("Albums", AlbumsListView(viewModel: AlbumsViewModel()).toAnyView()),
-         ("Photos", PhotosListView(viewModel: PhotosViewModel()).toAnyView())]
+        [("Users", {UsersListView(viewModel: UsersViewModel(dataSource: UsersRepository())).toAnyView()}),
+         ("Posts", {PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository())).toAnyView()}),
+         ("Comments", {CommentsListView(viewModel: CommentsViewModel()).toAnyView()}),
+         ("ToDos", {ToDosListView(viewModel: ToDosViewModel()).toAnyView()}),
+         ("Albums", {AlbumsListView(viewModel: AlbumsViewModel()).toAnyView()}),
+         ("Photos", {PhotosListView(viewModel: PhotosViewModel()).toAnyView()})]
     
     var body: some View {
         NavigationView {
             GridView(elements: buttons, columns: 2, spacing: spacing) { button in
-                NavigationLink(destination: NavigationLazyView(button.1)) {
+                NavigationLink(destination: NavigationLazyView(button.1())) {
                     Text(button.0)
                         .font(.title)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
