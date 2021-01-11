@@ -12,12 +12,12 @@ struct HomeView: View {
     private let spacing: CGFloat = 20
     
     private let buttons =
-        [("Users", AnyView(UsersListView(viewModel: UsersViewModel(dataSource: UsersRepository())))),
-         ("Posts", AnyView(PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository())))),
-         ("Comments", AnyView(CommentsListView(viewModel: CommentsViewModel()))),
-         ("ToDos", AnyView(ToDosListView(viewModel: ToDosViewModel()))),
-         ("Albums", AnyView(AlbumsListView(viewModel: AlbumsViewModel()))),
-         ("Photos", AnyView(PhotosListView(viewModel: PhotosViewModel())))]
+        [("Users", UsersListView(viewModel: UsersViewModel(dataSource: UsersRepository())).toAnyView()),
+         ("Posts", PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository())).toAnyView()),
+         ("Comments", CommentsListView(viewModel: CommentsViewModel()).toAnyView()),
+         ("ToDos", ToDosListView(viewModel: ToDosViewModel()).toAnyView()),
+         ("Albums", AlbumsListView(viewModel: AlbumsViewModel()).toAnyView()),
+         ("Photos", PhotosListView(viewModel: PhotosViewModel()).toAnyView())]
     
     var body: some View {
         NavigationView {

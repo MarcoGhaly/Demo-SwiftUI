@@ -604,10 +604,10 @@
 			children = (
 				2F6DB70D2557377A002817B5 /* NavigationLazyView.swift */,
 				2FEECD80255C994E00654DF8 /* CardView.swift */,
+				2F884FEC25ABBBA6006E8C41 /* GridView.swift */,
 				2F350DBB2571236600DBD14C /* InfoView.swift */,
 				2FC7AB15257C513100695303 /* EntryView.swift */,
 				6CD3AD6924FB1F7000D8BF77 /* MapView.swift */,
-				2F884FEC25ABBBA6006E8C41 /* GridView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
