@@ -10,8 +10,9 @@ import SwiftUI
 
 struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>: View where Element: Identifiable, Element.ID == Int, DataSource: DemoDataSource, ViewModel: BaseLCEListViewModel<Element, DataSource>, CellContent: View, Destination: View {
     @ObservedObject var viewModel: ViewModel
-    var columns: Int = 1
-    var showNavigationBarItems = true
+    @State var columns: Int = 1
+    var showGridButtons = true
+    var showEditButtons = true
     @Binding var presentAddView: Bool
     let cellContent: (Element) -> CellContent
     let destination: (Element) -> Destination
@@ -25,15 +26,14 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
                 cellView(forElement: element)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .animation(.none)
             
             if isEditMode {
                 editView
             }
         }
         .edgesIgnoringSafeArea(.bottom)
-        .if(showNavigationBarItems) {
-            $0.navigationBarItems(trailing: navigationBarItems)
+        .if(showEditButtons) {
+            $0.navigationBarItems(leading: gridButtons, trailing: editButtons)
         }
     }
     
@@ -77,7 +77,21 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
         .transition(.move(edge: .bottom))
     }
     
-    private var navigationBarItems: some View {
+    private var gridButtons: some View {
+        HStack {
+            ForEach(1...3, id: \.self) { columns in
+                Button(action: {
+                    withAnimation {
+                        self.columns = columns
+                    }
+                }, label: {
+                    Image(systemName: "rectangle.grid.\(columns)x2.fill")
+                })
+            }
+        }
+    }
+    
+    private var editButtons: some View {
         HStack {
             if viewModel.model?.isEmpty == false {
                 Button(action: {

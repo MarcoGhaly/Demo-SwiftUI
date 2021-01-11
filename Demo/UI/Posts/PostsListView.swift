@@ -19,7 +19,7 @@ struct PostsListView<DataSource: PostsDataSource>: View {
         ZStack(alignment: .bottom) {
             Color.clear
             
-            BaseLCEListView(viewModel: viewModel, showNavigationBarItems: userID != nil, presentAddView: $presentAddPostView) { post in
+            BaseLCEListView(viewModel: viewModel, showEditButtons: userID != nil, presentAddView: $presentAddPostView) { post in
                 PostRowView(post: post)
             } destination: { post in
                 PostDetailsView(viewModel: PostViewModel(post: post))

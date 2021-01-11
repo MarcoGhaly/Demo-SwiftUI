@@ -12,29 +12,13 @@ import QGrid
 struct PhotosListView<DataSource: PhotosDataSource>: View {
     @ObservedObject var viewModel: PhotosViewModel<DataSource>
     
-    @State private var columns = 3
-    
     var body: some View {
-        DefaultLCEListView(viewModel: viewModel, columns: columns) { photo in
+        BaseLCEListView(viewModel: viewModel, columns: 3, presentAddView: .constant(false)) { photo in
             PhotoCellView(photo: photo)
-                .transition(.slide)
+        } destination: { photo in
+            PhotoCellView(photo: photo)
         }
         .navigationBarTitle("Photos")
-        .navigationBarItems(trailing: navigationItems)
-    }
-    
-    private var navigationItems: some View {
-        HStack {
-            ForEach(1...3, id: \.self) { columns in
-                Button(action: {
-                    withAnimation {
-                        self.columns = columns
-                    }
-                }, label: {
-                    Image(systemName: "rectangle.grid.\(columns)x2.fill")
-                })
-            }
-        }
     }
 }
 
