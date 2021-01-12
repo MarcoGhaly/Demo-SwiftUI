@@ -15,8 +15,4 @@ class UsersRepository: UsersDataSource {
     var idKey: String { "NextUserID" }
     
     var subscriptions: [AnyCancellable] = []
-    
-    func getUsers(page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[User], DefaultAppError> {
-        return getData(page: page, limit: limit)
-    }
 }

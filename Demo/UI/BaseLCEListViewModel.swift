@@ -7,14 +7,19 @@
 //
 
 import Foundation
+import Combine
 import RealmSwift
 
-class BaseLCEListViewModel<Element: Object & Identified & Encodable, DataSource: DemoDataSource>: LCEListViewModel<Element> {
+class BaseLCEListViewModel<Element: Object & Identified & Codable, DataSource: DemoDataSource>: LCEListViewModel<Element> {
     let dataSource: DataSource
     
     init(dataSource: DataSource, models: [Element]? = nil, limit: Int? = nil) {
         self.dataSource = dataSource
         super.init(models: models, limit: limit)
+    }
+    
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Element], DefaultAppError> {
+        dataSource.getData(page: page, limit: limit)
     }
     
     func add(object: Element) {

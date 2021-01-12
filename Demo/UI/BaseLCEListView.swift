@@ -132,7 +132,7 @@ import Combine
 import RealmSwift
 
 @objcMembers
-class TempModel: Object, Identified, Encodable, Identifiable {
+class TempModel: Object, Identified, Codable, Identifiable {
     var id: Int = 0
 }
 

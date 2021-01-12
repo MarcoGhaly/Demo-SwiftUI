@@ -10,9 +10,4 @@ import Foundation
 import Combine
 
 protocol UsersDataSource: DemoDataSource {
-    func getUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAppError>
-}
-
-extension UsersDataSource {
-    func getUsers() -> AnyPublisher<[User], DefaultAppError> { getUsers(page: nil, limit: nil) }
 }
