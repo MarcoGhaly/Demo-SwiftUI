@@ -32,9 +32,9 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            DefaultLCEListView(viewModel: viewModel, columns: columns, isEditMode: isEditMode, selectedIDs: $selectedIDs) { element in
+            DefaultLCEListView(viewModel: viewModel, columns: columns, isEditMode: isEditMode, selectedIDs: $selectedIDs, cellContent: { element in
                 cellView(forElement: element)
-            }
+            }, destination: destination)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             if isEditMode {
@@ -48,8 +48,7 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
     }
     
     private func cellView(forElement element: Element) -> some View {
-        let destination = self.destination(element)
-        return VStack {
+        VStack {
             HStack {
                 cellContent(element)
                 
@@ -64,10 +63,6 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
             
             Divider()
         }
-        .if(!(destination is EmptyView)) {
-            $0.navigationLink(destination: NavigationLazyView(destination))
-        }
-        .disabled(isEditMode)
     }
     
     private var editView: some View {
