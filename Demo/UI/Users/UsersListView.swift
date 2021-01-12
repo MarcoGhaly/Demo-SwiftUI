@@ -19,7 +19,7 @@ struct UsersListView<DataSource: UsersDataSource>: View {
         } destination: { user in
             UserDetailsView(user: user)
         }
-        .navigationBarTitle(Text("Users"))
+        .navigationBarTitle("Users")
         .sheet(isPresented: $presentAddUserView, content: {
             AddUserView(isPresented: $presentAddUserView) { user in
                 viewModel.add(object: user)

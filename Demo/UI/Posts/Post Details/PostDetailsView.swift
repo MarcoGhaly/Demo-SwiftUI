@@ -29,7 +29,7 @@ struct PostDetailsView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .padding()
-        .navigationBarTitle(Text(viewModel.post.title ?? ""))
+        .navigationBarTitle(viewModel.post.title ?? "")
     }
 }
 

@@ -17,7 +17,7 @@ struct ToDosListView<DataSource: ToDosDataSource>: View {
                 ToDoRowView(toDo: toDo)
             }
         } destination: { _ in }
-        .navigationBarTitle(Text("ToDos"))
+        .navigationBarTitle("ToDos")
     }
 }
 

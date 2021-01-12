@@ -18,7 +18,7 @@ struct CommentsListView<DataSource: CommentsDataSource>: View {
             }
         } destination: { _ in }
         .if(viewModel.postID == nil) {
-            $0.navigationBarTitle(Text("Comments"))
+            $0.navigationBarTitle("Comments")
         }
     }
 }

@@ -35,7 +35,7 @@ struct PostsListView<DataSource: PostsDataSource>: View {
                 })
             }
         }
-        .navigationBarTitle(Text("Posts"))
+        .navigationBarTitle("Posts")
     }
 }
 
