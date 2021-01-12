@@ -24,7 +24,7 @@ struct PhotosListView<DataSource: PhotosDataSource>: View {
 
 struct PhotosListView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = PhotosViewModel(dataSource: PhotosDataSource())
+        let viewModel = PhotosViewModel(dataSource: PhotosRepository())
         viewModel.model = [testPhoto]
         viewModel.viewState = .content
         return PhotosListView(viewModel: viewModel)
