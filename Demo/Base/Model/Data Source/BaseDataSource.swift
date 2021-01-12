@@ -35,13 +35,13 @@ extension BaseDataSource {
     func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: Request) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
         var request = request
         if let headers = self.headers {
-            request.headers?.merge(headers, uniquingKeysWith: { (current, _) in current })
+            request.headers?.merge(headers) { (current, _) in current }
         }
         if let pathParameters = self.pathParameters {
             request.pathParameters?.insert(contentsOf: pathParameters, at: 0)
         }
         if let queryParameters = self.queryParameters {
-            request.queryParameters?.merge(queryParameters, uniquingKeysWith: { (current, _) in current })
+            request.queryParameters?.merge(queryParameters) { (current, _) in current }
         }
         
         let urlString = baseURL + request.formattedURL
