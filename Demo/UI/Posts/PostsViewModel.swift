@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 class PostsViewModel<DataSource: PostsDataSource>: BaseLCEListViewModel<Post, DataSource> {
-    var userID: Int?
+    let userID: Int?
     
     init(dataSource: DataSource, userID: Int? = nil, posts: [Post]? = nil) {
         self.userID = userID
