@@ -16,9 +16,7 @@ struct ToDosListView<DataSource: ToDosDataSource>: View {
             VStack {
                 ToDoRowView(toDo: toDo)
             }
-        } destination: { _ in
-            EmptyView()
-        }
+        } destination: { _ in }
         .navigationBarTitle(Text("ToDos"))
     }
 }

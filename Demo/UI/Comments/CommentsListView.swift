@@ -16,9 +16,7 @@ struct CommentsListView<DataSource: CommentsDataSource>: View {
             VStack {
                 CommentRowView(comment: comment)
             }
-        } destination: { _ in
-            EmptyView()
-        }
+        } destination: { _ in }
         .if(viewModel.postID == nil) {
             $0.navigationBarTitle(Text("Comments"))
         }

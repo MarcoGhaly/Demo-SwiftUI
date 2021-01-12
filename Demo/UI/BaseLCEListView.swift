@@ -20,7 +20,7 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
     @State private var isEditMode = false
     @State private var selectedIDs = Set<Int>()
     
-    init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), cellContent: @escaping (Element) -> CellContent, destination: @escaping (Element) -> Destination) {
+    init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder destination: @escaping (Element) -> Destination) {
         self.viewModel = viewModel
         self._columns = State<Int>(initialValue: columns)
         self.showGridButtons = showGridButtons
