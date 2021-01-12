@@ -10,15 +10,25 @@ import SwiftUI
 
 struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>: View where Element: Identifiable, Element.ID == Int, DataSource: DemoDataSource, ViewModel: BaseLCEListViewModel<Element, DataSource>, CellContent: View, Destination: View {
     @ObservedObject var viewModel: ViewModel
-    @State var columns: Int = 1
-    var showGridButtons = true
-    var showEditButtons = true
+    @State var columns: Int
+    var showGridButtons: Bool
+    var showEditButtons: Bool
     @Binding var presentAddView: Bool
     let cellContent: (Element) -> CellContent
     let destination: (Element) -> Destination
     
     @State private var isEditMode = false
     @State private var selectedIDs = Set<Int>()
+    
+    internal init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), cellContent: @escaping (Element) -> CellContent, destination: @escaping (Element) -> Destination) {
+        self.viewModel = viewModel
+        self._columns = State<Int>(initialValue: columns)
+        self.showGridButtons = showGridButtons
+        self.showEditButtons = showEditButtons
+        self._presentAddView = presentAddView
+        self.cellContent = cellContent
+        self.destination = destination
+    }
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -120,7 +130,7 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
 struct BaseLCEListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = BaseLCEListViewModel<TempModel, TempDataSource>(dataSource: TempDataSource())
-        BaseLCEListView(viewModel: viewModel, presentAddView: .constant(false)) { object in
+        BaseLCEListView(viewModel: viewModel) { object in
             Text("")
         } destination: { object in
             Text("")

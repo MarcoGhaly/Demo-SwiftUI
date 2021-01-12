@@ -12,7 +12,7 @@ struct AlbumsListView<DataSource: AlbumsDataSource>: View {
     @ObservedObject var viewModel: AlbumsViewModel<DataSource>
     
     var body: some View {
-        BaseLCEListView(viewModel: viewModel, presentAddView: .constant(false)) { album in
+        BaseLCEListView(viewModel: viewModel) { album in
             VStack {
                 AlbumRowView(album: album)
             }
