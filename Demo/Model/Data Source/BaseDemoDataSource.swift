@@ -21,6 +21,7 @@ protocol DemoDataSource: class, BaseDataSource {
     func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: inout Request, page: Int?, limit: Int?) -> AnyPublisher<DataModel, AppError<ErrorModel>>
     
     func getNextID(withInitialValue id: Int?) -> Int?
+    func getData<T>(queryParameters: [String: String]?, page: Int?, limit: Int?) -> AnyPublisher<[T], DefaultAppError> where T: Object, T: Decodable
     func add<T>(object: T) -> AnyPublisher<T, DefaultAppError> where T: Object, T: Encodable, T: Identified
     func remove<T>(objects: [T]) -> AnyPublisher<Void, DefaultAppError> where T: Object, T: Identified
 }
