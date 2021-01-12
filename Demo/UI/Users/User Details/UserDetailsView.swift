@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct UserDetailsView: View {
-    var user: User
+    let user: User
     
     private var buttons: [(String, () -> AnyView)] {
         [("Posts", {AnyView(PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository(), userID: user.id)))}),
-         ("ToDos", {AnyView(ToDosListView(viewModel: ToDosViewModel(userID: user.id)))}),
+         ("ToDos", {AnyView(ToDosListView(viewModel: ToDosViewModel(dataSource: ToDosRepository(), userID: user.id)))}),
          ("Albums", {AnyView(AlbumsListView(viewModel: AlbumsViewModel(userID: user.id)))})]
     }
     

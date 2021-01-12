@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct ToDosListView: View {
-    @ObservedObject var viewModel: ToDosViewModel
+struct ToDosListView<DataSource: ToDosDataSource>: View {
+    @ObservedObject var viewModel: ToDosViewModel<DataSource>
     
     var body: some View {
         DefaultLCEListView(viewModel: viewModel) { toDo in
@@ -24,7 +24,7 @@ struct ToDosListView: View {
 
 struct ToDosListView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = ToDosViewModel()
+        let viewModel = ToDosViewModel(dataSource: ToDosRepository())
         viewModel.model = [testToDo]
         viewModel.viewState = .content
         return ToDosListView(viewModel: viewModel)

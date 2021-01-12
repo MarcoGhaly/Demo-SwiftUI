@@ -9,15 +9,15 @@
 import Foundation
 import Combine
 
-class ToDosViewModel: LCEListViewModel<ToDo> {
-    private var userID: Int?
+class ToDosViewModel<DataSource: ToDosDataSource>: BaseLCEListViewModel<ToDo, DataSource> {
+    let userID: Int?
     
-    init(userID: Int? = nil) {
+    init(dataSource: DataSource, userID: Int? = nil, todos: [ToDo]? = nil) {
         self.userID = userID
-        super.init(limit: 20)
+        super.init(dataSource: dataSource, models: todos, limit: 20)
     }
     
     override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[ToDo], DefaultAppError> {
-        ToDosDataSource().getToDos(userID: userID, page: page, limit: limit)
+        dataSource.getToDos(userID: userID, page: page, limit: limit)
     }
 }
