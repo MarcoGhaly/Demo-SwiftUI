@@ -20,7 +20,7 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
     @State private var isEditMode = false
     @State private var selectedIDs = Set<Int>()
     
-    internal init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), cellContent: @escaping (Element) -> CellContent, destination: @escaping (Element) -> Destination) {
+    init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), cellContent: @escaping (Element) -> CellContent, destination: @escaping (Element) -> Destination) {
         self.viewModel = viewModel
         self._columns = State<Int>(initialValue: columns)
         self.showGridButtons = showGridButtons
@@ -48,22 +48,24 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
     }
     
     private func cellView(forElement element: Element) -> some View {
-        NavigationLink(destination: NavigationLazyView(destination(element))) {
-            VStack {
-                HStack {
-                    cellContent(element)
-                    
-                    if isEditMode {
-                        Image(systemName: selectedIDs.contains(element.id) ? "checkmark.circle.fill" : "circle")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .foregroundColor(.black)
-                            .padding()
-                    }
-                }
+        let destination = self.destination(element)
+        return VStack {
+            HStack {
+                cellContent(element)
                 
-                Divider()
+                if isEditMode {
+                    Image(systemName: selectedIDs.contains(element.id) ? "checkmark.circle.fill" : "circle")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                        .foregroundColor(.black)
+                        .padding()
+                }
             }
+            
+            Divider()
+        }
+        .if(!(destination is EmptyView)) {
+            $0.navigationLink(destination: NavigationLazyView(destination))
         }
         .disabled(isEditMode)
     }

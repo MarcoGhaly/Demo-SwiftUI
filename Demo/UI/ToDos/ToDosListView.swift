@@ -12,11 +12,12 @@ struct ToDosListView<DataSource: ToDosDataSource>: View {
     @ObservedObject var viewModel: ToDosViewModel<DataSource>
     
     var body: some View {
-        DefaultLCEListView(viewModel: viewModel) { toDo in
+        BaseLCEListView(viewModel: viewModel) { toDo in
             VStack {
                 ToDoRowView(toDo: toDo)
-                Divider()
             }
+        } destination: { _ in
+            EmptyView()
         }
         .navigationBarTitle(Text("ToDos"))
     }

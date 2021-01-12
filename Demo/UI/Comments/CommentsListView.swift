@@ -12,11 +12,12 @@ struct CommentsListView<DataSource: CommentsDataSource>: View {
     @ObservedObject var viewModel: CommentsViewModel<DataSource>
     
     var body: some View {
-        DefaultLCEListView(viewModel: viewModel) { comment in
+        BaseLCEListView(viewModel: viewModel) { comment in
             VStack {
                 CommentRowView(comment: comment)
-                Divider()
             }
+        } destination: { _ in
+            EmptyView()
         }
         .navigationBarTitle(Text("Comments"))
     }
