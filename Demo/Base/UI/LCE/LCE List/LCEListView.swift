@@ -38,7 +38,7 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Er
             GeometryReader { outerGeometry in
                 ScrollView {
                     VStack {
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: columns)) {
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), alignment: .top), count: columns)) {
                             ForEach(model, id: id) { element in
                                 cellView(forElement: element)
                             }
