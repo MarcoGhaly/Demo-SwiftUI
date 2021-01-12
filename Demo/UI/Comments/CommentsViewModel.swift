@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 class CommentsViewModel<DataSource: CommentsDataSource>: BaseLCEListViewModel<Comment, DataSource> {
-    private let postID: Int?
+    let postID: Int?
     
     init(dataSource: DataSource, postID: Int? = nil, comments: [Comment]? = nil) {
         self.postID = postID
