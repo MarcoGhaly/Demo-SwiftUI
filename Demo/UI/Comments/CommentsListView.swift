@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct CommentsListView: View {
-    @ObservedObject var viewModel: CommentsViewModel
+struct CommentsListView<DataSource: CommentsDataSource>: View {
+    @ObservedObject var viewModel: CommentsViewModel<DataSource>
     
     var body: some View {
         DefaultLCEListView(viewModel: viewModel) { comment in
@@ -24,7 +24,7 @@ struct CommentsListView: View {
 
 struct CommentsListView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = CommentsViewModel(postID: testPost.id)
+        let viewModel = CommentsViewModel(dataSource: CommentsRepository(), postID: testPost.id)
         viewModel.model = [testComment]
         viewModel.viewState = .content
         return CommentsListView(viewModel: viewModel)

@@ -9,18 +9,6 @@
 import Foundation
 import Combine
 
-class CommentsDataSource: DemoDataSource {
-    var methodName: String { "comments" }
-    
-    var idKey: String { "NextCommentID" }
-    
-    var subscriptions: [AnyCancellable] = []
-    
-    func getComments(postID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Comment], DefaultAppError> {
-        var queryParameters = [String: String]()
-        postID.map { queryParameters["postId"] = String($0) }
-        
-        var request = Request(url: methodName, queryParameters: queryParameters)
-        return performRequest(&request, page: page, limit: limit)
-    }
+protocol CommentsDataSource: DemoDataSource {
+    func getComments(postID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Comment], DefaultAppError>
 }

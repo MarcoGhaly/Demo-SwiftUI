@@ -15,7 +15,7 @@ struct HomeView: View {
     private let buttons =
         [("Users", {UsersListView(viewModel: UsersViewModel(dataSource: UsersRepository())).toAnyView()}),
          ("Posts", {PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository())).toAnyView()}),
-         ("Comments", {CommentsListView(viewModel: CommentsViewModel()).toAnyView()}),
+         ("Comments", {CommentsListView(viewModel: CommentsViewModel(dataSource: CommentsRepository())).toAnyView()}),
          ("ToDos", {ToDosListView(viewModel: ToDosViewModel()).toAnyView()}),
          ("Albums", {AlbumsListView(viewModel: AlbumsViewModel()).toAnyView()}),
          ("Photos", {PhotosListView(viewModel: PhotosViewModel(dataSource: PhotosRepository())).toAnyView()})]
