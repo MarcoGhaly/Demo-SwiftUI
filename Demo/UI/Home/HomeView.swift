@@ -17,7 +17,7 @@ struct HomeView: View {
          ("Posts", {PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository())).toAnyView()}),
          ("Comments", {CommentsListView(viewModel: CommentsViewModel(dataSource: CommentsRepository())).toAnyView()}),
          ("ToDos", {ToDosListView(viewModel: ToDosViewModel(dataSource: ToDosRepository())).toAnyView()}),
-         ("Albums", {AlbumsListView(viewModel: AlbumsViewModel()).toAnyView()}),
+         ("Albums", {AlbumsListView(viewModel: AlbumsViewModel(dataSource: AlbumsRepository())).toAnyView()}),
          ("Photos", {PhotosListView(viewModel: PhotosViewModel(dataSource: PhotosRepository())).toAnyView()})]
     
     var body: some View {

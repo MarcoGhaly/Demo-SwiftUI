@@ -8,18 +8,16 @@
 
 import SwiftUI
 
-struct AlbumsListView: View {
-    @ObservedObject var viewModel: AlbumsViewModel
+struct AlbumsListView<DataSource: AlbumsDataSource>: View {
+    @ObservedObject var viewModel: AlbumsViewModel<DataSource>
     
     var body: some View {
-        DefaultLCEListView(viewModel: viewModel) { album in
-            NavigationLink(
-                destination: NavigationLazyView(PhotosListView(viewModel: PhotosViewModel(dataSource: PhotosRepository(), albumID: album.id)))) {
-                VStack {
-                    AlbumRowView(album: album)
-                    Divider()
-                }
+        BaseLCEListView(viewModel: viewModel, presentAddView: .constant(false)) { album in
+            VStack {
+                AlbumRowView(album: album)
             }
+        } destination: { album in
+            NavigationLazyView(PhotosListView(viewModel: PhotosViewModel(dataSource: PhotosRepository(), albumID: album.id)))
         }
         .navigationBarTitle("Albums")
     }
@@ -27,7 +25,7 @@ struct AlbumsListView: View {
 
 struct AlbumsListView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = AlbumsViewModel()
+        let viewModel = AlbumsViewModel(dataSource: AlbumsRepository())
         viewModel.model = [testAlbum]
         viewModel.viewState = .content
         return AlbumsListView(viewModel: viewModel)

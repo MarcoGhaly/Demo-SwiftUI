@@ -9,18 +9,6 @@
 import Foundation
 import Combine
 
-class AlbumsDataSource: DemoDataSource {
-    var methodName: String { "albums" }
-    
-    var idKey: String { "NextAlbumID" }
-    
-    var subscriptions: [AnyCancellable] = []
-    
-    func getAlbums(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Album], DefaultAppError> {
-        var queryParameters = [String: String]()
-        userID.map { queryParameters["userId"] = String($0) }
-        
-        var request = Request(url: methodName, queryParameters: queryParameters)
-        return performRequest(&request, page: page, limit: limit)
-    }
+protocol AlbumsDataSource: DemoDataSource {
+    func getAlbums(userID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Album], DefaultAppError>
 }

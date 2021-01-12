@@ -14,7 +14,7 @@ struct UserDetailsView: View {
     private var buttons: [(String, () -> AnyView)] {
         [("Posts", {AnyView(PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository(), userID: user.id)))}),
          ("ToDos", {AnyView(ToDosListView(viewModel: ToDosViewModel(dataSource: ToDosRepository(), userID: user.id)))}),
-         ("Albums", {AnyView(AlbumsListView(viewModel: AlbumsViewModel(userID: user.id)))})]
+         ("Albums", {AnyView(AlbumsListView(viewModel: AlbumsViewModel(dataSource: AlbumsRepository(), userID: user.id)))})]
     }
     
     var body: some View {
