@@ -32,10 +32,6 @@ extension DemoDataSource {
 }
 
 extension DemoDataSource {
-    func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: inout Request) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
-        performRequest(&request, page: nil, limit: nil)
-    }
-    
     func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: inout Request, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
         var queryParameters = request.queryParameters ?? [:]
         page.map { queryParameters["_page"] = String($0) }
