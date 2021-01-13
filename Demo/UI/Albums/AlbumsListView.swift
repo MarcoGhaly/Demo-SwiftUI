@@ -17,7 +17,7 @@ struct AlbumsListView<DataSource: AlbumsDataSource>: View {
                 AlbumRowView(album: album)
             }
         } destination: { album in
-            NavigationLazyView(PhotosListView(viewModel: PhotosViewModel(dataSource: PhotosRepository(), albumID: album.id)))
+            PhotosListView(viewModel: PhotosViewModel(dataSource: PhotosRepository(), albumID: album.id))
         }
         .navigationBarTitle("Albums")
     }
