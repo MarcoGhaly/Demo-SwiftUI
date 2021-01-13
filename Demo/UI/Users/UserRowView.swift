@@ -20,7 +20,7 @@ struct UserRowView: View {
                     ("Company:", user.company?.name)]
         
         return InfoView(info: info)
-            .padding(.horizontal)
+            .padding()
     }
 }
 

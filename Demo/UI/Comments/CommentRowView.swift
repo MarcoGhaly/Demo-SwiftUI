@@ -23,7 +23,7 @@ struct CommentRowView: View {
                     .font(.subheadline)
             }
         }
-        .padding(.horizontal)
+        .padding()
     }
 }
 
