@@ -16,7 +16,6 @@ struct DefaultLCEListView<Element, ViewModel, ID, CellContent, Destination>: Vie
     @Binding var selectedIDs: Set<ID>
     let cellContent: (Element) -> CellContent
     let destination: (Element) -> Destination
-    let loadingView: AnyView? = nil
     
     init(viewModel: ViewModel, columns: Int = 1, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder destination: @escaping (Element) -> Destination) {
         self.viewModel = viewModel
