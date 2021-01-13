@@ -11,10 +11,11 @@ import SwiftUI
 struct UserDetailsView: View {
     let user: User
     
+    // Put views in closures to allow lazy navigation
     private var buttons: [(String, () -> AnyView)] {
-        [("Posts", {AnyView(PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository(), userID: user.id)))}),
-         ("ToDos", {AnyView(ToDosListView(viewModel: ToDosViewModel(dataSource: ToDosRepository(), userID: user.id)))}),
-         ("Albums", {AnyView(AlbumsListView(viewModel: AlbumsViewModel(dataSource: AlbumsRepository(), userID: user.id)))})]
+        [("Posts", {PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository(), userID: user.id)).toAnyView()}),
+         ("ToDos", {ToDosListView(viewModel: ToDosViewModel(dataSource: ToDosRepository(), userID: user.id)).toAnyView()}),
+         ("Albums", {AlbumsListView(viewModel: AlbumsViewModel(dataSource: AlbumsRepository(), userID: user.id)).toAnyView()})]
     }
     
     var body: some View {
