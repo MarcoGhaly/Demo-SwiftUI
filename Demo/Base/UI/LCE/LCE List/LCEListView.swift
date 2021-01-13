@@ -90,7 +90,7 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Er
                     viewModel.scrolledToEnd()
                 }
             }
-            Text("")
+            Color.clear
         }
         .frame(height: 0)
     }
