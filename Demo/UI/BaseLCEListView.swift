@@ -48,21 +48,18 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
     }
     
     private func cellView(forElement element: Element) -> some View {
-        VStack {
-            HStack {
-                cellContent(element)
-                
-                if isEditMode {
-                    Image(systemName: selectedIDs.contains(element.id) ? "checkmark.circle.fill" : "circle")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .foregroundColor(.black)
-                        .padding()
-                }
-            }
+        HStack {
+            cellContent(element)
             
-            Divider()
+            if isEditMode {
+                Image(systemName: selectedIDs.contains(element.id) ? "checkmark.circle.fill" : "circle")
+                    .resizable()
+                    .frame(width: 25, height: 25)
+                    .foregroundColor(.black)
+                    .padding()
+            }
         }
+        .cardify()
     }
     
     private var editView: some View {

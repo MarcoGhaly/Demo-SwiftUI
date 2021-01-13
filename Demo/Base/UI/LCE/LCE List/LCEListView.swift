@@ -11,6 +11,7 @@ import SwiftUI
 struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Error, PaginationLoading>: View where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View, Destination: View, Loading: LoadingView, Error: ErrorView, PaginationLoading: View {
     @ObservedObject var viewModel: ViewModel
     let columns: Int
+    let spacing: CGFloat
     let id: KeyPath<Element, ID>
     let isEditMode: Bool
     @Binding var selectedIDs: Set<ID>
@@ -20,9 +21,10 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Er
     let error: (ErrorViewModel) -> Error
     let paginationLoading: () -> PaginationLoading
     
-    init(viewModel: ViewModel, columns: Int = 1, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder destination: @escaping (Element) -> Destination, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
+    init(viewModel: ViewModel, columns: Int = 1, spacing: CGFloat = 15, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder destination: @escaping (Element) -> Destination, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
         self.viewModel = viewModel
         self.columns = columns
+        self.spacing = spacing
         self.id = id
         self.isEditMode = isEditMode
         self._selectedIDs = selectedIDs
@@ -38,11 +40,12 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Er
             GeometryReader { outerGeometry in
                 ScrollView {
                     VStack {
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), alignment: .top), count: columns)) {
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: spacing, alignment: .top), count: columns), spacing: spacing) {
                             ForEach(model, id: id) { element in
                                 cellView(forElement: element)
                             }
                         }
+                        .padding(.horizontal, spacing)
                         
                         if viewModel.isLoading {
                             paginationLoading()
