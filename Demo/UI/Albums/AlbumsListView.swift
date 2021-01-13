@@ -13,9 +13,7 @@ struct AlbumsListView<DataSource: AlbumsDataSource>: View {
     
     var body: some View {
         BaseLCEListView(viewModel: viewModel) { album in
-            VStack {
-                AlbumRowView(album: album)
-            }
+            AlbumRowView(album: album)
         } destination: { album in
             PhotosListView(viewModel: PhotosViewModel(dataSource: PhotosRepository(), albumID: album.id))
         }

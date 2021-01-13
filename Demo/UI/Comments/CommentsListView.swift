@@ -13,9 +13,7 @@ struct CommentsListView<DataSource: CommentsDataSource>: View {
     
     var body: some View {
         BaseLCEListView(viewModel: viewModel) { comment in
-            VStack {
-                CommentRowView(comment: comment)
-            }
+            CommentRowView(comment: comment)
         } destination: { _ in }
         .if(viewModel.postID == nil) {
             $0.navigationBarTitle("Comments")

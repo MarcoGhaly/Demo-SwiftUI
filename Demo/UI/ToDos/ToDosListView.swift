@@ -13,9 +13,7 @@ struct ToDosListView<DataSource: ToDosDataSource>: View {
     
     var body: some View {
         BaseLCEListView(viewModel: viewModel) { toDo in
-            VStack {
-                ToDoRowView(toDo: toDo)
-            }
+            ToDoRowView(toDo: toDo)
         } destination: { _ in }
         .navigationBarTitle("ToDos")
     }
