@@ -353,6 +353,22 @@
 			path = "Error View";
 			sourceTree = "<group>";
 		};
+		2F858CCA25AF245700BCEE6F /* Add User */ = {
+			isa = PBXGroup;
+			children = (
+				2F0F41D7258E098400271C93 /* AddUserView.swift */,
+			);
+			path = "Add User";
+			sourceTree = "<group>";
+		};
+		2F858CCB25AF247100BCEE6F /* Add Post */ = {
+			isa = PBXGroup;
+			children = (
+				2FC7AB0C257C0B0D00695303 /* AddPostView.swift */,
+			);
+			path = "Add Post";
+			sourceTree = "<group>";
+		};
 		2FB6B5D225645A7B00A7FBDD /* Albums */ = {
 			isa = PBXGroup;
 			children = (
@@ -558,7 +574,7 @@
 				6CD3AD3C24FAC3F600D8BF77 /* PostsViewModel.swift */,
 				6CD3AD3624FAC3C700D8BF77 /* PostsListView.swift */,
 				6CD3AD3824FAC3D100D8BF77 /* PostRowView.swift */,
-				2FC7AB0C257C0B0D00695303 /* AddPostView.swift */,
+				2F858CCB25AF247100BCEE6F /* Add Post */,
 				6CD3AD4024FAE41B00D8BF77 /* Post Details */,
 			);
 			path = Posts;
@@ -579,7 +595,7 @@
 				6CD3AD6024FB178F00D8BF77 /* UsersViewModel.swift */,
 				6CD3AD6424FB1AA100D8BF77 /* UsersListView.swift */,
 				6CD3AD6224FB192600D8BF77 /* UserRowView.swift */,
-				2F0F41D7258E098400271C93 /* AddUserView.swift */,
+				2F858CCA25AF245700BCEE6F /* Add User */,
 				6CD3AD6624FB1E6F00D8BF77 /* User Details */,
 			);
 			path = Users;
