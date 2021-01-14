@@ -24,7 +24,7 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Er
     @State private var selectedDestination: Destination?
     @State private var navigate = false
     
-    init(viewModel: ViewModel, columns: Int = 1, spacing: CGFloat = 15, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder destination: @escaping (Element) -> Destination, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
+    init(viewModel: ViewModel, columns: Int = 1, spacing: CGFloat = 15, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder destination: @escaping (Element) -> Destination, @ViewBuilder loading: @escaping (LoadingViewModel) -> Loading, @ViewBuilder error: @escaping (ErrorViewModel) -> Error, @ViewBuilder paginationLoading: @escaping () -> PaginationLoading) {
         self.viewModel = viewModel
         self.columns = columns
         self.spacing = spacing

@@ -12,6 +12,11 @@ struct DefaultLCEView<Model, ViewModel, Content>: View where ViewModel: LCEViewM
     @ObservedObject var viewModel: ViewModel
     let content: (Model) -> Content
     
+    init(viewModel: ViewModel, @ViewBuilder content: @escaping (Model) -> Content) {
+        self.viewModel = viewModel
+        self.content = content
+    }
+    
     var body: some View {
         LCEView(viewModel: viewModel) { model in
             content(model)

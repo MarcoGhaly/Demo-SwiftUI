@@ -14,6 +14,13 @@ struct LCEView<Model, ViewModel, Content, Loading, Error>: View where ViewModel:
     let loading: (LoadingViewModel) -> Loading
     let error: (ErrorViewModel) -> Error
     
+    init(viewModel: ViewModel, @ViewBuilder content: @escaping (Model) -> Content, @ViewBuilder loading: @escaping (LoadingViewModel) -> Loading, @ViewBuilder error: @escaping (ErrorViewModel) -> Error) {
+        self.viewModel = viewModel
+        self.content = content
+        self.loading = loading
+        self.error = error
+    }
+    
     var body: some View {
         ZStack {
             switch viewModel.viewState {
