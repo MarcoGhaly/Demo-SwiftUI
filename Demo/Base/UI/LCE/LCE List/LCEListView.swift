@@ -21,6 +21,9 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Er
     let error: (ErrorViewModel) -> Error
     let paginationLoading: () -> PaginationLoading
     
+    @State private var selectedDestination: Destination?
+    @State private var navigate = false
+    
     init(viewModel: ViewModel, columns: Int = 1, spacing: CGFloat = 15, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder destination: @escaping (Element) -> Destination, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
         self.viewModel = viewModel
         self.columns = columns
@@ -37,23 +40,29 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Er
     
     var body: some View {
         LCEView(viewModel: viewModel) { model in
-            GeometryReader { outerGeometry in
-                ScrollView {
-                    VStack {
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: spacing, alignment: .top), count: columns), spacing: spacing) {
-                            ForEach(model, id: id) { element in
-                                cellView(forElement: element)
+            ZStack {
+                selectedDestination.map {
+                    NavigationLink(destination: NavigationLazyView($0), isActive: $navigate) {}
+                }
+                
+                GeometryReader { outerGeometry in
+                    ScrollView {
+                        VStack {
+                            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: spacing, alignment: .top), count: columns), spacing: spacing) {
+                                ForEach(model, id: id) { element in
+                                    cellView(forElement: element)
+                                }
                             }
-                        }
-                        .padding(.horizontal, spacing)
-                        
-                        if viewModel.isLoading {
-                            paginationLoading()
-                                .frame(maxWidth: .infinity)
-                        }
-                        
-                        if !isEditMode {
-                            bottomIndicator(outerGeometry: outerGeometry)
+                            .padding(.horizontal, spacing)
+                            
+                            if viewModel.isLoading {
+                                paginationLoading()
+                                    .frame(maxWidth: .infinity)
+                            }
+                            
+                            if !isEditMode {
+                                bottomIndicator(outerGeometry: outerGeometry)
+                            }
                         }
                     }
                 }
@@ -66,20 +75,21 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Er
     }
     
     private func cellView(forElement element: Element) -> some View {
-        let destination = self.destination(element)
-        return cellContent(element)
-            .if(!(destination is EmptyView)) {
-                $0.navigationLink(destination: NavigationLazyView(destination))
-            }
-            .disabled(isEditMode)
-            .if(isEditMode) {
-                $0.simultaneousGesture(TapGesture().onEnded({ value in
+        cellContent(element)
+            .simultaneousGesture(TapGesture().onEnded { _ in
+                if isEditMode {
                     let identifier = element[keyPath: id]
                     if selectedIDs.remove(identifier) == nil {
                         selectedIDs.insert(identifier)
                     }
-                }))
-            }
+                } else {
+                    let destination = self.destination(element)
+                    if !(destination is EmptyView) {
+                        selectedDestination = destination
+                        navigate = true
+                    }
+                }
+            })
     }
     
     private func bottomIndicator(outerGeometry: GeometryProxy) -> some View {
