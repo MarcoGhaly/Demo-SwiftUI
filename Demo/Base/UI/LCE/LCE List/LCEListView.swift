@@ -40,37 +40,45 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Er
     
     var body: some View {
         LCEView(viewModel: viewModel) { model in
-            ZStack {
-                selectedDestination.map {
-                    NavigationLink(destination: NavigationLazyView($0), isActive: $navigate) {}
-                }
-                
-                GeometryReader { outerGeometry in
-                    ScrollView {
-                        VStack {
-                            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: spacing, alignment: .top), count: columns), spacing: spacing) {
-                                ForEach(model, id: id) { element in
-                                    cellView(forElement: element)
-                                }
-                            }
-                            .padding(.horizontal, spacing)
-                            
-                            if viewModel.isLoading {
-                                paginationLoading()
-                                    .frame(maxWidth: .infinity)
-                            }
-                            
-                            if !isEditMode {
-                                bottomIndicator(outerGeometry: outerGeometry)
-                            }
-                        }
-                    }
-                }
-            }
+            contentView(forModel: model)
         } loading: { loadingViewModel in
             loading(loadingViewModel)
         } error: { errorViewModel in
             error(errorViewModel)
+        }
+    }
+    
+    private func contentView(forModel model: [Element]) -> some View {
+        ZStack {
+            selectedDestination.map {
+                NavigationLink(destination: NavigationLazyView($0), isActive: $navigate) {}
+            }
+            
+            listView(forModel: model)
+        }
+    }
+    
+    private func listView(forModel model: [Element]) -> some View {
+        GeometryReader { outerGeometry in
+            ScrollView {
+                VStack {
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: spacing, alignment: .top), count: columns), spacing: spacing) {
+                        ForEach(model, id: id) { element in
+                            cellView(forElement: element)
+                        }
+                    }
+                    .padding(.horizontal, spacing)
+                    
+                    if viewModel.isLoading {
+                        paginationLoading()
+                            .frame(maxWidth: .infinity)
+                    }
+                    
+                    if !isEditMode {
+                        bottomIndicator(outerGeometry: outerGeometry)
+                    }
+                }
+            }
         }
     }
     
