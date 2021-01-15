@@ -12,7 +12,7 @@ struct CommentsListView<DataSource: CommentsDataSource>: View {
     @ObservedObject var viewModel: CommentsViewModel<DataSource>
     
     var body: some View {
-        BaseLCEListView(viewModel: viewModel) { comment in
+        BaseLCEListView(viewModel: viewModel, showEditButtons: viewModel.postID != nil) { comment in
             CommentRowView(comment: comment)
         } destination: { _ in }
         .if(viewModel.postID == nil) {

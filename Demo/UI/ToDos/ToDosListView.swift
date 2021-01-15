@@ -12,7 +12,7 @@ struct ToDosListView<DataSource: ToDosDataSource>: View {
     @ObservedObject var viewModel: ToDosViewModel<DataSource>
     
     var body: some View {
-        BaseLCEListView(viewModel: viewModel) { toDo in
+        BaseLCEListView(viewModel: viewModel, showEditButtons: viewModel.userID != nil) { toDo in
             ToDoRowView(toDo: toDo)
         } destination: { _ in }
         .navigationBarTitle("ToDos")

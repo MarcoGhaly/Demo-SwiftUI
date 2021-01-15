@@ -13,7 +13,7 @@ struct PhotosListView<DataSource: PhotosDataSource>: View {
     @ObservedObject var viewModel: PhotosViewModel<DataSource>
     
     var body: some View {
-        BaseLCEListView(viewModel: viewModel, columns: 3) { photo in
+        BaseLCEListView(viewModel: viewModel, columns: 3, showEditButtons: viewModel.albumID != nil) { photo in
             PhotoCellView(photo: photo)
         } destination: { photo in
             PhotoCellView(photo: photo)

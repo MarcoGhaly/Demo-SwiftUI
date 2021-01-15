@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 class PhotosViewModel<DataSource: PhotosDataSource>: BaseLCEListViewModel<Photo, DataSource> {
-    private var albumID: Int?
+    let albumID: Int?
     
     init(dataSource: DataSource, albumID: Int? = nil, photos: [Photo]? = nil) {
         self.albumID = albumID

@@ -12,7 +12,7 @@ struct AlbumsListView<DataSource: AlbumsDataSource>: View {
     @ObservedObject var viewModel: AlbumsViewModel<DataSource>
     
     var body: some View {
-        BaseLCEListView(viewModel: viewModel) { album in
+        BaseLCEListView(viewModel: viewModel, showEditButtons: viewModel.userID != nil) { album in
             AlbumRowView(album: album)
         } destination: { album in
             PhotosListView(viewModel: PhotosViewModel(dataSource: PhotosRepository(), albumID: album.id))
