@@ -78,7 +78,8 @@ extension DemoDataSource {
         return publisher.map { id in
             object.id = self.getNextID(withInitialValue: id.id) ?? 0
             return (try? DatabaseManager.save(object: object)) ?? object
-        }.eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
     }
     
     func remove<T>(objects: [T]) -> AnyPublisher<Void, DefaultAppError> where T: Object, T: Identified {
