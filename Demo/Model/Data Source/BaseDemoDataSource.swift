@@ -70,6 +70,9 @@ extension DemoDataSource {
         }
         
         return usersPublisher
+            // Add a delay to see the loading view
+            .delay(for: .seconds(1), scheduler: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
     
     func add<T>(object: T) -> AnyPublisher<T, DefaultAppError> where T: Object, T: Encodable, T: Identified {
@@ -79,6 +82,9 @@ extension DemoDataSource {
             object.id = self.getNextID(withInitialValue: id.id) ?? 0
             return (try? DatabaseManager.save(object: object)) ?? object
         }
+        .eraseToAnyPublisher()
+        // Add a delay to see the loading view
+        .delay(for: .seconds(1), scheduler: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
     
@@ -100,6 +106,9 @@ extension DemoDataSource {
         
         return Publishers.MergeMany(publishers)
             .reduce((), { (_, _) in () })
+            .eraseToAnyPublisher()
+            // Add a delay to see the loading view
+            .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 }
