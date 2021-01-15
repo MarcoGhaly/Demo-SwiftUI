@@ -42,9 +42,7 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
             }
         }
         .edgesIgnoringSafeArea(.bottom)
-        .if(showEditButtons) {
-            $0.navigationBarItems(leading: gridButtons, trailing: editButtons)
-        }
+        .navigationBarItems(leading: gridButtons, trailing: editButtons)
     }
     
     private func cellView(forElement element: Element) -> some View {
@@ -81,41 +79,47 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
         .transition(.move(edge: .bottom))
     }
     
+    @ViewBuilder
     private var gridButtons: some View {
-        HStack {
-            ForEach(1...3, id: \.self) { columns in
-                Button(action: {
-                    withAnimation {
-                        self.columns = columns
-                    }
-                }, label: {
-                    Image(systemName: "rectangle.grid.\(columns)x2.fill")
-                })
+        if showGridButtons {
+            HStack {
+                ForEach(1...3, id: \.self) { columns in
+                    Button(action: {
+                        withAnimation {
+                            self.columns = columns
+                        }
+                    }, label: {
+                        Image(systemName: "rectangle.grid.\(columns)x2.fill")
+                    })
+                }
             }
         }
     }
     
+    @ViewBuilder
     private var editButtons: some View {
-        HStack {
-            if viewModel.model?.isEmpty == false {
-                Button(action: {
-                    selectedIDs = []
-                    withAnimation {
-                        isEditMode.toggle()
-                    }
-                }, label: {
-                    Image(systemName: isEditMode ? "multiply.circle.fill" : "pencil.circle.fill")
-                })
-            }
-            
-            if !isEditMode {
-                Button(action: {
-                    withAnimation {
-                        presentAddView = true
-                    }
-                }, label: {
-                    Image(systemName: "note.text.badge.plus")
-                })
+        if showEditButtons {
+            HStack {
+                if viewModel.model?.isEmpty == false {
+                    Button(action: {
+                        selectedIDs = []
+                        withAnimation {
+                            isEditMode.toggle()
+                        }
+                    }, label: {
+                        Image(systemName: isEditMode ? "multiply.circle.fill" : "pencil.circle.fill")
+                    })
+                }
+                
+                if !isEditMode {
+                    Button(action: {
+                        withAnimation {
+                            presentAddView = true
+                        }
+                    }, label: {
+                        Image(systemName: "note.text.badge.plus")
+                    })
+                }
             }
         }
     }
