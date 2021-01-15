@@ -41,7 +41,6 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
                 editView
             }
         }
-        .edgesIgnoringSafeArea(.bottom)
         .navigationBarItems(leading: gridButtons, trailing: editButtons)
     }
     

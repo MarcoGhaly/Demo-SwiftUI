@@ -13,27 +13,23 @@ struct HomeView: View {
     
     // Put views in closures to allow lazy navigation
     private let buttons =
-        [("Users", {UsersListView(viewModel: UsersViewModel(dataSource: UsersRepository())).toAnyView()}),
-         ("Posts", {PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository())).toAnyView()}),
-         ("Comments", {CommentsListView(viewModel: CommentsViewModel(dataSource: CommentsRepository())).toAnyView()}),
-         ("ToDos", {ToDosListView(viewModel: ToDosViewModel(dataSource: ToDosRepository())).toAnyView()}),
-         ("Albums", {AlbumsListView(viewModel: AlbumsViewModel(dataSource: AlbumsRepository())).toAnyView()}),
-         ("Photos", {PhotosListView(viewModel: PhotosViewModel(dataSource: PhotosRepository())).toAnyView()})]
+        [("Users", "person.fill", {UsersListView(viewModel: UsersViewModel(dataSource: UsersRepository())).toAnyView()}),
+         ("Posts", "envelope.fill", {PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository())).toAnyView()}),
+         ("Comments", "message.fill", {CommentsListView(viewModel: CommentsViewModel(dataSource: CommentsRepository())).toAnyView()}),
+         ("ToDos", "checkmark.circle.fill", {ToDosListView(viewModel: ToDosViewModel(dataSource: ToDosRepository())).toAnyView()}),
+         ("Albums", "photo.fill", {AlbumsListView(viewModel: AlbumsViewModel(dataSource: AlbumsRepository())).toAnyView()})]
     
     var body: some View {
-        NavigationView {
-            GridView(elements: buttons, columns: 2, spacing: spacing) { button in
-                NavigationLink(destination: NavigationLazyView(button.1())) {
+        TabView {
+            ForEach(buttons, id: \.self.0) { button in
+                NavigationView {
+                    NavigationLazyView(button.2())
+                }
+                .tabItem {
+                    Image(systemName: button.1)
                     Text(button.0)
-                        .font(.title)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .foregroundColor(.black)
-                        .cardify()
                 }
             }
-            .navigationBarTitle("Home")
-            .navigationBarHidden(true)
-            .padding(spacing)
         }
     }
 }
