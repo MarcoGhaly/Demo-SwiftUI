@@ -20,7 +20,7 @@ struct UserDetailsView: View {
     
     var body: some View {
         VStack {
-            MapView(coordinate: user.address?.geo ?? Geo(lat: "0", lng: "0"))
+            MapView(coordinate: coordinateToCoordinate2D(coordinate: user.address?.geo))
             UserRowView(user: user)
             
             Divider()
@@ -43,6 +43,12 @@ struct UserDetailsView: View {
         .if(user.name != nil) {
             $0.navigationBarTitle(user.name!)
         }
+    }
+    
+    private func coordinateToCoordinate2D(coordinate: Geo?) -> Coordinate2D {
+        let latitude = Double(coordinate?.lat ?? "0") ?? 0
+        let longitude = Double(coordinate?.lng ?? "0") ?? 0
+        return Coordinate2D(latitude: latitude, longitude: longitude)
     }
 }
 
