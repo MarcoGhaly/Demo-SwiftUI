@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import QGrid
 import ImageViewerRemote
 
 struct PhotosListView<DataSource: PhotosDataSource>: View {
