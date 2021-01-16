@@ -19,7 +19,6 @@ struct Coordinate2D {
 }
 
 struct MapView: UIViewRepresentable {
-    
     // MARK:- Constants
     
     private static let annotationIdentifier = "ISSAnnotation"
@@ -99,7 +98,6 @@ struct MapView: UIViewRepresentable {
     // MARK:- Map View Delegate
     
     private class MapViewDelegate: NSObject, MKMapViewDelegate {
-        
         var parent: MapView?
         
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -121,7 +119,6 @@ struct MapView: UIViewRepresentable {
             return MKOverlayRenderer(overlay: overlay)
         }
     }
-    
 }
 
 struct MapView_Previews: PreviewProvider {
