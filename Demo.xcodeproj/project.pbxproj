@@ -62,6 +62,8 @@
 		2FBD98ED256E8FDD00CBFB1B /* LCEListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD98EC256E8FDD00CBFB1B /* LCEListViewModel.swift */; };
 		2FBD98F1256ED1F100CBFB1B /* LCEListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD98F0256ED1F100CBFB1B /* LCEListView.swift */; };
 		2FC26CDE2588F8B500731B67 /* LocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC26CDD2588F8B500731B67 /* LocalStore.swift */; };
+		2FC50FCF25B2371600317E39 /* ImageViewerRemote in Frameworks */ = {isa = PBXBuildFile; productRef = 2FC50FCE25B2371600317E39 /* ImageViewerRemote */; };
+		2FC50FD125B2371600317E39 /* ImageViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 2FC50FD025B2371600317E39 /* ImageViewer */; };
 		2FC7AB0D257C0B0D00695303 /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC7AB0C257C0B0D00695303 /* AddPostView.swift */; };
 		2FC7AB16257C513100695303 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC7AB15257C513100695303 /* EntryView.swift */; };
 		2FECD700255B46B100054AC1 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FECD6FF255B46B100054AC1 /* AppError.swift */; };
@@ -216,7 +218,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F0BA7AF2583B7630012CD85 /* RealmSwift in Frameworks */,
+				2FC50FD125B2371600317E39 /* ImageViewer in Frameworks */,
 				2F0BA7AD2583B7630012CD85 /* Realm in Frameworks */,
+				2FC50FCF25B2371600317E39 /* ImageViewerRemote in Frameworks */,
 				2FB6B5F525648E5E00A7FBDD /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -687,6 +691,8 @@
 				2FB6B5F425648E5E00A7FBDD /* SDWebImageSwiftUI */,
 				2F0BA7AC2583B7630012CD85 /* Realm */,
 				2F0BA7AE2583B7630012CD85 /* RealmSwift */,
+				2FC50FCE25B2371600317E39 /* ImageViewerRemote */,
+				2FC50FD025B2371600317E39 /* ImageViewer */,
 			);
 			productName = Demo;
 			productReference = 6C15569524FABA7A000980BE /* Demo.app */;
@@ -723,6 +729,7 @@
 			packageReferences = (
 				2FB6B5F325648E5E00A7FBDD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				2F0BA7AB2583B7630012CD85 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				2FC50FCD25B2371600317E39 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */,
 			);
 			productRefGroup = 6C15569624FABA7A000980BE /* Products */;
 			projectDirPath = "";
@@ -1116,6 +1123,14 @@
 				minimumVersion = 1.5.0;
 			};
 		};
+		2FC50FCD25B2371600317E39 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Jake-Short/swiftui-image-viewer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1133,6 +1148,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2FB6B5F325648E5E00A7FBDD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		2FC50FCE25B2371600317E39 /* ImageViewerRemote */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FC50FCD25B2371600317E39 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */;
+			productName = ImageViewerRemote;
+		};
+		2FC50FD025B2371600317E39 /* ImageViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FC50FCD25B2371600317E39 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */;
+			productName = ImageViewer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
