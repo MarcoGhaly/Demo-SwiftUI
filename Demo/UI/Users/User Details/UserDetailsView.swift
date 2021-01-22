@@ -12,36 +12,46 @@ struct UserDetailsView: View {
     let user: User
     
     // Put views in closures to allow lazy navigation
-    private var buttons: [(String, () -> AnyView)] {
-        [("Posts", {PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository(), userID: user.id)).toAnyView()}),
-         ("ToDos", {ToDosListView(viewModel: ToDosViewModel(dataSource: ToDosRepository(), userID: user.id)).toAnyView()}),
-         ("Albums", {AlbumsListView(viewModel: AlbumsViewModel(dataSource: AlbumsRepository(), userID: user.id)).toAnyView()})]
+    private var buttons: [(String, String, () -> AnyView)] {
+        [("Posts", "envelope.fill", {PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository(), userID: user.id)).toAnyView()}),
+         ("ToDos", "checkmark.circle.fill", {ToDosListView(viewModel: ToDosViewModel(dataSource: ToDosRepository(), userID: user.id)).toAnyView()}),
+         ("Albums", "photo.fill", {AlbumsListView(viewModel: AlbumsViewModel(dataSource: AlbumsRepository(), userID: user.id)).toAnyView()})]
     }
     
     var body: some View {
-        VStack {
-            MapView(coordinate: coordinateToCoordinate2D(coordinate: user.address?.geo))
+        let coordinate = coordinateToCoordinate2D(coordinate: user.address?.geo)
+        
+        VStack(spacing: 0) {
+            MapView(coordinate: coordinate, delta: 0.01, annotations: [coordinate])
+            
             UserRowView(user: user)
             
             Divider()
             
-            ForEach(buttons, id: \.self.0) { button in
-                VStack(spacing: 0) {
-                    NavigationLink(
-                        destination: NavigationLazyView(button.1())) {
-                        Text(button.0)
-                            .font(.title)
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 20)
-                    }
-                    Divider()
-                }
-            }
+            buttonsView
         }
-        .if(user.name != nil) {
-            $0.navigationBarTitle(user.name!)
+        .navigationBarTitle(user.name ?? "")
+    }
+    
+    private var buttonsView: some View {
+        HStack {
+            ForEach(buttons, id: \.self.0) { button in
+                NavigationLink(
+                    destination: NavigationLazyView(button.2())) {
+                    VStack(spacing: 10) {
+                        Image(systemName: button.1)
+                            .font(.largeTitle)
+                        
+                        Text(button.0)
+                            .font(.headline)
+                    }
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                }
+                
+                Divider()
+                    .frame(maxHeight: 100)
+            }
         }
     }
     
