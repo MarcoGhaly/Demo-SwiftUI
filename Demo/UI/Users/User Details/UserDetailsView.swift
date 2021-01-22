@@ -36,8 +36,7 @@ struct UserDetailsView: View {
     private var buttonsView: some View {
         HStack {
             ForEach(buttons, id: \.self.0) { button in
-                NavigationLink(
-                    destination: NavigationLazyView(button.2())) {
+                NavigationLink(destination: NavigationLazyView(button.2())) {
                     VStack(spacing: 10) {
                         Image(systemName: button.1)
                             .font(.largeTitle)
