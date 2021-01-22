@@ -13,4 +13,8 @@ class UsersViewModel<DataSource: UsersDataSource>: BaseLCEListViewModel<User, Da
     init(dataSource: DataSource, users: [User]? = nil) {
         super.init(dataSource: dataSource, models: users, limit: 5)
     }
+    
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
+        dataSource.getUsers(page: page, limit: limit)
+    }
 }
