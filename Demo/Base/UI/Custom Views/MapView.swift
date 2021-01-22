@@ -101,10 +101,12 @@ struct MapView: UIViewRepresentable {
         var parent: MapView?
         
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            guard let pinImage = parent?.pinImage else { return nil }
+            
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MapView.annotationIdentifier)
             if annotationView == nil {
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: MapView.annotationIdentifier)
-                annotationView?.image = parent?.pinImage
+                annotationView?.image = pinImage
             }
             return annotationView
         }
