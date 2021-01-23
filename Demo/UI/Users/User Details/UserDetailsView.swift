@@ -22,7 +22,7 @@ struct UserDetailsView: View {
         let coordinate = coordinateToCoordinate2D(coordinate: user.address?.geo)
         
         VStack(spacing: 0) {
-            MapView(coordinate: coordinate, delta: 0.01, annotations: [coordinate])
+            MapView(coordinate: coordinate, delta: 0.005, annotations: [coordinate])
             
             UserRowView(user: user)
             
