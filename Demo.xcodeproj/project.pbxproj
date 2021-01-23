@@ -27,6 +27,10 @@
 		2F55F98A259AA68600AACCAA /* Identified.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F55F989259AA68600AACCAA /* Identified.swift */; };
 		2F55F98E259AAB1D00AACCAA /* BaseDemoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F55F98D259AAB1D00AACCAA /* BaseDemoDataSource.swift */; };
 		2F55F99D259AB90E00AACCAA /* PostsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F55F99C259AB90E00AACCAA /* PostsRepository.swift */; };
+		2F6A520725BC985300D76582 /* Coordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6A520625BC985300D76582 /* Coordinate2D.swift */; };
+		2F6A520D25BC991500D76582 /* AnnotationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6A520C25BC991500D76582 /* AnnotationProtocol.swift */; };
+		2F6A521125BC9A5E00D76582 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6A521025BC9A5E00D76582 /* Annotation.swift */; };
+		2F6A521525BC9AE700D76582 /* DefaultAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6A521425BC9AE700D76582 /* DefaultAnnotation.swift */; };
 		2F6DB70E2557377A002817B5 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DB70D2557377A002817B5 /* NavigationLazyView.swift */; };
 		2F6DB71925574D41002817B5 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DB71825574D41002817B5 /* PostViewModel.swift */; };
 		2F6DB71D25575D51002817B5 /* DefaultLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DB71C25575D51002817B5 /* DefaultLoadingView.swift */; };
@@ -132,6 +136,10 @@
 		2F55F989259AA68600AACCAA /* Identified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identified.swift; sourceTree = "<group>"; };
 		2F55F98D259AAB1D00AACCAA /* BaseDemoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDemoDataSource.swift; sourceTree = "<group>"; };
 		2F55F99C259AB90E00AACCAA /* PostsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsRepository.swift; sourceTree = "<group>"; };
+		2F6A520625BC985300D76582 /* Coordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate2D.swift; sourceTree = "<group>"; };
+		2F6A520C25BC991500D76582 /* AnnotationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationProtocol.swift; sourceTree = "<group>"; };
+		2F6A521025BC9A5E00D76582 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		2F6A521425BC9AE700D76582 /* DefaultAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAnnotation.swift; sourceTree = "<group>"; };
 		2F6DB70D2557377A002817B5 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		2F6DB71825574D41002817B5 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		2F6DB71C25575D51002817B5 /* DefaultLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLoadingView.swift; sourceTree = "<group>"; };
@@ -312,6 +320,26 @@
 				2F834C6F25ADCDE400945050 /* PhotosRepository.swift */,
 			);
 			path = Photos;
+			sourceTree = "<group>";
+		};
+		2F6A520525BC983C00D76582 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				2F6A521825BC9D4E00D76582 /* Annotation */,
+				2F6A520625BC985300D76582 /* Coordinate2D.swift */,
+				6CD3AD6924FB1F7000D8BF77 /* MapView.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		2F6A521825BC9D4E00D76582 /* Annotation */ = {
+			isa = PBXGroup;
+			children = (
+				2F6A520C25BC991500D76582 /* AnnotationProtocol.swift */,
+				2F6A521025BC9A5E00D76582 /* Annotation.swift */,
+				2F6A521425BC9AE700D76582 /* DefaultAnnotation.swift */,
+			);
+			path = Annotation;
 			sourceTree = "<group>";
 		};
 		2F74F42925816B4E00B956E9 /* Storage */ = {
@@ -634,12 +662,12 @@
 		6CD3AD7124FB528700D8BF77 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				2F6A520525BC983C00D76582 /* Map */,
 				2F6DB70D2557377A002817B5 /* NavigationLazyView.swift */,
 				2FEECD80255C994E00654DF8 /* CardView.swift */,
 				2F884FEC25ABBBA6006E8C41 /* GridView.swift */,
 				2F350DBB2571236600DBD14C /* InfoView.swift */,
 				2FC7AB15257C513100695303 /* EntryView.swift */,
-				6CD3AD6924FB1F7000D8BF77 /* MapView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -778,10 +806,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F6A520D25BC991500D76582 /* AnnotationProtocol.swift in Sources */,
 				2F6DB71925574D41002817B5 /* PostViewModel.swift in Sources */,
 				6CD3AD3724FAC3C700D8BF77 /* PostsListView.swift in Sources */,
 				6C40E1B224FBFEDC007D0393 /* ToDosViewModel.swift in Sources */,
 				2F0D456B2556B53800C44971 /* DefaultErrorView.swift in Sources */,
+				2F6A521525BC9AE700D76582 /* DefaultAnnotation.swift in Sources */,
 				6CD3AD6A24FB1F7000D8BF77 /* MapView.swift in Sources */,
 				2F0F41D8258E098400271C93 /* AddUserView.swift in Sources */,
 				2F834C7C25ADE13C00945050 /* AlbumsRepository.swift in Sources */,
@@ -789,6 +819,7 @@
 				2FB6B5D425645AD500A7FBDD /* Album.swift in Sources */,
 				6C15569924FABA7A000980BE /* AppDelegate.swift in Sources */,
 				6CD3AD3D24FAC3F600D8BF77 /* PostsViewModel.swift in Sources */,
+				2F6A520725BC985300D76582 /* Coordinate2D.swift in Sources */,
 				6C15569B24FABA7A000980BE /* SceneDelegate.swift in Sources */,
 				6CD3AD6824FB1EF900D8BF77 /* UserDetailsView.swift in Sources */,
 				2F834C7425ADD40B00945050 /* CommentsRepository.swift in Sources */,
@@ -806,6 +837,7 @@
 				2F53C4BA259E00BD0085D735 /* BaseLCEListViewModel.swift in Sources */,
 				2F0D45642556AB0E00C44971 /* LCEView.swift in Sources */,
 				2F84C78A258A4D4D00E9C83D /* ErrorViewModel.swift in Sources */,
+				2F6A521125BC9A5E00D76582 /* Annotation.swift in Sources */,
 				2F7BF89D257D6F21009B5CB8 /* ID.swift in Sources */,
 				6CD3AD6324FB192600D8BF77 /* UserRowView.swift in Sources */,
 				6C40E1B424FC014B007D0393 /* ToDosListView.swift in Sources */,
