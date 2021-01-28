@@ -145,7 +145,7 @@ class TempModel: Object, Identified, Codable, Identifiable {
     var id: Int = 0
 }
 
-class TempDataSource: DemoDataSource {
+private class TempDataSource: DemoDataSource {
     var methodName: String = ""
     var idKey: String = ""
     var subscriptions: [AnyCancellable] = []
