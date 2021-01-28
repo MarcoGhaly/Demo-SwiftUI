@@ -22,7 +22,7 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
     
     init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder destination: @escaping (Element) -> Destination) {
         self.viewModel = viewModel
-        self._columns = State<Int>(initialValue: columns)
+        self._columns = State(initialValue: columns)
         self.showGridButtons = showGridButtons
         self.showEditButtons = showEditButtons
         self._presentAddView = presentAddView
