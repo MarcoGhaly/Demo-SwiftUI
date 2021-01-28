@@ -14,7 +14,7 @@ struct ToDosListView<DataSource: ToDosDataSource>: View {
     var body: some View {
         BaseLCEListView(viewModel: viewModel, showEditButtons: viewModel.userID != nil) { toDo in
             ToDoRowView(toDo: toDo)
-        } destination: { _ in }
+        }
         .navigationBarTitle("ToDos")
     }
 }

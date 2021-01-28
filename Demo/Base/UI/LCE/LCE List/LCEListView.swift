@@ -38,6 +38,10 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Er
         self.paginationLoading = paginationLoading
     }
     
+    init(viewModel: ViewModel, columns: Int = 1, spacing: CGFloat = 15, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder loading: @escaping (LoadingViewModel) -> Loading, @ViewBuilder error: @escaping (ErrorViewModel) -> Error, @ViewBuilder paginationLoading: @escaping () -> PaginationLoading) where Destination == EmptyView {
+        self.init(viewModel: viewModel, columns: columns, spacing: spacing, id: id, isEditMode: isEditMode, selectedIDs: selectedIDs, cellContent: cellContent, destination: { _ in EmptyView() }, loading: loading, error: error, paginationLoading: paginationLoading)
+    }
+    
     var body: some View {
         LCEView(viewModel: viewModel) { model in
             contentView(forModel: model)
@@ -118,6 +122,10 @@ extension LCEListView where Element: Identifiable, ID == Element.ID {
     init(viewModel: ViewModel, columns: Int = 1, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder destination: @escaping (Element) -> Destination, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
         self.init(viewModel: viewModel, columns: columns, id: \Element.id, isEditMode: isEditMode, selectedIDs: selectedIDs, cellContent: cellContent, destination: destination, loading: loading, error: error, paginationLoading: paginationLoading)
     }
+    
+    init(viewModel: ViewModel, columns: Int = 1, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) where Destination == EmptyView {
+        self.init(viewModel: viewModel, columns: columns, isEditMode: isEditMode, selectedIDs: selectedIDs, cellContent: cellContent, destination: { _ in EmptyView() }, loading: loading, error: error, paginationLoading: paginationLoading)
+    }
 }
 
 struct LCEListView_Previews: PreviewProvider {
@@ -127,7 +135,6 @@ struct LCEListView_Previews: PreviewProvider {
         
         return LCEListView(viewModel: viewModel, id: \.self) { element in
             Text(element)
-        } destination: { _ in
         } loading: { loadingViewModel in
             DefaultLoadingView(loadingViewModel: loadingViewModel)
         } error: { errorViewModel in

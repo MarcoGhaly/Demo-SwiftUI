@@ -31,7 +31,7 @@ struct PhotosListView<DataSource: PhotosDataSource>: View {
                 .onTapGesture {
                     imageURL = photo.url
                 }
-        } destination: { _ in }
+        }
         .overlay(imageViewer)
         .navigationBarTitle("Photos")
     }

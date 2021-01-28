@@ -30,6 +30,10 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
         self.destination = destination
     }
     
+    init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), @ViewBuilder cellContent: @escaping (Element) -> CellContent) where Destination == EmptyView {
+        self.init(viewModel: viewModel, columns: columns, showGridButtons: showGridButtons, showEditButtons: showEditButtons, presentAddView: presentAddView, cellContent: cellContent, destination: { _ in EmptyView() })
+    }
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             DefaultLCEListView(viewModel: viewModel, columns: columns, isEditMode: isEditMode, selectedIDs: $selectedIDs, cellContent: { element in
@@ -128,8 +132,6 @@ struct BaseLCEListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = BaseLCEListViewModel<TempModel, TempDataSource>(dataSource: TempDataSource())
         BaseLCEListView(viewModel: viewModel) { object in
-            Text("")
-        } destination: { object in
             Text("")
         }
     }
