@@ -52,6 +52,10 @@ extension BaseDataSource {
         urlRequest.httpMethod = request.httpMethod.rawValue
         urlRequest.timeoutInterval = request.timeoutInterval ?? timeoutInterval
         
+        request.headers?.forEach({ key, value in
+            urlRequest.setValue(value, forHTTPHeaderField: key)
+        })
+        
         urlRequest.httpBody = request.body
         
         let jsonDecoder = JSONDecoder()
