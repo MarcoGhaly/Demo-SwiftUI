@@ -36,7 +36,6 @@ extension DemoDataSource {
         var queryParameters = request.queryParameters ?? [:]
         page.map { queryParameters["_page"] = String($0) }
         limit.map { queryParameters["_limit"] = String($0) }
-        
         request.queryParameters = queryParameters
         return performRequest(request)
     }
@@ -53,7 +52,9 @@ extension DemoDataSource {
         var parameters = queryParameters ?? [:]
         self.queryParameters.map { parameters.merge($0) { (current, _) in current } }
         
-        var request = Request(url: methodName, queryParameters: parameters)
+        var request = Request(url: methodName)
+            .set(queryParameters: parameters)
+        
         var usersPublisher: AnyPublisher<[T], DefaultAppError> = performRequest(&request, page: page, limit: limit)
         
         if page == 1 {
@@ -76,7 +77,10 @@ extension DemoDataSource {
     }
     
     func add<T>(object: T) -> AnyPublisher<T, DefaultAppError> where T: Object, T: Encodable, T: Identified {
-        let request = Request(httpMethod: .POST, url: methodName, body: object)
+        let request = Request(url: methodName)
+            .set(httpMethod: .POST)
+            .set(body: object)
+        
         let publisher: AnyPublisher<ID, DefaultAppError> = performRequest(request)
         return publisher.map { id in
             object.id = self.getNextID(withInitialValue: id.id) ?? 0
@@ -90,7 +94,10 @@ extension DemoDataSource {
     
     func remove<T>(objects: [T]) -> AnyPublisher<Void, DefaultAppError> where T: Object, T: Identified {
         let publishers: [AnyPublisher<Void, DefaultAppError>] = objects.map { object in
-            let request = Request(httpMethod: .DELETE, url: methodName, pathParameters: [String(object.id)])
+            let request = Request(url: methodName)
+                .set(httpMethod: .DELETE)
+                .set(pathParameters: [String(object.id)])
+            
             let publisher: AnyPublisher<EmptyResponse, DefaultAppError> = performRequest(request)
             
             publisher.sink { _ in

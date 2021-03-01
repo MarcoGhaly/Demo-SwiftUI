@@ -33,7 +33,6 @@ extension BaseDataSource {
     private var successCode: Range<Int> { 200..<300 }
     
     func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: Request) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
-        var request = request
         if let headers = self.headers {
             request.headers?.merge(headers) { (current, _) in current }
         }
@@ -53,10 +52,10 @@ extension BaseDataSource {
         urlRequest.httpMethod = request.httpMethod.rawValue
         urlRequest.timeoutInterval = request.timeoutInterval ?? timeoutInterval
         
-        urlRequest.httpBody = request.body?.encode()
+        urlRequest.httpBody = request.body
         
         let jsonDecoder = JSONDecoder()
-        jsonDecoder.dateDecodingStrategy = .secondsSince1970
+        jsonDecoder.dateDecodingStrategy = request.datesType.decodingStrategy
         
         return URLSession.shared.dataTaskPublisher(for: urlRequest)
             .tryMap { data, urlResponse in
@@ -121,10 +120,4 @@ struct Result<Data> {
     var success: Bool
     var data: Data?
     var error: Error?
-}
-
-extension Encodable {
-    func encode() -> Data? {
-        return try? JSONEncoder().encode(self)
-    }
 }
