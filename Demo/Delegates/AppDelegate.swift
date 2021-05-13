@@ -37,8 +37,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func createEncryptionKey() -> Data {
         var key = Data(count: 64)
-        _ = key.withUnsafeMutableBytes { bytes in
-            SecRandomCopyBytes(kSecRandomDefault, 64, bytes)
+        key.withUnsafeMutableBytes { (pointer: UnsafeMutableRawBufferPointer) in
+            if let address = pointer.baseAddress {
+                let result = SecRandomCopyBytes(kSecRandomDefault, 64, address)
+                assert(result == 0, "Failed to get random bytes")
+            }
         }
         LocalStore.save(encryptionKey: key)
         return key
