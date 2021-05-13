@@ -73,6 +73,8 @@
 		2FC1B37B264D9518009B4F13 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC1B379264D9518009B4F13 /* ProgressBarView.swift */; };
 		2FC1B37C264D9518009B4F13 /* AnimatableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC1B37A264D9518009B4F13 /* AnimatableText.swift */; };
 		2FC1B382264DA05F009B4F13 /* HintsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC1B381264DA05F009B4F13 /* HintsScrollView.swift */; };
+		2FC1B38C264DABB8009B4F13 /* RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC1B38A264DABB8009B4F13 /* RoundedCorners.swift */; };
+		2FC1B38D264DABB8009B4F13 /* ContentWrappingGeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC1B38B264DABB8009B4F13 /* ContentWrappingGeometryReader.swift */; };
 		2FC26CDE2588F8B500731B67 /* LocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC26CDD2588F8B500731B67 /* LocalStore.swift */; };
 		2FC50FCF25B2371600317E39 /* ImageViewerRemote in Frameworks */ = {isa = PBXBuildFile; productRef = 2FC50FCE25B2371600317E39 /* ImageViewerRemote */; };
 		2FC50FD125B2371600317E39 /* ImageViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 2FC50FD025B2371600317E39 /* ImageViewer */; };
@@ -187,6 +189,8 @@
 		2FC1B379264D9518009B4F13 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		2FC1B37A264D9518009B4F13 /* AnimatableText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatableText.swift; sourceTree = "<group>"; };
 		2FC1B381264DA05F009B4F13 /* HintsScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HintsScrollView.swift; sourceTree = "<group>"; };
+		2FC1B38A264DABB8009B4F13 /* RoundedCorners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
+		2FC1B38B264DABB8009B4F13 /* ContentWrappingGeometryReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentWrappingGeometryReader.swift; sourceTree = "<group>"; };
 		2FC26CDD2588F8B500731B67 /* LocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStore.swift; sourceTree = "<group>"; };
 		2FC7AB0C257C0B0D00695303 /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		2FC7AB15257C513100695303 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
@@ -679,6 +683,8 @@
 			children = (
 				2F6A520525BC983C00D76582 /* Map */,
 				2F6DB70D2557377A002817B5 /* NavigationLazyView.swift */,
+				2FC1B38B264DABB8009B4F13 /* ContentWrappingGeometryReader.swift */,
+				2FC1B38A264DABB8009B4F13 /* RoundedCorners.swift */,
 				2FC1B379264D9518009B4F13 /* ProgressBarView.swift */,
 				2FC1B37A264D9518009B4F13 /* AnimatableText.swift */,
 				2FEECD80255C994E00654DF8 /* CardView.swift */,
@@ -835,6 +841,7 @@
 				2F0F41D8258E098400271C93 /* AddUserView.swift in Sources */,
 				2FC1B366264D7C1A009B4F13 /* APIError.swift in Sources */,
 				2F834C7C25ADE13C00945050 /* AlbumsRepository.swift in Sources */,
+				2FC1B38D264DABB8009B4F13 /* ContentWrappingGeometryReader.swift in Sources */,
 				2FC1B37C264D9518009B4F13 /* AnimatableText.swift in Sources */,
 				2FC26CDE2588F8B500731B67 /* LocalStore.swift in Sources */,
 				2FB6B5D425645AD500A7FBDD /* Album.swift in Sources */,
@@ -887,6 +894,7 @@
 				2FBD98F1256ED1F100CBFB1B /* LCEListView.swift in Sources */,
 				6CD3AD7424FB535B00D8BF77 /* CommentsListView.swift in Sources */,
 				6CD3AD6F24FB344600D8BF77 /* HomeView.swift in Sources */,
+				2FC1B38C264DABB8009B4F13 /* RoundedCorners.swift in Sources */,
 				6CD3AD7624FB536E00D8BF77 /* CommentsViewModel.swift in Sources */,
 				2FB6B5D725645B8D00A7FBDD /* AlbumsViewModel.swift in Sources */,
 				6CD3AD4224FAE44900D8BF77 /* PostDetailsView.swift in Sources */,
