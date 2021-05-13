@@ -89,8 +89,8 @@ class UsersViewModelTests: LCEListViewModelTests {
 }
 
 private class UsersTestRepository: TestDataSource, UsersDataSource {
-    func getUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
-        let publisher = PassthroughSubject<[User], DefaultAppError>()
+    func getUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAPIError> {
+        let publisher = PassthroughSubject<[User], DefaultAPIError>()
         DispatchQueue.main.async {
             let users = [User](repeating: User(), count: page! < 3 ? limit! : 0)
             publisher.send(users)
@@ -99,11 +99,11 @@ private class UsersTestRepository: TestDataSource, UsersDataSource {
         return publisher.eraseToAnyPublisher()
     }
     
-    func add(user: User) -> AnyPublisher<User, DefaultAppError> {
+    func add(user: User) -> AnyPublisher<User, DefaultAPIError> {
         add(object: user)
     }
     
-    func remove(users: [User]) -> AnyPublisher<Void, DefaultAppError> {
+    func remove(users: [User]) -> AnyPublisher<Void, DefaultAPIError> {
         remove(objects: users)
     }
 }

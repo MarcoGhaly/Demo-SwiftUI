@@ -17,7 +17,7 @@ class CommentsViewModel<DataSource: CommentsDataSource>: BaseLCEListViewModel<Co
         super.init(dataSource: dataSource, models: comments, limit: 10)
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Comment], DefaultAppError> {
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Comment], DefaultAPIError> {
         dataSource.getComments(postID: postID, page: page, limit: limit)
     }
 }

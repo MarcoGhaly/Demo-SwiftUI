@@ -16,7 +16,7 @@ class ToDosRepository: ToDosDataSource {
     
     var subscriptions: [AnyCancellable] = []
     
-    func getToDos(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[ToDo], DefaultAppError> {
+    func getToDos(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[ToDo], DefaultAPIError> {
         var queryParameters = [String: String]()
         userID.map { queryParameters["userId"] = String($0) }
         return getData(queryParameters: queryParameters, page: page, limit: limit)

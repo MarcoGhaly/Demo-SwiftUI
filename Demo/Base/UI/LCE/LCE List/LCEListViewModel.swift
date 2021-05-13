@@ -37,15 +37,15 @@ class LCEListViewModel<Element>: LCEViewModel<[Element]> {
         ErrorViewModel(title: "No Data Found")
     }
     
-    override func dataPublisher() -> AnyPublisher<[Element], DefaultAppError> {
+    override func dataPublisher() -> AnyPublisher<[Element], DefaultAPIError> {
         dataPublisher(page: page, limit: limit)
     }
     
-    func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Element], DefaultAppError> {
+    func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Element], DefaultAPIError> {
         fatalError("Subclass must implement this publisher")
     }
     
-    override func updateViewState(completion: Subscribers.Completion<DefaultAppError>) {
+    override func updateViewState(completion: Subscribers.Completion<DefaultAPIError>) {
         if case .finished = completion, model?.isEmpty == true {
             viewState = .error(model: emptyModelErrorViewModel())
         } else {

@@ -17,7 +17,7 @@ class ToDosViewModel<DataSource: ToDosDataSource>: BaseLCEListViewModel<ToDo, Da
         super.init(dataSource: dataSource, models: todos, limit: 20)
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[ToDo], DefaultAppError> {
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[ToDo], DefaultAPIError> {
         dataSource.getToDos(userID: userID, page: page, limit: limit)
     }
 }

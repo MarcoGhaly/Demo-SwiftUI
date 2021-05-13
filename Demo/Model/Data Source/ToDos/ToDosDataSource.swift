@@ -10,5 +10,5 @@ import Foundation
 import Combine
 
 protocol ToDosDataSource: DemoDataSource {
-    func getToDos(userID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[ToDo], DefaultAppError>
+    func getToDos(userID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[ToDo], DefaultAPIError>
 }

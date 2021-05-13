@@ -19,8 +19,8 @@ struct DatabaseManager {
         return object.freeze()
     }
     
-    static func loadObjects<T>(predicate: NSPredicate? = nil) throws -> AnyPublisher<[T], DefaultAppError> where T: Object {
-        let publisher = PassthroughSubject<[T], DefaultAppError>()
+    static func loadObjects<T>(predicate: NSPredicate? = nil) throws -> AnyPublisher<[T], DefaultAPIError> where T: Object {
+        let publisher = PassthroughSubject<[T], DefaultAPIError>()
         
         let realm = try Realm()
         var objects = realm.objects(T.self)

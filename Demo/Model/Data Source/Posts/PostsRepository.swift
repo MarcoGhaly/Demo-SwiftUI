@@ -16,7 +16,7 @@ class PostsRepository: PostsDataSource {
     
     var subscriptions: [AnyCancellable] = []
     
-    func getPosts(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Post], DefaultAppError> {
+    func getPosts(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Post], DefaultAPIError> {
         var queryParameters = [String: String]()
         userID.map { queryParameters["userId"] = String($0) }
         return getData(queryParameters: queryParameters, page: page, limit: limit)

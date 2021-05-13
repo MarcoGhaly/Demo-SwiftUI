@@ -27,12 +27,12 @@ class LCEViewModelTests: XCTestCase {
         testViewStates(error: .general(error: error))
     }
     
-    private func testViewStates(model: TestModel? = nil, error: DefaultAppError? = nil) {
+    private func testViewStates(model: TestModel? = nil, error: DefaultAPIError? = nil) {
         let viewModel = LCEViewModelTest(model: model, error: error)
         testViewStates(viewModel: viewModel, error: error)
     }
     
-    func testViewStates<T>(viewModel: LCEViewModel<T>, error: DefaultAppError? = nil) {
+    func testViewStates<T>(viewModel: LCEViewModel<T>, error: DefaultAPIError? = nil) {
         if viewModel.model != nil {
             guard case .content = viewModel.viewState else {
                 XCTAssert(false)
@@ -100,15 +100,15 @@ class LCEViewModelTests: XCTestCase {
 }
 
 private class LCEViewModelTest: LCEViewModel<TestModel> {
-    private let error: DefaultAppError?
+    private let error: DefaultAPIError?
     
-    init(model: TestModel?, error: DefaultAppError? = nil) {
+    init(model: TestModel?, error: DefaultAPIError? = nil) {
         self.error = error
         super.init(model: model)
     }
     
-    override func dataPublisher() -> AnyPublisher<TestModel, DefaultAppError> {
-        let publisher = PassthroughSubject<TestModel, DefaultAppError>()
+    override func dataPublisher() -> AnyPublisher<TestModel, DefaultAPIError> {
+        let publisher = PassthroughSubject<TestModel, DefaultAPIError>()
         DispatchQueue.main.async {
             if let error = self.error {
                 publisher.send(completion: .failure(error))

@@ -16,8 +16,8 @@ class UsersRepository: UsersDataSource {
     
     var subscriptions: [AnyCancellable] = []
     
-    func getUsers(page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[User], DefaultAppError> {
-        let publisher: AnyPublisher<[User], DefaultAppError> = getData(page: page, limit: limit)
+    func getUsers(page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[User], DefaultAPIError> {
+        let publisher: AnyPublisher<[User], DefaultAPIError> = getData(page: page, limit: limit)
         return publisher.map { users in
             let coordinates = UsersRepository.coordinates
             var counter = 0

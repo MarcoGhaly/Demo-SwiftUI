@@ -17,7 +17,7 @@ class PostsViewModel<DataSource: PostsDataSource>: BaseLCEListViewModel<Post, Da
         super.init(dataSource: dataSource, models: posts, limit: 5)
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Post], DefaultAppError> {
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Post], DefaultAPIError> {
         dataSource.getPosts(userID: userID, page: page, limit: limit)
     }
 }

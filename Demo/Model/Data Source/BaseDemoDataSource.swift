@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import RealmSwift
 
-protocol DemoDataSource: class, BaseDataSource {
+protocol DemoDataSource: class, NetworkAgent {
     var baseURL: String { get }
     var methodName: String { get }
     var queryParameters: [String: String]? { get }
@@ -18,12 +18,12 @@ protocol DemoDataSource: class, BaseDataSource {
     
     var subscriptions: [AnyCancellable] { get set }
     
-    func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: inout Request, page: Int?, limit: Int?) -> AnyPublisher<DataModel, AppError<ErrorModel>>
+    func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: inout Request, page: Int?, limit: Int?) -> AnyPublisher<DataModel, APIError<ErrorModel>>
     
     func getNextID(withInitialValue id: Int?) -> Int?
-    func getData<T>(queryParameters: [String: String]?, page: Int?, limit: Int?) -> AnyPublisher<[T], DefaultAppError> where T: Object, T: Decodable
-    func add<T>(object: T) -> AnyPublisher<T, DefaultAppError> where T: Object, T: Encodable, T: Identified
-    func remove<T>(objects: [T]) -> AnyPublisher<Void, DefaultAppError> where T: Object, T: Identified
+    func getData<T>(queryParameters: [String: String]?, page: Int?, limit: Int?) -> AnyPublisher<[T], DefaultAPIError> where T: Object, T: Decodable
+    func add<T>(object: T) -> AnyPublisher<T, DefaultAPIError> where T: Object, T: Encodable, T: Identified
+    func remove<T>(objects: [T]) -> AnyPublisher<Void, DefaultAPIError> where T: Object, T: Identified
 }
 
 extension DemoDataSource {
@@ -32,7 +32,7 @@ extension DemoDataSource {
 }
 
 extension DemoDataSource {
-    func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: inout Request, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<DataModel, AppError<ErrorModel>> {
+    func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: inout Request, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<DataModel, APIError<ErrorModel>> {
         var queryParameters = request.queryParameters ?? [:]
         page.map { queryParameters["_page"] = String($0) }
         limit.map { queryParameters["_limit"] = String($0) }
@@ -48,14 +48,14 @@ extension DemoDataSource {
         return userID
     }
     
-    func getData<T>(queryParameters: [String: String]? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[T], DefaultAppError> where T: Object, T: Decodable {
+    func getData<T>(queryParameters: [String: String]? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[T], DefaultAPIError> where T: Object, T: Decodable {
         var parameters = queryParameters ?? [:]
         self.queryParameters.map { parameters.merge($0) { (current, _) in current } }
         
         var request = Request(url: methodName)
             .set(queryParameters: parameters)
         
-        var usersPublisher: AnyPublisher<[T], DefaultAppError> = performRequest(&request, page: page, limit: limit)
+        var usersPublisher: AnyPublisher<[T], DefaultAPIError> = performRequest(&request, page: page, limit: limit)
         
         if page == 1 {
             var predicate: NSPredicate?
@@ -63,7 +63,7 @@ extension DemoDataSource {
                 predicate = NSPredicate(format: format)
             }
             
-            if let localUsersPublisher: AnyPublisher<[T], DefaultAppError> = try? DatabaseManager.loadObjects(predicate: predicate) {
+            if let localUsersPublisher: AnyPublisher<[T], DefaultAPIError> = try? DatabaseManager.loadObjects(predicate: predicate) {
                 usersPublisher = Publishers.CombineLatest(usersPublisher, localUsersPublisher).map { remoteUsers, localUsers in
                     localUsers + remoteUsers
                 }.eraseToAnyPublisher()
@@ -76,12 +76,12 @@ extension DemoDataSource {
             .eraseToAnyPublisher()
     }
     
-    func add<T>(object: T) -> AnyPublisher<T, DefaultAppError> where T: Object, T: Encodable, T: Identified {
+    func add<T>(object: T) -> AnyPublisher<T, DefaultAPIError> where T: Object, T: Encodable, T: Identified {
         let request = Request(url: methodName)
             .set(httpMethod: .POST)
             .set(body: object)
         
-        let publisher: AnyPublisher<ID, DefaultAppError> = performRequest(request)
+        let publisher: AnyPublisher<ID, DefaultAPIError> = performRequest(request)
         return publisher.map { id in
             object.id = self.getNextID(withInitialValue: id.id) ?? 0
             return (try? DatabaseManager.save(object: object)) ?? object
@@ -92,13 +92,13 @@ extension DemoDataSource {
         .eraseToAnyPublisher()
     }
     
-    func remove<T>(objects: [T]) -> AnyPublisher<Void, DefaultAppError> where T: Object, T: Identified {
-        let publishers: [AnyPublisher<Void, DefaultAppError>] = objects.map { object in
+    func remove<T>(objects: [T]) -> AnyPublisher<Void, DefaultAPIError> where T: Object, T: Identified {
+        let publishers: [AnyPublisher<Void, DefaultAPIError>] = objects.map { object in
             let request = Request(url: methodName)
                 .set(httpMethod: .DELETE)
                 .set(pathParameters: [String(object.id)])
             
-            let publisher: AnyPublisher<EmptyResponse, DefaultAppError> = performRequest(request)
+            let publisher: AnyPublisher<EmptyResponse, DefaultAPIError> = performRequest(request)
             
             publisher.sink { _ in
             } receiveValue: { _ in

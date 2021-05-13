@@ -17,7 +17,7 @@ class AlbumsViewModel<DataSource: AlbumsDataSource>: BaseLCEListViewModel<Album,
         super.init(dataSource: dataSource, models: albums, limit: 20)
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Album], DefaultAppError> {
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Album], DefaultAPIError> {
         dataSource.getAlbums(userID: userID, page: page, limit: limit)
     }
 }

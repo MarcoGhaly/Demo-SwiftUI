@@ -46,7 +46,7 @@ class LCEViewModel<Model>: ObservableObject {
     
     // MARK:- Fetch Data
     
-    func dataPublisher() -> AnyPublisher<Model, DefaultAppError> {
+    func dataPublisher() -> AnyPublisher<Model, DefaultAPIError> {
         fatalError("Subclass must implement this publisher")
     }
     
@@ -63,7 +63,7 @@ class LCEViewModel<Model>: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    func updateViewState(completion: Subscribers.Completion<DefaultAppError>) {
+    func updateViewState(completion: Subscribers.Completion<DefaultAPIError>) {
         switch completion {
         case .finished:
             viewState = .content

@@ -10,5 +10,5 @@ import Foundation
 import Combine
 
 protocol PostsDataSource: DemoDataSource {
-    func getPosts(userID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Post], DefaultAppError>
+    func getPosts(userID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Post], DefaultAPIError>
 }

@@ -14,7 +14,7 @@ class UsersViewModel<DataSource: UsersDataSource>: BaseLCEListViewModel<User, Da
         super.init(dataSource: dataSource, models: users, limit: 5)
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[User], DefaultAppError> {
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[User], DefaultAPIError> {
         dataSource.getUsers(page: page, limit: limit)
     }
 }

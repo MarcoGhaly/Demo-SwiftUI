@@ -16,7 +16,7 @@ class CommentsRepository: CommentsDataSource {
     
     var subscriptions: [AnyCancellable] = []
     
-    func getComments(postID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Comment], DefaultAppError> {
+    func getComments(postID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Comment], DefaultAPIError> {
         var queryParameters = [String: String]()
         postID.map { queryParameters["postId"] = String($0) }
         return getData(queryParameters: queryParameters, page: page, limit: limit)

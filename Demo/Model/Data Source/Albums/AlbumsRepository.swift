@@ -16,7 +16,7 @@ class AlbumsRepository: AlbumsDataSource {
     
     var subscriptions: [AnyCancellable] = []
     
-    func getAlbums(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Album], DefaultAppError> {
+    func getAlbums(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Album], DefaultAPIError> {
         var queryParameters = [String: String]()
         userID.map { queryParameters["userId"] = String($0) }
         return getData(queryParameters: queryParameters, page: page, limit: limit)

@@ -10,5 +10,5 @@ import Foundation
 import Combine
 
 protocol CommentsDataSource: DemoDataSource {
-    func getComments(postID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Comment], DefaultAppError>
+    func getComments(postID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Comment], DefaultAPIError>
 }

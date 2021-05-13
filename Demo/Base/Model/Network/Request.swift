@@ -1,9 +1,8 @@
 //
 //  Request.swift
-//  Demo
+//  Authentication
 //
-//  Created by Marco Ghaly on 27/11/2020.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
+//  Created by Marco Ghaly on 01/03/2021.
 //
 
 import Foundation
@@ -48,6 +47,7 @@ class Request {
     var queryParameters: [String: String]?
     var body: Data?
     var timeoutInterval: TimeInterval?
+    var retries: Retries?
     
     init(url: String) {
         self.url = url
@@ -83,7 +83,7 @@ class Request {
         return self
     }
     
-    func set(body: Data?) -> Request {
+    func set(body: Data) -> Request {
         self.body = body
         return self
     }
@@ -93,13 +93,28 @@ class Request {
         return self
     }
     
+    func set(body: [String: Any]) -> Request {
+        let bodyDictionary = body.mapValues { String(describing: $0) }
+        return set(body: bodyDictionary)
+    }
+    
     func set(body: [String: String]) -> Request {
-        self.body = body.map({ $0 + "=" + $1 }).joined(separator: "&").data(using: .utf8)
+        let bodyString = body.map({ $0 + "=" + $1 }).joined(separator: "&")
+        return set(body: bodyString)
+    }
+    
+    func set(body: String) -> Request {
+        self.body = body.data(using: .utf8)
         return self
     }
     
     func set(timeoutInterval: TimeInterval) -> Request {
         self.timeoutInterval = timeoutInterval
+        return self
+    }
+    
+    func set(retries: Retries) -> Request {
+        self.retries = retries
         return self
     }
 }

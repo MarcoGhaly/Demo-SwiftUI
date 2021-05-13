@@ -18,7 +18,7 @@ class BaseLCEListViewModel<Element: Object & Identified & Codable, DataSource: D
         super.init(models: models, limit: limit)
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Element], DefaultAppError> {
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Element], DefaultAPIError> {
         dataSource.getData(page: page, limit: limit)
     }
     

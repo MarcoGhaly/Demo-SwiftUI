@@ -16,7 +16,7 @@ class PhotosRepository: PhotosDataSource {
     
     var subscriptions: [AnyCancellable] = []
     
-    func getPhotos(albumID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Photo], DefaultAppError> {
+    func getPhotos(albumID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Photo], DefaultAPIError> {
         var queryParameters = [String: String]()
         albumID.map { queryParameters["albumId"] = String($0) }
         return getData(queryParameters: queryParameters, page: page, limit: limit)

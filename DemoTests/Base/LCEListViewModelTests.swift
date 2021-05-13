@@ -90,8 +90,8 @@ private class LCEListViewModelTest: LCEListViewModel<TestModel> {
         super.init(models: model, limit: limit)
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[TestModel], DefaultAppError> {
-        let publisher = PassthroughSubject<[TestModel], DefaultAppError>()
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[TestModel], DefaultAPIError> {
+        let publisher = PassthroughSubject<[TestModel], DefaultAPIError>()
         DispatchQueue.main.async {
             let count: Int
             if let pages = self.pages, let limit = limit, let lastPageLimit = self.lastPageLimit {

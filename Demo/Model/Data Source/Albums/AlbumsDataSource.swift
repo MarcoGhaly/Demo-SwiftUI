@@ -10,5 +10,5 @@ import Foundation
 import Combine
 
 protocol AlbumsDataSource: DemoDataSource {
-    func getAlbums(userID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Album], DefaultAppError>
+    func getAlbums(userID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Album], DefaultAPIError>
 }
