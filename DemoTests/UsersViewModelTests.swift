@@ -33,7 +33,7 @@ class UsersViewModelTests: LCEListViewModelTests {
     
     private func testAddUser(viewModel: UsersViewModel<UsersTestRepository>) {
         let user = User(id: 1, name: "Test Name", username: "Test Username")
-        viewModel.add(user: user)
+        viewModel.add(object: user)
         
         validateLoading(viewModel: viewModel)
         
@@ -66,7 +66,7 @@ class UsersViewModelTests: LCEListViewModelTests {
         let newCount = viewModel.model!.count - users.count
         
         let userIDs = users.map { $0.id }
-        viewModel.deleteUsers(wihtIDs: Set(userIDs))
+        viewModel.deleteObjects(withIDs: Set(userIDs))
         
         validateLoading(viewModel: viewModel)
         
