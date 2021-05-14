@@ -81,6 +81,6 @@ struct AddPostView: View {
 
 struct AddPostView_Previews: PreviewProvider {
     static var previews: some View {
-        AddPostView(isPresented: .constant(true), onConfirm: { post in })
+        AddPostView(isPresented: .constant(true), onConfirm: { _ in })
     }
 }

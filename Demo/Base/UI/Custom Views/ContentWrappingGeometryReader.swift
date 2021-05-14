@@ -32,7 +32,7 @@ struct ContentWrappingGeometryReader<Content>: View where Content: View {
 
 struct ContentWrappingGeometryReader_Previews: PreviewProvider {
     static var previews: some View {
-        ContentWrappingGeometryReader { size in
+        ContentWrappingGeometryReader { _ in
             Text("Hello World")
                 .foregroundColor(.white)
                 .background(Color.black)

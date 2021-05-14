@@ -23,7 +23,7 @@ class DateExtensionsTests: XCTestCase {
                         outputs: (startOfWeek: "2020-10-25", endOfWeek: "2020-10-31T23:59:59"))]
         
         return results.map {
-            (inputs: $0.inputs.map{date($0)}, outputs: (startOfWeek: date($0.outputs.startOfWeek), endOfWeek: date($0.outputs.endOfWeek)))
+            (inputs: $0.inputs.map { date($0) }, outputs: (startOfWeek: date($0.outputs.startOfWeek), endOfWeek: date($0.outputs.endOfWeek)))
         }
     }
     

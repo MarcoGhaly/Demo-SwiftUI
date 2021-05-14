@@ -20,7 +20,7 @@ class LCEListViewModel<Element>: LCEViewModel<[Element]> {
         super.init(model: models)
         
         if let limit = self.limit {
-            $model.compactMap{$0}.sink { [weak self] model in
+            $model.compactMap { $0 }.sink { [weak self] model in
                 let oldCount = self?.model?.count ?? 0
                 let newCount = model.count
                 if newCount - oldCount < limit {

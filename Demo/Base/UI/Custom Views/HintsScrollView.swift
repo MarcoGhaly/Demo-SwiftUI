@@ -29,7 +29,7 @@ struct HintsScrollView<Content: View, HintView: View>: View {
     }
     
     var body: some View {
-        return ZStack() {
+        return ZStack {
             GeometryReader { outerGeometry in
                 ScrollView {
                     VStack(spacing: 0) {
@@ -69,11 +69,11 @@ struct HintsScrollView<Content: View, HintView: View>: View {
             }
             
             VStack {
-                if (scrollState != .top && self.scrollStates.contains(.top)) {
+                if scrollState != .top && self.scrollStates.contains(.top) {
                     hintView
                 }
                 Spacer()
-                if (scrollState != .bottom && self.scrollStates.contains(.bottom)) {
+                if scrollState != .bottom && self.scrollStates.contains(.bottom) {
                     hintView
                 }
             }

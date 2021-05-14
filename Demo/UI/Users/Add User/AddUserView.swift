@@ -51,7 +51,7 @@ struct AddUserView: View {
 
 struct AddUserView_Previews: PreviewProvider {
     static var previews: some View {
-        AddUserView(isPresented: .constant(true), onConfirm: { user in })
+        AddUserView(isPresented: .constant(true), onConfirm: { _ in })
             .previewLayout(.sizeThatFits)
     }
 }
