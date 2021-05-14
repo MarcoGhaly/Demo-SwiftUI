@@ -3,6 +3,8 @@ disabled_rules:
 
 line_length: 500
 
+large_tuple: 3
+
 type_name:
   excluded:
     - ID
