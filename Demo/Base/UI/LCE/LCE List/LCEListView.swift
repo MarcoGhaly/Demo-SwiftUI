@@ -105,14 +105,14 @@ struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Er
     }
     
     private func bottomIndicator(outerGeometry: GeometryProxy) -> some View {
-        GeometryReader { bottomGeometry in
-            let _ = DispatchQueue.main.async {
+        GeometryReader { bottomGeometry -> Color in
+            DispatchQueue.main.async {
                 let offset = bottomGeometry.frame(in: .global).minY - outerGeometry.frame(in: .global).maxY
                 if offset <= 0 {
                     viewModel.scrolledToEnd()
                 }
             }
-            Color.clear
+            return Color.clear
         }
         .frame(height: 0)
     }
