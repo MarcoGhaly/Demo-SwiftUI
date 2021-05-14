@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct HintsScrollView<Content: View, HintView: View>: View {
-    
     enum ScrollState {
         case top
         case middle
@@ -80,7 +79,6 @@ struct HintsScrollView<Content: View, HintView: View>: View {
         }
         .edgesIgnoringSafeArea(.bottom)
     }
-    
 }
 
 struct HintsScrollView_Previews: PreviewProvider {
