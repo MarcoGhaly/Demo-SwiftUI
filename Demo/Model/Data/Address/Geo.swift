@@ -3,8 +3,8 @@ import RealmSwift
 
 @objcMembers
 class Geo: Object, Codable {
-	dynamic var lat : String?
-	dynamic var lng : String?
+	dynamic var lat: String?
+	dynamic var lng: String?
     
     override init() {}
     

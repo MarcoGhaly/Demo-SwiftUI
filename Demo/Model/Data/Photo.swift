@@ -5,9 +5,9 @@ import RealmSwift
 class Photo: Object, Codable, Identifiable, Identified {
     dynamic var albumId = 0
     dynamic var id = 0
-    dynamic var title : String?
-    dynamic var url : String?
-    dynamic var thumbnailUrl : String?
+    dynamic var title: String?
+    dynamic var url: String?
+    dynamic var thumbnailUrl: String?
     
     override init() {}
     

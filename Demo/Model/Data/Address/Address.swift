@@ -3,11 +3,11 @@ import RealmSwift
 
 @objcMembers
 class Address: Object, Codable {
-    dynamic var street : String?
-    dynamic var suite : String?
-    dynamic var city : String?
-    dynamic var zipcode : String?
-    dynamic var geo : Geo?
+    dynamic var street: String?
+    dynamic var suite: String?
+    dynamic var city: String?
+    dynamic var zipcode: String?
+    dynamic var geo: Geo?
     
     override var description: String {
         var address = street ?? ""

@@ -5,9 +5,9 @@ import RealmSwift
 class Comment: Object, Codable, Identifiable, Identified {
     dynamic var postId = 0
     dynamic var id = 0
-    dynamic var name : String?
-    dynamic var email : String?
-    dynamic var body : String?
+    dynamic var name: String?
+    dynamic var email: String?
+    dynamic var body: String?
     
     override init() {}
     

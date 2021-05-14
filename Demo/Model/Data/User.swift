@@ -4,13 +4,13 @@ import RealmSwift
 @objcMembers
 class User: Object, Codable, Identifiable, Identified {
     dynamic var id = 0
-    dynamic var name : String?
-    dynamic var username : String?
-    dynamic var email : String?
-    dynamic var address : Address?
-    dynamic var phone : String?
-    dynamic var website : String?
-    dynamic var company : Company?
+    dynamic var name: String?
+    dynamic var username: String?
+    dynamic var email: String?
+    dynamic var address: Address?
+    dynamic var phone: String?
+    dynamic var website: String?
+    dynamic var company: Company?
     
     override init() {}
     

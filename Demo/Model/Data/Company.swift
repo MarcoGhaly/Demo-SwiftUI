@@ -3,9 +3,9 @@ import RealmSwift
 
 @objcMembers
 class Company: Object, Codable {
-	dynamic var name : String?
-	dynamic var catchPhrase : String?
-	dynamic var bs : String?
+	dynamic var name: String?
+	dynamic var catchPhrase: String?
+	dynamic var bs: String?
     
     override init() {}
     

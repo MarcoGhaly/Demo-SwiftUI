@@ -16,7 +16,7 @@ class TestDataSource: DemoDataSource {
     var idKey: String = ""
     var subscriptions: [AnyCancellable] = []
     
-    func add<T>(object: T) -> AnyPublisher<T, DefaultAPIError> where T : Object, T : Identified, T : Encodable {
+    func add<T>(object: T) -> AnyPublisher<T, DefaultAPIError> where T: Object, T: Identified, T: Encodable {
         let publisher = PassthroughSubject<T, DefaultAPIError>()
         DispatchQueue.main.async {
             publisher.send(object)
@@ -25,7 +25,7 @@ class TestDataSource: DemoDataSource {
         return publisher.eraseToAnyPublisher()
     }
     
-    func remove<T>(objects: [T]) -> AnyPublisher<Void, DefaultAPIError> where T : Object, T : Identified {
+    func remove<T>(objects: [T]) -> AnyPublisher<Void, DefaultAPIError> where T: Object, T: Identified {
         let publisher = PassthroughSubject<Void, DefaultAPIError>()
         DispatchQueue.main.async {
             publisher.send()

@@ -5,7 +5,7 @@ import RealmSwift
 class Album: Object, Codable, Identifiable, Identified {
     dynamic var id = 0
     dynamic var userId = 0
-    dynamic var title : String?
+    dynamic var title: String?
     
     override init() {}
     
