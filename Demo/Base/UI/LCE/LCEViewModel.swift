@@ -55,9 +55,9 @@ class LCEViewModel<Model>: ObservableObject {
         
         dataPublisher()
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
+            .sink { [weak self] completion in
                 self?.updateViewState(completion: completion)
-            }) { [weak self] (model) in
+            } receiveValue: { [weak self] (model) in
                 self?.model = model
             }
             .store(in: &subscriptions)
