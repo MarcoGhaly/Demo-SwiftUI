@@ -13,3 +13,19 @@ identifier_name:
   excluded:
     - id
     - bs
+
+custom_rules:
+  opening_curly_braces_post_white_space:
+    included: ".*\\.swift"
+    name: "Opening Curly Braces Post White Space"
+    regex: "\\{\\s+$"
+
+  closing_curly_braces_pre_white_space:
+    included: ".*\\.swift"
+    name: "Closing Curly Braces Pre White Space"
+    regex: "\\s+$\\s*\\}"
+
+  closing_curly_braces_post_white_space:
+    included: ".*\\.swift"
+    name: "Closing Curly Braces Post White Space"
+    regex: "^(\\h){4}\\}\\h*\\n\\h*[^\\s\\}]"
