@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 class LCEViewModel<Model>: ObservableObject {
-    // MARK:- Constants
+    // MARK: - Constants
     
     enum ViewState {
         case content
@@ -18,13 +18,13 @@ class LCEViewModel<Model>: ObservableObject {
         case error(model: ErrorViewModel)
     }
     
-    // MARK:- Variables
+    // MARK: - Variables
     
     var subscriptions: [AnyCancellable] = []
     @Published var viewState = ViewState.content
     @Published var model: Model?
     
-    // MARK:- Initializers
+    // MARK: - Initializers
     
     init(model: Model? = nil) {
         if let model = model {
@@ -34,7 +34,7 @@ class LCEViewModel<Model>: ObservableObject {
         }
     }
     
-    // MARK:- Loading & Error
+    // MARK: - Loading & Error
     
     func loadingViewModel() -> LoadingViewModel {
         LoadingViewModel(style: .normal, title: "Loading...", message: "Please Wait")
@@ -44,7 +44,7 @@ class LCEViewModel<Model>: ObservableObject {
         ErrorViewModel(title: "Error!", message: error.localizedDescription, retry: (label: "Retry", action: { self.fetchData() }))
     }
     
-    // MARK:- Fetch Data
+    // MARK: - Fetch Data
     
     func dataPublisher() -> AnyPublisher<Model, DefaultAPIError> {
         fatalError("Subclass must implement this publisher")
