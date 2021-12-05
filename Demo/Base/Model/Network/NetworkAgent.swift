@@ -71,11 +71,15 @@ extension NetworkAgent {
                 }
                 
                 if self.successCodes ~= statusCode {
-                    do {
-                        return try decoder.decode(DataModel.self, from: data)
-                    } catch {
-                        let rawResponse = String(data: data, encoding: .utf8)
-                        throw APIError<ErrorModel>.decoding(rawResponse: rawResponse)
+                    if let emptyRespone = EmptyResponse() as? DataModel {
+                        return emptyRespone
+                    } else {
+                        do {
+                            return try decoder.decode(DataModel.self, from: data)
+                        } catch {
+                            let rawResponse = String(data: data, encoding: .utf8)
+                            throw APIError<ErrorModel>.decoding(rawResponse: rawResponse)
+                        }
                     }
                 }
                 
