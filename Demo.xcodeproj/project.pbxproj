@@ -1204,7 +1204,7 @@
 			repositoryURL = "https://github.com/realm/realm-cocoa";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.4.0;
+				minimumVersion = 10.20.0;
 			};
 		};
 		2FB6B5F325648E5E00A7FBDD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
