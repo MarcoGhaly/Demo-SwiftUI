@@ -33,6 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return (totalBytes > fileSizeMB) && (Double(usedBytes) / Double(totalBytes)) < usageRatio
         }
         Realm.Configuration.defaultConfiguration = configuration
+        
+        if let fileURL = configuration.fileURL?.path, let encryptionKey = configuration.encryptionKey {
+            print("Realm: File URL = \(fileURL)")
+            print("Realm: Encryption Key = \(encryptionKey.hexEncodedString())")
+        }
     }
     
     private func createEncryptionKey() -> Data {
