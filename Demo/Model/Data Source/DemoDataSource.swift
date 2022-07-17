@@ -1,5 +1,5 @@
 //
-//  BaseDemoDataSource.swift
+//  DemoDataSource.swift
 //  Demo
 //
 //  Created by Marco Ghaly on 29/12/2020.
