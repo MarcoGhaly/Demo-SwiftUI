@@ -43,9 +43,9 @@ extension DemoDataSource {
 
 extension DemoDataSource {
     func getNextID(withInitialValue id: Int?) -> Int? {
-        guard let userID: Int = UserDefaultsManager.loadValue(forKey: idKey) ?? id else { return nil }
-        UserDefaultsManager.save(value: userID + 1, forKey: idKey)
-        return userID
+        guard let objectID: Int = UserDefaultsManager.loadValue(forKey: idKey) ?? id else { return nil }
+        UserDefaultsManager.save(value: objectID + 1, forKey: idKey)
+        return objectID
     }
     
     func getData<T>(queryParameters: [String: String]? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[T], DefaultAPIError> where T: Object, T: Decodable {
@@ -55,7 +55,7 @@ extension DemoDataSource {
         var request = Request(url: methodName)
             .set(queryParameters: parameters)
         
-        var usersPublisher: AnyPublisher<[T], DefaultAPIError> = performRequest(&request, page: page, limit: limit)
+        var publisher: AnyPublisher<[T], DefaultAPIError> = performRequest(&request, page: page, limit: limit)
         
         if page == 1 {
             var predicate: NSPredicate?
@@ -63,14 +63,14 @@ extension DemoDataSource {
                 predicate = NSPredicate(format: format)
             }
             
-            if let localUsersPublisher: AnyPublisher<[T], DefaultAPIError> = try? DatabaseManager.loadObjects(predicate: predicate) {
-                usersPublisher = Publishers.CombineLatest(usersPublisher, localUsersPublisher).map { remoteUsers, localUsers in
-                    localUsers + remoteUsers
+            if let localPublisher: AnyPublisher<[T], DefaultAPIError> = try? DatabaseManager.loadObjects(predicate: predicate) {
+                publisher = Publishers.CombineLatest(publisher, localPublisher).map { remoteObjects, localObjects in
+                    localObjects + remoteObjects
                 }.eraseToAnyPublisher()
             }
         }
         
-        return usersPublisher
+        return publisher
             // Add a delay to see the loading view
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
