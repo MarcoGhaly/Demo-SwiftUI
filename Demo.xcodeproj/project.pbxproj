@@ -503,30 +503,30 @@
 		2FFA7FCF259B6B0500BBC081 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				2FFA7FD0259B6B0B00BBC081 /* Model */,
-				2FFA7FD1259B6B1000BBC081 /* UI */,
+				2FFA7FD0259B6B0B00BBC081 /* Data */,
+				2FFA7FD1259B6B1000BBC081 /* Presentation */,
 				2FF9CDF4275E6FAD00F66BCE /* Utilities */,
 			);
 			path = Base;
 			sourceTree = "<group>";
 		};
-		2FFA7FD0259B6B0B00BBC081 /* Model */ = {
+		2FFA7FD0259B6B0B00BBC081 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				2FC1B361264D7C1A009B4F13 /* Network */,
 				2FFA7FD4259B6B3800BBC081 /* Storage */,
 			);
-			path = Model;
+			path = Data;
 			sourceTree = "<group>";
 		};
-		2FFA7FD1259B6B1000BBC081 /* UI */ = {
+		2FFA7FD1259B6B1000BBC081 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
 				2F2E6E922566A5E0005BF5D2 /* Utilities */,
 				6CD3AD7124FB528700D8BF77 /* Custom Views */,
 				2F0D45622556AAC900C44971 /* LCE */,
 			);
-			path = UI;
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		2FFA7FD4259B6B3800BBC081 /* Storage */ = {
@@ -570,9 +570,9 @@
 			children = (
 				2FFA7FCF259B6B0500BBC081 /* Base */,
 				6CD3AD7224FB52E000D8BF77 /* Delegates */,
-				6CD3AD2A24FABADC00D8BF77 /* Model */,
+				6CD3AD2A24FABADC00D8BF77 /* Data */,
 				2FECD702255B46E900054AC1 /* Utilities */,
-				6CD3AD2C24FABAED00D8BF77 /* UI */,
+				6CD3AD2C24FABAED00D8BF77 /* Presentation */,
 				6C15569E24FABA7B000980BE /* Assets.xcassets */,
 				6C1556A324FABA7B000980BE /* LaunchScreen.storyboard */,
 				6C1556A624FABA7B000980BE /* Info.plist */,
@@ -608,17 +608,17 @@
 			path = ToDos;
 			sourceTree = "<group>";
 		};
-		6CD3AD2A24FABADC00D8BF77 /* Model */ = {
+		6CD3AD2A24FABADC00D8BF77 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				6CD3AD2D24FABC5200D8BF77 /* Data */,
+				6CD3AD2D24FABC5200D8BF77 /* Models */,
 				2F74F43C2581AF4400B956E9 /* Data Source */,
 				2F74F42925816B4E00B956E9 /* Storage */,
 			);
-			path = Model;
+			path = Data;
 			sourceTree = "<group>";
 		};
-		6CD3AD2C24FABAED00D8BF77 /* UI */ = {
+		6CD3AD2C24FABAED00D8BF77 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
 				6CD3AD6B24FB299500D8BF77 /* TestData.swift */,
@@ -632,10 +632,10 @@
 				2FB6B5D225645A7B00A7FBDD /* Albums */,
 				2FB6B5ED256482F700A7FBDD /* Photos */,
 			);
-			path = UI;
+			path = Presentation;
 			sourceTree = "<group>";
 		};
-		6CD3AD2D24FABC5200D8BF77 /* Data */ = {
+		6CD3AD2D24FABC5200D8BF77 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				2F55F989259AA68600AACCAA /* Identified.swift */,
@@ -649,7 +649,7 @@
 				2FB6B5E72564807900A7FBDD /* Photo.swift */,
 				6C40E1AD24FBF116007D0393 /* Address */,
 			);
-			path = Data;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		6CD3AD3524FAC39400D8BF77 /* Posts */ = {
