@@ -571,8 +571,9 @@
 				2FFA7FCF259B6B0500BBC081 /* Base */,
 				6CD3AD7224FB52E000D8BF77 /* Delegates */,
 				6CD3AD2A24FABADC00D8BF77 /* Data */,
-				2FECD702255B46E900054AC1 /* Utilities */,
+				6C9BB903288457E600395676 /* Domain */,
 				6CD3AD2C24FABAED00D8BF77 /* Presentation */,
+				2FECD702255B46E900054AC1 /* Utilities */,
 				6C15569E24FABA7B000980BE /* Assets.xcassets */,
 				6C1556A324FABA7B000980BE /* LaunchScreen.storyboard */,
 				6C1556A624FABA7B000980BE /* Info.plist */,
@@ -606,6 +607,13 @@
 				6C40E1B524FC017D007D0393 /* ToDoRowView.swift */,
 			);
 			path = ToDos;
+			sourceTree = "<group>";
+		};
+		6C9BB903288457E600395676 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		6CD3AD2A24FABADC00D8BF77 /* Data */ = {
