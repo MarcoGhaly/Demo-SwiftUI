@@ -20,7 +20,7 @@ protocol DemoDataSource: class, NetworkAgent {
     
     func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: inout Request, page: Int?, limit: Int?) -> AnyPublisher<DataModel, APIError<ErrorModel>>
     
-    func getNextID(withInitialValue id: Int?) -> Int?
+    func getNextID(withInitialValue id: Int) -> Int
     func getData<T>(queryParameters: [String: String]?, page: Int?, limit: Int?) -> AnyPublisher<[T], DefaultAPIError> where T: Object, T: Decodable
     func add<T>(object: T) -> AnyPublisher<T, DefaultAPIError> where T: Object, T: Encodable, T: Identified
     func remove<T>(objects: [T]) -> AnyPublisher<Void, DefaultAPIError> where T: Object, T: Identified
@@ -42,8 +42,8 @@ extension DemoDataSource {
 }
 
 extension DemoDataSource {
-    func getNextID(withInitialValue id: Int?) -> Int? {
-        guard let objectID: Int = UserDefaultsManager.loadValue(forKey: idKey) ?? id else { return nil }
+    func getNextID(withInitialValue id: Int) -> Int {
+        let objectID: Int = UserDefaultsManager.loadValue(forKey: idKey) ?? id
         UserDefaultsManager.save(value: objectID + 1, forKey: idKey)
         return objectID
     }
@@ -83,7 +83,8 @@ extension DemoDataSource {
         
         let publisher: AnyPublisher<ID, DefaultAPIError> = performRequest(request)
         return publisher.map { id in
-            object.id = self.getNextID(withInitialValue: id.id) ?? 0
+            let id = id.id ?? 1
+            object.id = self.getNextID(withInitialValue: id)
             return (try? DatabaseManager.save(object: object)) ?? object
         }
         .eraseToAnyPublisher()
