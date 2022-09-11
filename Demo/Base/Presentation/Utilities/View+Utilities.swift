@@ -18,6 +18,15 @@ extension View {
         }
     }
     
+    @ViewBuilder
+    func ifLet<Object: Any, Transform: View>(_ optional: Object?, transform: (Object, Self) -> Transform) -> some View {
+        if let object = optional {
+            transform(object, self)
+        } else {
+            self
+        }
+    }
+    
     func toAnyView() -> AnyView { AnyView(self) }
     
     func navigationLink<Destination: View>(destination: Destination) -> NavigationLink<Self, Destination> {
