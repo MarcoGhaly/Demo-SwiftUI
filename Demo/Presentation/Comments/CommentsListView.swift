@@ -21,11 +21,11 @@ struct CommentsListView<UseCases: CommentsUseCases>: View {
     }
 }
 
-//struct CommentsListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let viewModel = CommentsViewModel(useCases: <#T##CommentsUseCases#>, postID: testPost.id)
-//        viewModel.model = [testComment]
-//        viewModel.viewState = .content
-//        return CommentsListView(viewModel: viewModel)
-//    }
-//}
+struct CommentsListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let viewModel = CommentsViewModel(useCases: CommentsUseCases(), postID: testPost.id)
+        viewModel.model = [testComment]
+        viewModel.viewState = .content
+        return CommentsListView(viewModel: viewModel)
+    }
+}

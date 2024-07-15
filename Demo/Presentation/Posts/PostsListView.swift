@@ -39,11 +39,11 @@ struct PostsListView<UseCases: PostsUseCases>: View {
     }
 }
 
-//struct PostsListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let viewModel = PostsViewModel(useCases: <#T##PostsUseCases#>)
-//        viewModel.model = [testPost]
-//        viewModel.viewState = .content
-//        return PostsListView(viewModel: viewModel)
-//    }
-//}
+struct PostsListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let viewModel = PostsViewModel(useCases: PostsUseCases())
+        viewModel.model = [testPost]
+        viewModel.viewState = .content
+        return PostsListView(viewModel: viewModel)
+    }
+}

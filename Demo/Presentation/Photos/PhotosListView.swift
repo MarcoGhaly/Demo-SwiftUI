@@ -43,11 +43,11 @@ struct PhotosListView<UseCases: PhotosUseCases>: View {
     }
 }
 
-//struct PhotosListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let viewModel = PhotosViewModel(useCases: <#T##PhotosUseCases#>)
-//        viewModel.model = [testPhoto]
-//        viewModel.viewState = .content
-//        return PhotosListView(viewModel: viewModel)
-//    }
-//}
+struct PhotosListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let viewModel = PhotosViewModel(useCases: PhotosUseCases())
+        viewModel.model = [testPhoto]
+        viewModel.viewState = .content
+        return PhotosListView(viewModel: viewModel)
+    }
+}

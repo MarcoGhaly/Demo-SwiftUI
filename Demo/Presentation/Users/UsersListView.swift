@@ -29,11 +29,11 @@ struct UsersListView<UseCases: UsersUseCases>: View {
     }
 }
 
-//struct UsersListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let viewModel = UsersViewModel(useCases: <#T##UsersUseCases#>)
-//        viewModel.model = [testUser]
-//        viewModel.viewState = .content
-//        return UsersListView(viewModel: viewModel)
-//    }
-//}
+struct UsersListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let viewModel = UsersViewModel(useCases: UsersUseCases())
+        viewModel.model = [testUser]
+        viewModel.viewState = .content
+        return UsersListView(viewModel: viewModel)
+    }
+}

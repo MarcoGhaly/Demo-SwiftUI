@@ -19,11 +19,11 @@ struct ToDosListView<UseCases: ToDosUseCases>: View {
     }
 }
 
-//struct ToDosListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let viewModel = ToDosViewModel(useCases: <#T##ToDosUseCases#>)
-//        viewModel.model = [testToDo]
-//        viewModel.viewState = .content
-//        return ToDosListView(viewModel: viewModel)
-//    }
-//}
+struct ToDosListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let viewModel = ToDosViewModel(useCases: ToDosUseCases())
+        viewModel.model = [testToDo]
+        viewModel.viewState = .content
+        return ToDosListView(viewModel: viewModel)
+    }
+}

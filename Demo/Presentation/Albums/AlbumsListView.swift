@@ -21,11 +21,11 @@ struct AlbumsListView<UseCases: AlbumsUseCases>: View {
     }
 }
 
-//struct AlbumsListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let viewModel = AlbumsViewModel(useCases: <#T##AlbumsUseCases#>)
-//        viewModel.model = [testAlbum]
-//        viewModel.viewState = .content
-//        return AlbumsListView(viewModel: viewModel)
-//    }
-//}
+struct AlbumsListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let viewModel = AlbumsViewModel(useCases: AlbumsUseCases())
+        viewModel.model = [testAlbum]
+        viewModel.viewState = .content
+        return AlbumsListView(viewModel: viewModel)
+    }
+}
