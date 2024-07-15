@@ -28,13 +28,13 @@ struct UserDetailsView: View {
     
     private var buttonsView: some View {
         HStack {
-            ForEach(buttons, id: \.self.0) { button in
-                NavigationLink(destination: NavigationLazyView(button.2())) {
+            ForEach(buttonModels, id: \.self.title) { buttonModel in
+                NavigationLink(destination: NavigationLazyView(buttonModel.destinationView())) {
                     VStack(spacing: 10) {
-                        Image(systemName: button.1)
+                        Image(systemName: buttonModel.iconName)
                             .font(.largeTitle)
                         
-                        Text(button.0)
+                        Text(buttonModel.title)
                             .font(.headline)
                     }
                     .foregroundColor(.black)
@@ -50,20 +50,17 @@ struct UserDetailsView: View {
 
 private extension UserDetailsView {
     // Put views in closures to allow lazy navigation
-    var buttons: [(String, String, () -> AnyView)] {
+    var buttonModels: [ButtonModel] {
         [
-            (
-                "Posts", "envelope.fill",
-                { PostsListView(viewModel: PostsViewModel(userID: user.id)).toAnyView() }
-            ),
-            (
-                "ToDos", "checkmark.circle.fill",
-                { ToDosListView(viewModel: ToDosViewModel(userID: user.id)).toAnyView() }
-            ),
-            (
-                "Albums", "photo.fill",
-                { AlbumsListView(viewModel: AlbumsViewModel(userID: user.id)).toAnyView() }
-            )
+            .init(title: "Posts", iconName: "envelope.fill") {
+                PostsListView(viewModel: PostsViewModel(userID: user.id)).toAnyView()
+            },
+            .init(title: "ToDos", iconName: "checkmark.circle.fill") {
+                ToDosListView(viewModel: ToDosViewModel(userID: user.id)).toAnyView()
+            },
+            .init(title: "Albums", iconName: "photo.fill") {
+                AlbumsListView(viewModel: AlbumsViewModel(userID: user.id)).toAnyView()
+            }
         ]
     }
     

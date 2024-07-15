@@ -13,13 +13,13 @@ struct HomeView: View {
 
     var body: some View {
         TabView {
-            ForEach(buttons, id: \.self.0) { button in
+            ForEach(buttonModels, id: \.self.title) { buttonModel in
                 NavigationView {
-                    NavigationLazyView(button.2())
+                    NavigationLazyView(buttonModel.destinationView())
                 }
                 .tabItem {
-                    Image(systemName: button.1)
-                    Text(button.0)
+                    Image(systemName: buttonModel.iconName)
+                    Text(buttonModel.title)
                 }
             }
         }
@@ -28,27 +28,23 @@ struct HomeView: View {
 
 private extension HomeView {
     // Put views in closures to allow lazy navigation
-    var buttons: [(String, String, () -> AnyView)] {
+    var buttonModels: [ButtonModel] {
         [
-            (
-                "Users", "person.fill",
-                { UsersListView(viewModel: UsersViewModel()).toAnyView() }
-            ),
-            (
-                "Posts", "envelope.fill",
-                { PostsListView(viewModel: PostsViewModel()).toAnyView() }
-            ),
-            (
-                "Comments", "message.fill",
-                { CommentsListView(viewModel: CommentsViewModel()).toAnyView() }),
-            (
-                "ToDos", "checkmark.circle.fill",
-                { ToDosListView(viewModel: ToDosViewModel()).toAnyView() }
-            ),
-            (
-                "Albums", "photo.fill",
-                { AlbumsListView(viewModel: AlbumsViewModel()).toAnyView() }
-            )
+            .init(title: "Users", iconName: "person.fill") {
+                UsersListView(viewModel: UsersViewModel()).toAnyView()
+            },
+            .init(title: "Posts", iconName: "envelope.fill") {
+                PostsListView(viewModel: PostsViewModel()).toAnyView()
+            },
+            .init(title: "Comments", iconName: "message.fill") {
+                CommentsListView(viewModel: CommentsViewModel()).toAnyView()
+            },
+            .init(title: "ToDos", iconName: "checkmark.circle.fill") {
+                ToDosListView(viewModel: ToDosViewModel()).toAnyView()
+            },
+            .init(title: "Albums", iconName: "photo.fill") {
+                AlbumsListView(viewModel: AlbumsViewModel()).toAnyView()
+            }
         ]
     }
 }
