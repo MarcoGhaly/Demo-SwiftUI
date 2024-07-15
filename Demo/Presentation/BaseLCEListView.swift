@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>: View where Element: Identifiable, Element.ID == Int, DataSource: DemoDataSource, ViewModel: BaseLCEListViewModel<Element, DataSource>, CellContent: View, Destination: View {
+struct BaseLCEListView<Element, UseCases, ViewModel, CellContent, Destination>: View where Element: Identifiable, Element.ID == Int, UseCases: DemoUseCases, ViewModel: BaseLCEListViewModel<Element, UseCases>, CellContent: View, Destination: View {
     @ObservedObject var viewModel: ViewModel
     @State var columns: Int
     var showGridButtons: Bool
@@ -66,7 +66,7 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
     private var editView: some View {
         HStack {
             Button {
-                viewModel.deleteObjects(withIDs: selectedIDs)
+                viewModel.actionPublisher.send(.delete(IDs: selectedIDs))
                 isEditMode = false
             } label: {
                 VStack {
@@ -128,25 +128,11 @@ struct BaseLCEListView<Element, DataSource, ViewModel, CellContent, Destination>
     }
 }
 
-struct BaseLCEListView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = BaseLCEListViewModel<TempModel, TempDataSource>(dataSource: TempDataSource())
-        BaseLCEListView(viewModel: viewModel) { object in
-            Text("")
-        }
-    }
-}
-
-import Combine
-import RealmSwift
-
-@objcMembers
-class TempModel: Object, Identified, Codable, Identifiable {
-    var id: Int = 0
-}
-
-private class TempDataSource: DemoDataSource {
-    var methodName: String = ""
-    var idKey: String = ""
-    var subscriptions: [AnyCancellable] = []
-}
+//struct BaseLCEListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let viewModel = BaseLCEListViewModel<>(dataSource: )
+//        BaseLCEListView(viewModel: viewModel) { object in
+//            Text("")
+//        }
+//    }
+//}

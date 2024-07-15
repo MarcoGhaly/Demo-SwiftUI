@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct UsersListView<DataSource: UsersDataSource>: View {
-    @ObservedObject var viewModel: UsersViewModel<DataSource>
+struct UsersListView<UseCases: UsersUseCases>: View {
+    @ObservedObject var viewModel: UsersViewModel<UseCases>
     
     @State private var presentAddUserView = false
     
@@ -22,18 +22,18 @@ struct UsersListView<DataSource: UsersDataSource>: View {
         .navigationBarTitle("Users")
         .sheet(isPresented: $presentAddUserView, content: {
             AddUserView(isPresented: $presentAddUserView) { user in
-                viewModel.add(object: user)
+                viewModel.add(user: user)
                 presentAddUserView = false
             }
         })
     }
 }
 
-struct UsersListView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = UsersViewModel(dataSource: UsersRepository())
-        viewModel.model = [testUser]
-        viewModel.viewState = .content
-        return UsersListView(viewModel: viewModel)
-    }
-}
+//struct UsersListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let viewModel = UsersViewModel(useCases: <#T##UsersUseCases#>)
+//        viewModel.model = [testUser]
+//        viewModel.viewState = .content
+//        return UsersListView(viewModel: viewModel)
+//    }
+//}

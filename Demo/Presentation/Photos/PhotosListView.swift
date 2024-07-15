@@ -9,8 +9,8 @@
 import SwiftUI
 import ImageViewerRemote
 
-struct PhotosListView<DataSource: PhotosDataSource>: View {
-    @ObservedObject var viewModel: PhotosViewModel<DataSource>
+struct PhotosListView<UseCases: PhotosUseCases>: View {
+    @ObservedObject var viewModel: PhotosViewModel<UseCases>
     
     @State private var imageURL: String?
     
@@ -43,11 +43,11 @@ struct PhotosListView<DataSource: PhotosDataSource>: View {
     }
 }
 
-struct PhotosListView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = PhotosViewModel(dataSource: PhotosRepository())
-        viewModel.model = [testPhoto]
-        viewModel.viewState = .content
-        return PhotosListView(viewModel: viewModel)
-    }
-}
+//struct PhotosListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let viewModel = PhotosViewModel(useCases: <#T##PhotosUseCases#>)
+//        viewModel.model = [testPhoto]
+//        viewModel.viewState = .content
+//        return PhotosListView(viewModel: viewModel)
+//    }
+//}

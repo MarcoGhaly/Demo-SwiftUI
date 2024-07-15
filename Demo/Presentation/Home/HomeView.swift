@@ -10,15 +10,7 @@ import SwiftUI
 
 struct HomeView: View {
     private let spacing: CGFloat = 20
-    
-    // Put views in closures to allow lazy navigation
-    private let buttons =
-        [("Users", "person.fill", {UsersListView(viewModel: UsersViewModel(dataSource: UsersRepository())).toAnyView()}),
-         ("Posts", "envelope.fill", {PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository())).toAnyView()}),
-         ("Comments", "message.fill", {CommentsListView(viewModel: CommentsViewModel(dataSource: CommentsRepository())).toAnyView()}),
-         ("ToDos", "checkmark.circle.fill", {ToDosListView(viewModel: ToDosViewModel(dataSource: ToDosRepository())).toAnyView()}),
-         ("Albums", "photo.fill", {AlbumsListView(viewModel: AlbumsViewModel(dataSource: AlbumsRepository())).toAnyView()})]
-    
+
     var body: some View {
         TabView {
             ForEach(buttons, id: \.self.0) { button in
@@ -31,6 +23,33 @@ struct HomeView: View {
                 }
             }
         }
+    }
+}
+
+private extension HomeView {
+    // Put views in closures to allow lazy navigation
+    var buttons: [(String, String, () -> AnyView)] {
+        [
+            (
+                "Users", "person.fill",
+                { UsersListView(viewModel: UsersViewModel()).toAnyView() }
+            ),
+            (
+                "Posts", "envelope.fill",
+                { PostsListView(viewModel: PostsViewModel()).toAnyView() }
+            ),
+            (
+                "Comments", "message.fill",
+                { CommentsListView(viewModel: CommentsViewModel()).toAnyView() }),
+            (
+                "ToDos", "checkmark.circle.fill",
+                { ToDosListView(viewModel: ToDosViewModel()).toAnyView() }
+            ),
+            (
+                "Albums", "photo.fill",
+                { AlbumsListView(viewModel: AlbumsViewModel()).toAnyView() }
+            )
+        ]
     }
 }
 

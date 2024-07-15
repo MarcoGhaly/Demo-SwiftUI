@@ -10,41 +10,21 @@ import Foundation
 import Combine
 import RealmSwift
 
-class BaseLCEListViewModel<Element: Object & Identified & Codable, DataSource: DemoDataSource>: LCEListViewModel<Element> {
-    let dataSource: DataSource
+class BaseLCEListViewModel<Element: Object & Identified & Codable, UseCases: DemoUseCases>: LCEListViewModel<Element> {
+    let useCases: UseCases
     
-    init(dataSource: DataSource, models: [Element]? = nil, limit: Int? = nil) {
-        self.dataSource = dataSource
+    let actionPublisher = PassthroughSubject<Action, Never>()
+    
+    init(useCases: UseCases, models: [Element]? = nil, limit: Int? = nil) {
+        self.useCases = useCases
         super.init(models: models, limit: limit)
     }
-    
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Element], DefaultAPIError> {
-        dataSource.getData(page: page, limit: limit)
-    }
-    
-    func add(object: Element) {
-        viewState = .loading(model: LoadingViewModel(style: .dialog))
-        
-        dataSource.add(object: object).sink { [weak self] completion in
-            self?.updateViewState(completion: completion)
-        } receiveValue: { [weak self] object in
-            self?.model?.insert(object, at: 0)
-        }
-        .store(in: &subscriptions)
-    }
-    
-    func deleteObjects(withIDs ids: Set<Int>) {
-        viewState = .loading(model: LoadingViewModel(style: .dialog))
-        
-        let objects = ids.compactMap { objectID in
-            model?.first { $0.id == objectID }
-        }
-        
-        dataSource.remove(objects: objects).sink { [weak self] completion in
-            self?.updateViewState(completion: completion)
-        } receiveValue: { [weak self] _ in
-            self?.model?.removeAll { ids.contains($0.id) }
-        }
-        .store(in: &subscriptions)
+}
+
+// MARK: - Action
+extension BaseLCEListViewModel {
+    enum Action {
+        case add
+        case delete(IDs: Set<Int>)
     }
 }

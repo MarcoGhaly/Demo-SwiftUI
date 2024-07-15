@@ -1,5 +1,5 @@
 //
-//  NetworkAgent.swift
+//  NetworkAgentProtocol.swift
 //  Authentication
 //
 //  Created by Marco Ghaly on 01/03/2021.
@@ -10,7 +10,7 @@ import Combine
 
 struct EmptyResponse: Decodable {}
 
-protocol NetworkAgent {
+protocol NetworkAgentProtocol {
     var baseURL: String { get }
     var timeoutInterval: TimeInterval { get }
     var headers: [String: String]? { get }
@@ -20,14 +20,14 @@ protocol NetworkAgent {
     func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: Request) -> AnyPublisher<DataModel, APIError<ErrorModel>>
 }
 
-extension NetworkAgent {
+extension NetworkAgentProtocol {
     var timeoutInterval: TimeInterval { 30 }
     var headers: [String: String]? { return nil }
     var pathParameters: [String]? { return nil }
     var queryParameters: [String: String]? { return nil }
 }
 
-extension NetworkAgent {
+extension NetworkAgentProtocol {
     private var successCodes: Range<Int> { 200..<300 }
     
     func performRequest<DataModel, ErrorModel>(_ request: Request) -> AnyPublisher<DataModel, APIError<ErrorModel>> where DataModel: Decodable {

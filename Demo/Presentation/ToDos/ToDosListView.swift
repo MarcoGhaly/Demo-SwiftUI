@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct ToDosListView<DataSource: ToDosDataSource>: View {
-    @ObservedObject var viewModel: ToDosViewModel<DataSource>
+struct ToDosListView<UseCases: ToDosUseCases>: View {
+    @ObservedObject var viewModel: ToDosViewModel<UseCases>
     
     var body: some View {
         BaseLCEListView(viewModel: viewModel, showEditButtons: viewModel.userID != nil) { toDo in
@@ -19,11 +19,11 @@ struct ToDosListView<DataSource: ToDosDataSource>: View {
     }
 }
 
-struct ToDosListView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = ToDosViewModel(dataSource: ToDosRepository())
-        viewModel.model = [testToDo]
-        viewModel.viewState = .content
-        return ToDosListView(viewModel: viewModel)
-    }
-}
+//struct ToDosListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let viewModel = ToDosViewModel(useCases: <#T##ToDosUseCases#>)
+//        viewModel.model = [testToDo]
+//        viewModel.viewState = .content
+//        return ToDosListView(viewModel: viewModel)
+//    }
+//}

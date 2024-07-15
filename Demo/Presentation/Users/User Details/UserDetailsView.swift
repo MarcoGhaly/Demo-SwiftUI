@@ -10,14 +10,7 @@ import SwiftUI
 
 struct UserDetailsView: View {
     let user: User
-    
-    // Put views in closures to allow lazy navigation
-    private var buttons: [(String, String, () -> AnyView)] {
-        [("Posts", "envelope.fill", {PostsListView(viewModel: PostsViewModel(dataSource: PostsRepository(), userID: user.id)).toAnyView()}),
-         ("ToDos", "checkmark.circle.fill", {ToDosListView(viewModel: ToDosViewModel(dataSource: ToDosRepository(), userID: user.id)).toAnyView()}),
-         ("Albums", "photo.fill", {AlbumsListView(viewModel: AlbumsViewModel(dataSource: AlbumsRepository(), userID: user.id)).toAnyView()})]
-    }
-    
+
     var body: some View {
         let coordinate = coordinateToCoordinate2D(coordinate: user.address?.geo)
         
@@ -53,8 +46,28 @@ struct UserDetailsView: View {
             }
         }
     }
+}
+
+private extension UserDetailsView {
+    // Put views in closures to allow lazy navigation
+    var buttons: [(String, String, () -> AnyView)] {
+        [
+            (
+                "Posts", "envelope.fill",
+                { PostsListView(viewModel: PostsViewModel(userID: user.id)).toAnyView() }
+            ),
+            (
+                "ToDos", "checkmark.circle.fill",
+                { ToDosListView(viewModel: ToDosViewModel(userID: user.id)).toAnyView() }
+            ),
+            (
+                "Albums", "photo.fill",
+                { AlbumsListView(viewModel: AlbumsViewModel(userID: user.id)).toAnyView() }
+            )
+        ]
+    }
     
-    private func coordinateToCoordinate2D(coordinate: Geo?) -> Coordinate2D {
+    func coordinateToCoordinate2D(coordinate: Geo?) -> Coordinate2D {
         let latitude = Double(coordinate?.lat ?? "0") ?? 0
         let longitude = Double(coordinate?.lng ?? "0") ?? 0
         return Coordinate2D(latitude: latitude, longitude: longitude)

@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct PostsListView<DataSource: PostsDataSource>: View {
-    @ObservedObject var viewModel: PostsViewModel<DataSource>
+struct PostsListView<UseCases: PostsUseCases>: View {
+    @ObservedObject var viewModel: PostsViewModel<UseCases>
     
     @State private var presentAddPostView = false
     
@@ -28,7 +28,7 @@ struct PostsListView<DataSource: PostsDataSource>: View {
             userID.map { userID in
                 AddPostView(isPresented: $presentAddPostView, onConfirm: { post in
                     post.userId = userID
-                    viewModel.add(object: post)
+                    viewModel.add(post: post)
                     withAnimation {
                         presentAddPostView = false
                     }
@@ -39,11 +39,11 @@ struct PostsListView<DataSource: PostsDataSource>: View {
     }
 }
 
-struct PostsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = PostsViewModel(dataSource: PostsRepository())
-        viewModel.model = [testPost]
-        viewModel.viewState = .content
-        return PostsListView(viewModel: viewModel)
-    }
-}
+//struct PostsListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let viewModel = PostsViewModel(useCases: <#T##PostsUseCases#>)
+//        viewModel.model = [testPost]
+//        viewModel.viewState = .content
+//        return PostsListView(viewModel: viewModel)
+//    }
+//}

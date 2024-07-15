@@ -10,5 +10,6 @@ import Foundation
 import Combine
 
 protocol UsersDataSource: DemoDataSource {
-    func getUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAPIError>
+    func getRemoteUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAPIError>
+    func getLocalUsers() -> AnyPublisher<[User], DefaultAPIError>
 }

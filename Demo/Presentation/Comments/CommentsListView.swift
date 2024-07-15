@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct CommentsListView<DataSource: CommentsDataSource>: View {
-    @ObservedObject var viewModel: CommentsViewModel<DataSource>
+struct CommentsListView<UseCases: CommentsUseCases>: View {
+    @ObservedObject var viewModel: CommentsViewModel<UseCases>
     
     var body: some View {
         BaseLCEListView(viewModel: viewModel, showEditButtons: viewModel.postID != nil) { comment in
@@ -21,11 +21,11 @@ struct CommentsListView<DataSource: CommentsDataSource>: View {
     }
 }
 
-struct CommentsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = CommentsViewModel(dataSource: CommentsRepository(), postID: testPost.id)
-        viewModel.model = [testComment]
-        viewModel.viewState = .content
-        return CommentsListView(viewModel: viewModel)
-    }
-}
+//struct CommentsListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let viewModel = CommentsViewModel(useCases: <#T##CommentsUseCases#>, postID: testPost.id)
+//        viewModel.model = [testComment]
+//        viewModel.viewState = .content
+//        return CommentsListView(viewModel: viewModel)
+//    }
+//}
