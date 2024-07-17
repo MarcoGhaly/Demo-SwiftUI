@@ -1,11 +1,3 @@
-//
-//  KeyboardGuardian.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 27/09/2021.
-//  Copyright © 2021 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 import Combine
 

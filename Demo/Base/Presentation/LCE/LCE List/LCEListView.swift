@@ -1,11 +1,3 @@
-//
-//  LCEListView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 25/11/2020.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Error, PaginationLoading>: View where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View, Destination: View, Loading: LoadingView, Error: ErrorView, PaginationLoading: View {

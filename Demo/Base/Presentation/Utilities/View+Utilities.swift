@@ -1,11 +1,3 @@
-//
-//  View+Utilities.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 18/12/2020.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 extension View {

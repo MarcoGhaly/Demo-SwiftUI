@@ -1,11 +1,3 @@
-//
-//  UsersUseCase.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 17.07.22.
-//  Copyright © 2022 Marco Ghaly. All rights reserved.
-//
-
 import Foundation
 import Combine
 

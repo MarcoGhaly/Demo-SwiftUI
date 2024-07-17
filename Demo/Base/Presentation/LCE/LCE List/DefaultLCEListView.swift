@@ -1,11 +1,3 @@
-//
-//  DefaultLCEListView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 17/12/2020.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct DefaultLCEListView<Element, ViewModel, ID, CellContent, Destination>: View where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View, Destination: View {

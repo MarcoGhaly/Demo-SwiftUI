@@ -1,11 +1,3 @@
-//
-//  LCEViewModelTests.swift
-//  DemoTests
-//
-//  Created by Marco Ghaly on 27/12/2020.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import XCTest
 import Combine
 @testable import Demo

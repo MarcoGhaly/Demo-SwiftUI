@@ -1,11 +1,3 @@
-//
-//  ProgressBarView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 10/20/20.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct ProgressBarView: View {

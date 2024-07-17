@@ -1,10 +1,3 @@
-//
-//  ContentWrappingTextEditor.swift
-//  Authentication
-//
-//  Created by Marco Ghaly on 07/03/2021.
-//
-
 import SwiftUI
 
 struct ContentWrappingTextEditor: View {

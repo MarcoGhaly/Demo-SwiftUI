@@ -1,11 +1,3 @@
-//
-//  HintsScrollView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 11/4/20.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct HintsScrollView<Content: View, HintView: View>: View {

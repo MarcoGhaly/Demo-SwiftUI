@@ -1,11 +1,3 @@
-//
-//  DefaultLCEView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 16/12/2020.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct DefaultLCEView<Model, ViewModel, Content>: View where ViewModel: LCEViewModel<Model>, Content: View {

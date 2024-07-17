@@ -1,11 +1,3 @@
-//
-//  LoadingView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 11/8/20.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct DefaultLoadingView: LoadingView {

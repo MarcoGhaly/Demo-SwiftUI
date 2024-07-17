@@ -1,11 +1,3 @@
-//
-//  InfoView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 27/11/2020.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct InfoView: View {

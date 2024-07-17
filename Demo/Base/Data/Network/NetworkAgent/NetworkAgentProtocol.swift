@@ -1,10 +1,3 @@
-//
-//  NetworkAgentProtocol.swift
-//  Authentication
-//
-//  Created by Marco Ghaly on 01/03/2021.
-//
-
 import Foundation
 import Combine
 

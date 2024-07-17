@@ -1,11 +1,3 @@
-//
-//  ContentWrappingGeometryReader.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 01/12/2020.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 private struct SizeKey: PreferenceKey {

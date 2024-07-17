@@ -1,11 +1,3 @@
-//
-//  CardView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 11/12/20.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct CardView: ViewModifier {

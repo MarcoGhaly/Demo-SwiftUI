@@ -1,10 +1,3 @@
-//
-//  Retries.swift
-//  Authentication
-//
-//  Created by Marco Ghaly on 05/05/2021.
-//
-
 import Foundation
 
 struct Retries {

@@ -1,11 +1,3 @@
-//
-//  AddPostView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 05/12/2020.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct AddPostView: View {

@@ -1,10 +1,3 @@
-//
-//  APIError.swift
-//  Authentication
-//
-//  Created by Marco Ghaly on 16/03/2021.
-//
-
 import Foundation
 
 typealias DefaultAPIError = APIError<String>

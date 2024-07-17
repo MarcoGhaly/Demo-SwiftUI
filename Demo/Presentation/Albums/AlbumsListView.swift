@@ -1,11 +1,3 @@
-//
-//  AlbumsListView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 11/17/20.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct AlbumsListView<UseCases: AlbumsUseCases>: View {

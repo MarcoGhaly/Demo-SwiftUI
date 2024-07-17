@@ -1,11 +1,3 @@
-//
-//  GridView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 11/01/2021.
-//  Copyright © 2021 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct GridView<Element, Content>: View where Content: View {

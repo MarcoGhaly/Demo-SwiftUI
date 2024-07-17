@@ -1,11 +1,3 @@
-//
-//  NavigationLazyView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 11/7/20.
-//  Copyright © 2020 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct NavigationLazyView<Content: View>: View {

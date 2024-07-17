@@ -1,11 +1,3 @@
-//
-//  BaseLCEListView.swift
-//  Demo
-//
-//  Created by Marco Ghaly on 02/01/2021.
-//  Copyright © 2021 Marco Ghaly. All rights reserved.
-//
-
 import SwiftUI
 
 struct BaseLCEListView<Element, UseCases, ViewModel, CellContent, Destination>: View where Element: Identifiable, Element.ID == Int, UseCases: DemoUseCases, ViewModel: BaseLCEListViewModel<Element, UseCases>, CellContent: View, Destination: View {
