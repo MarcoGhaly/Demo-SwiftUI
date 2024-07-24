@@ -1,8 +1,8 @@
 import SwiftUI
 import ImageViewerRemote
 
-struct PhotosListView<UseCases: PhotosUseCases>: View {
-    @ObservedObject var viewModel: PhotosViewModel<UseCases>
+struct PhotosListView<ViewModel>: View where ViewModel: PhotosViewModel<PhotosUseCases> {
+    @ObservedObject var viewModel: ViewModel
     
     @State private var imageURL: String?
     

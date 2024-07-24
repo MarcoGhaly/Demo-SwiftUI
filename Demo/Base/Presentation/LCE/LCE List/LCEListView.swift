@@ -1,6 +1,7 @@
 import SwiftUI
 
-struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Error, PaginationLoading>: View where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View, Destination: View, Loading: LoadingView, Error: ErrorView, PaginationLoading: View {
+struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Error, PaginationLoading>: View
+where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View, Destination: View, Loading: LoadingView, Error: ErrorView, PaginationLoading: View {
     @ObservedObject var viewModel: ViewModel
     let columns: Int
     let spacing: CGFloat

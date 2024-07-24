@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct ToDosListView<UseCases: ToDosUseCases>: View {
-    @ObservedObject var viewModel: ToDosViewModel<UseCases>
+struct ToDosListView<ViewModel>: View where ViewModel: ToDosViewModel<ToDosUseCases> {
+    @ObservedObject var viewModel: ViewModel
     
     var body: some View {
         BaseLCEListView(viewModel: viewModel, showEditButtons: viewModel.userID != nil) { toDo in

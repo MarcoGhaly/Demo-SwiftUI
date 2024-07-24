@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct AlbumsListView<UseCases: AlbumsUseCases>: View {
-    @ObservedObject var viewModel: AlbumsViewModel<UseCases>
+struct AlbumsListView<ViewModel>: View where ViewModel: AlbumsViewModel<AlbumsUseCases> {
+    @ObservedObject var viewModel: ViewModel
     
     var body: some View {
         BaseLCEListView(viewModel: viewModel, showEditButtons: viewModel.userID != nil) { album in

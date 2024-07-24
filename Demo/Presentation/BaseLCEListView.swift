@@ -1,6 +1,7 @@
 import SwiftUI
 
-struct BaseLCEListView<Element, UseCases, ViewModel, CellContent, Destination>: View where Element: Identifiable, Element.ID == Int, UseCases: DemoUseCases, ViewModel: BaseLCEListViewModel<Element, UseCases>, CellContent: View, Destination: View {
+struct BaseLCEListView<Element, UseCases, ViewModel, CellContent, Destination>: View
+where Element: Identifiable, Element.ID == Int, UseCases: DemoUseCases, ViewModel: BaseLCEListViewModel<Element, UseCases>, CellContent: View, Destination: View {
     @ObservedObject var viewModel: ViewModel
     @State var columns: Int
     var showGridButtons: Bool

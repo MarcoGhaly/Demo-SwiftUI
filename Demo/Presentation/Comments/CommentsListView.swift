@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct CommentsListView<UseCases: CommentsUseCases>: View {
-    @ObservedObject var viewModel: CommentsViewModel<UseCases>
+struct CommentsListView<ViewModel>: View where ViewModel: CommentsViewModel<CommentsUseCases> {
+    @ObservedObject var viewModel: ViewModel
     
     var body: some View {
         BaseLCEListView(viewModel: viewModel, showEditButtons: viewModel.postID != nil) { comment in

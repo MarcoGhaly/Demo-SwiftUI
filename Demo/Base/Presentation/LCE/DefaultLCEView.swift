@@ -1,6 +1,7 @@
 import SwiftUI
 
-struct DefaultLCEView<Model, ViewModel, Content>: View where ViewModel: LCEViewModel<Model>, Content: View {
+struct DefaultLCEView<Model, ViewModel, Content>: View
+where ViewModel: LCEViewModel<Model>, Content: View {
     @ObservedObject var viewModel: ViewModel
     let content: (Model) -> Content
     

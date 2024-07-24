@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class PostsViewModel<UseCases: PostsUseCases>: BaseLCEListViewModel<Post, UseCases> {
+class PostsViewModel<UseCases>: BaseLCEListViewModel<Post, UseCases> where UseCases: PostsUseCasesProtocol {
     let userID: Int?
     
     init(useCases: UseCases = PostsUseCases(), userID: Int? = nil, posts: [Post]? = nil) {
@@ -25,7 +25,7 @@ class PostsViewModel<UseCases: PostsUseCases>: BaseLCEListViewModel<Post, UseCas
         .store(in: &subscriptions)
     }
     
-    private func deletePosts(withIDs ids: Set<Int>) {
+    func deletePosts(withIDs ids: Set<Int>) {
         viewState = .loading(model: LoadingViewModel(style: .dialog))
         
         let posts = ids.compactMap { postID in

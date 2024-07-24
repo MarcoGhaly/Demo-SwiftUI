@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class AlbumsViewModel<UseCases: AlbumsUseCases>: BaseLCEListViewModel<Album, UseCases> {
+class AlbumsViewModel<UseCases>: BaseLCEListViewModel<Album, UseCases> where UseCases: AlbumsUseCasesProtocol {
     let userID: Int?
     
     init(useCases: UseCases = AlbumsUseCases(), userID: Int? = nil, albums: [Album]? = nil) {
@@ -25,7 +25,7 @@ class AlbumsViewModel<UseCases: AlbumsUseCases>: BaseLCEListViewModel<Album, Use
         .store(in: &subscriptions)
     }
     
-    private func deleteAlbums(withIDs ids: Set<Int>) {
+    func deleteAlbums(withIDs ids: Set<Int>) {
         viewState = .loading(model: LoadingViewModel(style: .dialog))
         
         let albums = ids.compactMap { albumID in

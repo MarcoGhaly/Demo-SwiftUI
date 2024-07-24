@@ -1,6 +1,7 @@
 import SwiftUI
 
-struct LCEView<Model, ViewModel, Content, Loading, Error>: View where ViewModel: LCEViewModel<Model>, Content: View, Loading: LoadingView, Error: ErrorView {
+struct LCEView<Model, ViewModel, Content, Loading, Error>: View
+where ViewModel: LCEViewModel<Model>, Content: View, Loading: LoadingView, Error: ErrorView {
     @ObservedObject var viewModel: ViewModel
     let content: (Model) -> Content
     let loading: (LoadingViewModel) -> Loading

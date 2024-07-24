@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct UsersListView<UseCases: UsersUseCases>: View {
-    @ObservedObject var viewModel: UsersViewModel<UseCases>
+struct UsersListView<ViewModel>: View where ViewModel: UsersViewModel<UsersUseCases> {
+    @ObservedObject var viewModel: ViewModel
     
     @State private var presentAddUserView = false
     

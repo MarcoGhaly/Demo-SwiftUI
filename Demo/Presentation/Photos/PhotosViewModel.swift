@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class PhotosViewModel<UseCases: PhotosUseCases>: BaseLCEListViewModel<Photo, UseCases> {
+class PhotosViewModel<UseCases>: BaseLCEListViewModel<Photo, UseCases> where UseCases: PhotosUseCasesProtocol {
     let albumID: Int?
     
     init(useCases: UseCases = PhotosUseCases(), albumID: Int? = nil, photos: [Photo]? = nil) {
@@ -24,7 +24,7 @@ class PhotosViewModel<UseCases: PhotosUseCases>: BaseLCEListViewModel<Photo, Use
         .store(in: &subscriptions)
     }
     
-    private func deletePhotos(withIDs ids: Set<Int>) {
+    func deletePhotos(withIDs ids: Set<Int>) {
         viewState = .loading(model: LoadingViewModel(style: .dialog))
         
         let photos = ids.compactMap { photoID in

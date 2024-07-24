@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class ToDosViewModel<UseCases: ToDosUseCases>: BaseLCEListViewModel<ToDo, UseCases> {
+class ToDosViewModel<UseCases>: BaseLCEListViewModel<ToDo, UseCases> where UseCases: ToDosUseCasesProtocol {
     let userID: Int?
     
     init(useCases: UseCases = ToDosUseCases(), userID: Int? = nil, todos: [ToDo]? = nil) {
@@ -25,7 +25,7 @@ class ToDosViewModel<UseCases: ToDosUseCases>: BaseLCEListViewModel<ToDo, UseCas
         .store(in: &subscriptions)
     }
     
-    private func deleteToDos(withIDs ids: Set<Int>) {
+    func deleteToDos(withIDs ids: Set<Int>) {
         viewState = .loading(model: LoadingViewModel(style: .dialog))
         
         let toDos = ids.compactMap { toDoID in

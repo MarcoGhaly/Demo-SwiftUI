@@ -1,6 +1,7 @@
 import SwiftUI
 
-struct DefaultLCEListView<Element, ViewModel, ID, CellContent, Destination>: View where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View, Destination: View {
+struct DefaultLCEListView<Element, ViewModel, ID, CellContent, Destination>: View
+where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View, Destination: View {
     @ObservedObject var viewModel: ViewModel
     let columns: Int
     let id: KeyPath<Element, ID>
