@@ -7,23 +7,38 @@ protocol DemoDataSource {
     var queryParameters: [String: String]? { get }
     var networkAgent: NetworkAgentProtocol { get }
     
+    // MARK: - Remote
+    
     func performRequest<DataModel: Decodable, ErrorModel: Decodable>(
         _ request: inout Request, page: Int?, limit: Int?
     ) -> AnyPublisher<DataModel, APIError<ErrorModel>>
 
-    func getRemoteData<T>(
+    func getRemoteData<DataModel>(
         queryParameters: [String: String]?, page: Int?, limit: Int?
-    ) -> AnyPublisher<[T], DefaultAPIError> where T: Object, T: Decodable
-    func addRemote<T>(object: T) -> AnyPublisher<ID, DefaultAPIError> where T: Object, T: Encodable, T: Identified
-    func deleteRemote<T>(object: T) -> AnyPublisher<EmptyResponse, DefaultAPIError> where T: Object, T: Identified
+    ) -> AnyPublisher<[DataModel], DefaultAPIError>
+    where DataModel: Object, DataModel: Decodable
     
-    func getLocalData<T>(
+    func addRemote<DataModel>(object: DataModel) -> AnyPublisher<ID, DefaultAPIError>
+    where DataModel: Object, DataModel: Encodable, DataModel: Identified
+    
+    func deleteRemote<DataModel>(object: DataModel) -> AnyPublisher<EmptyResponse, DefaultAPIError>
+    where DataModel: Object, DataModel: Identified
+    
+    // MARK: - Local
+    
+    func getLocalData<DataModel>(
         queryParameters: [String: String]?, page: Int?, limit: Int?
-    ) -> AnyPublisher<[T], DefaultAPIError> where T: Object, T: Decodable
-    func addLocal<T>(object: T) -> T? where T: Object, T: Encodable, T: Identified
-    func deleteLocal<T>(object: T) -> T? where T: Object, T: Identified
+    ) -> AnyPublisher<[DataModel], DefaultAPIError>
+    where DataModel: Object, DataModel: Decodable
+    
+    func addLocal<DataModel>(object: DataModel) -> DataModel?
+    where DataModel: Object, DataModel: Encodable, DataModel: Identified
+    
+    func deleteLocal<DataModel>(object: DataModel) -> DataModel?
+    where DataModel: Object, DataModel: Identified
 }
 
+// MARK: - Remote
 extension DemoDataSource {
     var queryParameters: [String: String]? { ["_limit": String(5)] }
     
@@ -37,11 +52,15 @@ extension DemoDataSource {
         return networkAgent.performRequest(request)
     }
     
-    func getRemoteData<T>(page: Int?, limit: Int?) -> AnyPublisher<[T], DefaultAPIError> where T: Object, T: Decodable {
+    func getRemoteData<DataModel>(page: Int?, limit: Int?) -> AnyPublisher<[DataModel], DefaultAPIError>
+    where DataModel: Object, DataModel: Decodable {
         getRemoteData(queryParameters: nil, page: page, limit: limit)
     }
 
-    func getRemoteData<T>(queryParameters: [String: String]? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[T], DefaultAPIError> where T: Object, T: Decodable {
+    func getRemoteData<DataModel>(
+        queryParameters: [String: String]? = nil, page: Int? = nil, limit: Int? = nil
+    ) -> AnyPublisher<[DataModel], DefaultAPIError>
+    where DataModel: Object, DataModel: Decodable {
         var parameters = queryParameters ?? [:]
         self.queryParameters.map { parameters.merge($0) { (current, _) in current } }
         
@@ -51,14 +70,16 @@ extension DemoDataSource {
         return performRequest(&request, page: page, limit: limit)
     }
     
-    func addRemote<T>(object: T) -> AnyPublisher<ID, DefaultAPIError> where T: Object, T: Encodable, T: Identified {
+    func addRemote<DataModel>(object: DataModel) -> AnyPublisher<ID, DefaultAPIError>
+    where DataModel: Object, DataModel: Encodable, DataModel: Identified {
         let request = Request(url: methodName)
             .set(httpMethod: .POST)
             .set(body: object)
         return networkAgent.performRequest(request)
     }
     
-    func deleteRemote<T>(object: T) -> AnyPublisher<EmptyResponse, DefaultAPIError> where T: Object, T: Identified {
+    func deleteRemote<DataModel>(object: DataModel) -> AnyPublisher<EmptyResponse, DefaultAPIError>
+    where DataModel: Object, DataModel: Identified {
         let request = Request(url: methodName)
             .set(httpMethod: .DELETE)
             .set(pathParameters: [String(object.id)])
@@ -66,10 +87,11 @@ extension DemoDataSource {
     }
 }
 
+// MARK: - Local
 extension DemoDataSource {
-    func getLocalData<T>(
+    func getLocalData<DataModel>(
         queryParameters: [String: String]? = nil, page: Int? = nil, limit: Int? = nil
-    ) -> AnyPublisher<[T], DefaultAPIError> where T: Object, T: Decodable {
+    ) -> AnyPublisher<[DataModel], DefaultAPIError> where DataModel: Object, DataModel: Decodable {
         var predicate: NSPredicate?
         if let format = queryParameters?.map({ "\($0)=\($1)" }).joined(separator: "&"), !format.isEmpty {
             predicate = NSPredicate(format: format)
@@ -78,11 +100,13 @@ extension DemoDataSource {
         ?? Just([]).setFailureType(to: DefaultAPIError.self).eraseToAnyPublisher()
     }
     
-    func addLocal<T>(object: T) -> T? where T: Object, T: Encodable, T: Identified {
+    func addLocal<DataModel>(object: DataModel) -> DataModel?
+    where DataModel: Object, DataModel: Encodable, DataModel: Identified {
         try? DatabaseManager.save(object: object)
     }
     
-    func deleteLocal<T>(object: T) -> T? where T: Object, T: Identified {
+    func deleteLocal<DataModel>(object: DataModel) -> DataModel?
+    where DataModel: Object, DataModel: Identified {
         let predicate = NSPredicate(format: "id = %@", argumentArray: [object.id])
         return try? DatabaseManager.deleteObjects(predicate: predicate).first
     }
