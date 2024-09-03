@@ -9,8 +9,7 @@ class LCEListViewModelTests: LCEViewModelTests {
         validateLoading(viewModel: viewModel)
         
         let expectation = self.expectation(description: "Data Callback")
-        expectation.expectedFulfillmentCount = 2
-        let cancellable = viewModel.objectWillChange.sink {
+        let cancellable = viewModel.$model.dropFirst().sink { _ in
             expectation.fulfill()
         }
         waitForExpectations(timeout: 1)
@@ -50,7 +49,7 @@ class LCEListViewModelTests: LCEViewModelTests {
             XCTAssertTrue(viewModel.isLoading)
             
             let expectation = self.expectation(description: "Data Callback")
-            let cancellable = viewModel.objectWillChange.sink {
+            let cancellable = viewModel.$model.dropFirst().sink { _ in
                 expectation.fulfill()
             }
             waitForExpectations(timeout: 1)
