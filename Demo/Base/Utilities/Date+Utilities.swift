@@ -8,28 +8,31 @@ extension Date {
     }
     
     func get(component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
-        return calendar.component(component, from: self)
+        calendar.component(component, from: self)
     }
     
     func get(components: Set<Calendar.Component>, calendar: Calendar = Calendar.current) -> DateComponents {
-        return calendar.dateComponents(components, from: self)
+        calendar.dateComponents(components, from: self)
     }
     
     func add(component: Calendar.Component, value: Int, calendar: Calendar = Calendar.current) -> Date {
-        return calendar.date(byAdding: component, value: value, to: self)!
+        calendar.date(byAdding: component, value: value, to: self)!
     }
     
     func removeTime(calendar: Calendar = Calendar.current) -> Date {
-        return calendar.date(from: get(components: [.year, .month, .day]))!
+        let components = get(components: [.year, .month, .day], calendar: calendar)
+        return calendar.date(from: components)!
     }
     
     func startOfWeek(calendar: Calendar = Calendar.current) -> Date {
-        calendar.date(from: get(components: [.yearForWeekOfYear, .weekOfYear]))!
+        calendar.date(from: get(components: [.yearForWeekOfYear, .weekOfYear], calendar: calendar))!
     }
     
     func endOfWeek(calendar: Calendar = Calendar.current) -> Date {
-        let startOfWeek = self.startOfWeek()
-        return startOfWeek.add(component: .weekOfMonth, value: 1).add(component: .second, value: -1)
+        let startOfWeek = self.startOfWeek(calendar: calendar)
+        return startOfWeek
+            .add(component: .weekOfMonth, value: 1, calendar: calendar)
+            .add(component: .second, value: -1, calendar: calendar)
     }
     
     var weekDays: [Date] {
