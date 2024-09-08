@@ -12,39 +12,40 @@ class CommentsUseCases: CommentsUseCasesProtocol {
         self.dataSource = dataSource
     }
     
-    func getComments(postID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Comment], DefaultAPIError> {
-        var publisher: AnyPublisher<[Comment], DefaultAPIError> = dataSource.getRemoteComments(postID: postID, page: page, limit: limit)
+    func getComments(postID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Comment], AppError> {
+        var publisher = dataSource.getRemoteComments(postID: postID, page: page, limit: limit)
         
         if page == 1 {
-            let localPublisher: AnyPublisher<[Comment], DefaultAPIError> = dataSource.getLocalComments(postID: postID)
+            let localPublisher = dataSource.getLocalComments(postID: postID)
             publisher = Publishers.CombineLatest(publisher, localPublisher).map { remoteComments, localComments in
                 localComments + remoteComments
             }.eraseToAnyPublisher()
         }
         
         return publisher
+            .mapError { .general(error: $0) }
             // Add a delay to see the loading view
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     
-    func add(comment: Comment) -> AnyPublisher<Comment, DefaultAPIError> {
-        let publisher: AnyPublisher<ID, DefaultAPIError> = dataSource.addRemote(object: comment)
+    func add(comment: Comment) -> AnyPublisher<Comment, AppError> {
+        let publisher = dataSource.addRemote(object: comment)
         return publisher.map { [weak self] id in
             guard let self else { return comment }
             let id = id.id ?? 1
             comment.id = getNextID(withInitialValue: id)
             return dataSource.addLocal(object: comment) ?? comment
         }
-        .eraseToAnyPublisher()
+        .mapError { .general(error: $0) }
         // Add a delay to see the loading view
         .delay(for: .seconds(1), scheduler: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
     
-    func delete(comments: [Comment]) -> AnyPublisher<Void, DefaultAPIError> {
-        let publishers: [AnyPublisher<Void, DefaultAPIError>] = comments.map { comment in
-            let publisher: AnyPublisher<EmptyResponse, DefaultAPIError> = dataSource.deleteRemote(object: comment)
+    func delete(comments: [Comment]) -> AnyPublisher<Void, AppError> {
+        let publishers = comments.map { comment in
+            let publisher = dataSource.deleteRemote(object: comment)
             
             publisher.sink { _ in
             } receiveValue: { _ in
@@ -58,7 +59,7 @@ class CommentsUseCases: CommentsUseCasesProtocol {
         
         return Publishers.MergeMany(publishers)
             .reduce((), { (_, _) in () })
-            .eraseToAnyPublisher()
+            .mapError { .general(error: $0) }
             // Add a delay to see the loading view
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()

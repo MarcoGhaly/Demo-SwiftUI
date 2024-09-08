@@ -12,40 +12,41 @@ class UsersUseCases: UsersUseCasesProtocol {
         self.dataSource = dataSource
     }
     
-    func getUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], DefaultAPIError> {
-        var publisher: AnyPublisher<[User], DefaultAPIError> = dataSource.getRemoteUsers(page: page, limit: limit)
+    func getUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], AppError> {
+        var publisher = dataSource.getRemoteUsers(page: page, limit: limit)
         publisher = addCoordinates(to: publisher)
         
         if page == 1 {
-            let localPublisher: AnyPublisher<[User], DefaultAPIError> = dataSource.getLocalUsers()
+            let localPublisher = dataSource.getLocalUsers()
             publisher = Publishers.CombineLatest(publisher, localPublisher).map { remoteUsers, localUsers in
                 localUsers + remoteUsers
             }.eraseToAnyPublisher()
         }
         
         return publisher
+            .mapError { .general(error: $0) }
             // Add a delay to see the loading view
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     
-    func add(user: User) -> AnyPublisher<User, DefaultAPIError> {
-        let publisher: AnyPublisher<ID, DefaultAPIError> = dataSource.addRemote(object: user)
+    func add(user: User) -> AnyPublisher<User, AppError> {
+        let publisher = dataSource.addRemote(object: user)
         return publisher.map { [weak self] id in
             guard let self else { return user }
             let id = id.id ?? 1
             user.id = getNextID(withInitialValue: id)
             return dataSource.addLocal(object: user) ?? user
         }
-        .eraseToAnyPublisher()
+        .mapError { .general(error: $0) }
         // Add a delay to see the loading view
         .delay(for: .seconds(1), scheduler: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
     
-    func delete(users: [User]) -> AnyPublisher<Void, DefaultAPIError> {
-        let publishers: [AnyPublisher<Void, DefaultAPIError>] = users.map { user in
-            let publisher: AnyPublisher<EmptyResponse, DefaultAPIError> = dataSource.deleteRemote(object: user)
+    func delete(users: [User]) -> AnyPublisher<Void, AppError> {
+        let publishers = users.map { user in
+            let publisher = dataSource.deleteRemote(object: user)
             
             publisher.sink { _ in
             } receiveValue: { _ in
@@ -59,7 +60,7 @@ class UsersUseCases: UsersUseCasesProtocol {
         
         return Publishers.MergeMany(publishers)
             .reduce((), { (_, _) in () })
-            .eraseToAnyPublisher()
+            .mapError { .general(error: $0) }
             // Add a delay to see the loading view
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
@@ -67,7 +68,7 @@ class UsersUseCases: UsersUseCasesProtocol {
 }
 
 private extension UsersUseCases {
-    func addCoordinates(to publisher: AnyPublisher<[User], DefaultAPIError>) -> AnyPublisher<[User], DefaultAPIError> {
+    func addCoordinates(to publisher: AnyPublisher<[User], DataError>) -> AnyPublisher<[User], DataError> {
         publisher.map { users in
             let coordinates = Self.coordinates
             var counter = 0

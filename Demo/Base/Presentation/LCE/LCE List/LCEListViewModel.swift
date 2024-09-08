@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class LCEListViewModel<Element>: LCEViewModel<[Element]> {
+class LCEListViewModel<Element, AppError>: LCEViewModel<[Element], AppError> where AppError: Error {
     private var limit: Int?
     private var page = 1
     
@@ -29,15 +29,15 @@ class LCEListViewModel<Element>: LCEViewModel<[Element]> {
         ErrorViewModel(title: "No Data Found")
     }
     
-    override func dataPublisher() -> AnyPublisher<[Element], DefaultAPIError> {
+    override func dataPublisher() -> AnyPublisher<[Element], AppError> {
         dataPublisher(page: page, limit: limit)
     }
     
-    func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Element], DefaultAPIError> {
+    func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Element], AppError> {
         fatalError("Subclass must implement this publisher")
     }
     
-    override func updateViewState(completion: Subscribers.Completion<DefaultAPIError>) {
+    override func updateViewState(completion: Subscribers.Completion<AppError>) {
         if case .finished = completion, model?.isEmpty == true {
             viewState = .error(model: emptyModelErrorViewModel())
         } else {

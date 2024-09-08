@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct LCEListView<Element, ViewModel, ID, CellContent, Destination, Loading, Error, PaginationLoading>: View
-where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View, Destination: View, Loading: LoadingView, Error: ErrorView, PaginationLoading: View {
+struct LCEListView<Element, AppError, ViewModel, ID, CellContent, Destination, Loading, Error, PaginationLoading>: View
+where ViewModel: LCEListViewModel<Element, AppError>, ID: Hashable, CellContent: View, Destination: View, Loading: LoadingView, Error: ErrorView, PaginationLoading: View {
     @ObservedObject var viewModel: ViewModel
     let columns: Int
     let spacing: CGFloat
@@ -123,7 +123,7 @@ extension LCEListView where Element: Identifiable, ID == Element.ID {
 
 struct LCEListView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = LCEListViewModel<String>()
+        let viewModel = LCEListViewModel<String, Error>()
         viewModel.model = ["Hello", "World"]
         
         return LCEListView(viewModel: viewModel, id: \.self) { element in

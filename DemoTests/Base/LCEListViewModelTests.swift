@@ -40,7 +40,7 @@ class LCEListViewModelTests: LCEViewModelTests {
         testPagination(viewModel: viewModel, pages: pages, limit: limit, totalCount: totalCount)
     }
     
-    func testPagination<T>(viewModel: LCEListViewModel<T>, pages: Int, limit: Int, totalCount: Int) {
+    func testPagination<T>(viewModel: LCEListViewModel<T, AppError>, pages: Int, limit: Int, totalCount: Int) {
         testViewStates(viewModel: viewModel)
         XCTAssertEqual(viewModel.model?.count, limit)
         
@@ -64,7 +64,7 @@ class LCEListViewModelTests: LCEViewModelTests {
     }
 }
 
-private class LCEListViewModelTest: LCEListViewModel<TestModel> {
+private class LCEListViewModelTest: LCEListViewModel<TestModel, AppError> {
     private let totalCount: Int
     private let pages: Int?
     private let limit: Int?
@@ -81,8 +81,8 @@ private class LCEListViewModelTest: LCEListViewModel<TestModel> {
         super.init(models: model, limit: limit)
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[TestModel], DefaultAPIError> {
-        let publisher = PassthroughSubject<[TestModel], DefaultAPIError>()
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[TestModel], AppError> {
+        let publisher = PassthroughSubject<[TestModel], AppError>()
         DispatchQueue.main.async {
             let count: Int
             if let pages = self.pages, let limit = limit, let lastPageLimit = self.lastPageLimit {

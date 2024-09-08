@@ -15,20 +15,20 @@ protocol DemoDataSource {
 
     func getRemoteData<DataModel>(
         queryParameters: [String: String]?, page: Int?, limit: Int?
-    ) -> AnyPublisher<[DataModel], DefaultAPIError>
+    ) -> AnyPublisher<[DataModel], DataError>
     where DataModel: Object, DataModel: Decodable
     
-    func addRemote<DataModel>(object: DataModel) -> AnyPublisher<ID, DefaultAPIError>
+    func addRemote<DataModel>(object: DataModel) -> AnyPublisher<ID, DataError>
     where DataModel: Object, DataModel: Encodable, DataModel: Identified
     
-    func deleteRemote<DataModel>(object: DataModel) -> AnyPublisher<EmptyResponse, DefaultAPIError>
+    func deleteRemote<DataModel>(object: DataModel) -> AnyPublisher<EmptyResponse, DataError>
     where DataModel: Object, DataModel: Identified
     
     // MARK: - Local
     
     func getLocalData<DataModel>(
         queryParameters: [String: String]?, page: Int?, limit: Int?
-    ) -> AnyPublisher<[DataModel], DefaultAPIError>
+    ) -> AnyPublisher<[DataModel], DataError>
     where DataModel: Object, DataModel: Decodable
     
     func addLocal<DataModel>(object: DataModel) -> DataModel?
@@ -52,14 +52,14 @@ extension DemoDataSource {
         return networkAgent.performRequest(request)
     }
     
-    func getRemoteData<DataModel>(page: Int?, limit: Int?) -> AnyPublisher<[DataModel], DefaultAPIError>
+    func getRemoteData<DataModel>(page: Int?, limit: Int?) -> AnyPublisher<[DataModel], DataError>
     where DataModel: Object, DataModel: Decodable {
         getRemoteData(queryParameters: nil, page: page, limit: limit)
     }
 
     func getRemoteData<DataModel>(
         queryParameters: [String: String]? = nil, page: Int? = nil, limit: Int? = nil
-    ) -> AnyPublisher<[DataModel], DefaultAPIError>
+    ) -> AnyPublisher<[DataModel], DataError>
     where DataModel: Object, DataModel: Decodable {
         var parameters = queryParameters ?? [:]
         self.queryParameters.map { parameters.merge($0) { (current, _) in current } }
@@ -68,22 +68,34 @@ extension DemoDataSource {
             .set(queryParameters: parameters)
         
         return performRequest(&request, page: page, limit: limit)
+            .mapError { (error: DefaultAPIError) in
+                .remoteError(error: error)
+            }
+            .eraseToAnyPublisher()
     }
     
-    func addRemote<DataModel>(object: DataModel) -> AnyPublisher<ID, DefaultAPIError>
+    func addRemote<DataModel>(object: DataModel) -> AnyPublisher<ID, DataError>
     where DataModel: Object, DataModel: Encodable, DataModel: Identified {
         let request = Request(url: methodName)
             .set(httpMethod: .POST)
             .set(body: object)
         return networkAgent.performRequest(request)
+            .mapError { (error: DefaultAPIError) in
+                .remoteError(error: error)
+            }
+            .eraseToAnyPublisher()
     }
     
-    func deleteRemote<DataModel>(object: DataModel) -> AnyPublisher<EmptyResponse, DefaultAPIError>
+    func deleteRemote<DataModel>(object: DataModel) -> AnyPublisher<EmptyResponse, DataError>
     where DataModel: Object, DataModel: Identified {
         let request = Request(url: methodName)
             .set(httpMethod: .DELETE)
             .set(pathParameters: [String(object.id)])
         return networkAgent.performRequest(request)
+            .mapError { (error: DefaultAPIError) in
+                .remoteError(error: error)
+            }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -91,13 +103,14 @@ extension DemoDataSource {
 extension DemoDataSource {
     func getLocalData<DataModel>(
         queryParameters: [String: String]? = nil, page: Int? = nil, limit: Int? = nil
-    ) -> AnyPublisher<[DataModel], DefaultAPIError> where DataModel: Object, DataModel: Decodable {
+    ) -> AnyPublisher<[DataModel], DataError> where DataModel: Object, DataModel: Decodable {
         var predicate: NSPredicate?
         if let format = queryParameters?.map({ "\($0)=\($1)" }).joined(separator: "&"), !format.isEmpty {
             predicate = NSPredicate(format: format)
         }
-        return (try? DatabaseManager.loadObjects(predicate: predicate))
-        ?? Just([]).setFailureType(to: DefaultAPIError.self).eraseToAnyPublisher()
+        return DatabaseManager.loadObjects(predicate: predicate)
+            .mapError { .localError(error: $0) }
+            .eraseToAnyPublisher()
     }
     
     func addLocal<DataModel>(object: DataModel) -> DataModel?

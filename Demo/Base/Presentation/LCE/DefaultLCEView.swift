@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct DefaultLCEView<Model, ViewModel, Content>: View
-where ViewModel: LCEViewModel<Model>, Content: View {
+struct DefaultLCEView<Model, AppError, ViewModel, Content>: View
+where ViewModel: LCEViewModel<Model, AppError>, Content: View {
     @ObservedObject var viewModel: ViewModel
     let content: (Model) -> Content
     
@@ -32,20 +32,20 @@ struct DefaultLCEView_Previews: PreviewProvider {
                                             message: "An Error Occurred",
                                             retry: (label: "Retry", action: {}))
         
-        let states: [LCEViewModel<String>.ViewState] = [
+        let states: [LCEViewModel<String, Error>.ViewState] = [
             .loading(model: loadingViewModel),
             .error(model: errorViewModel),
             .content
         ]
         
-        return ForEach(states.indices) { index in
+        return ForEach(states.indices, id: \.self) { index in
             getDefaultLCEView(state: states[index])
         }
         .previewLayout(.fixed(width: 400, height: 150))
     }
     
-    private static func getDefaultLCEView(state: LCEViewModel<String>.ViewState) -> DefaultLCEView<String, LCEViewModel<String>, Text> {
-        let viewModel = LCEViewModel<String>()
+    private static func getDefaultLCEView(state: LCEViewModel<String, Error>.ViewState) -> DefaultLCEView<String, Error, LCEViewModel<String, Error>, Text> {
+        let viewModel = LCEViewModel<String, Error>()
         viewModel.model = "Content"
         viewModel.viewState = state
         return DefaultLCEView(viewModel: viewModel) { model in

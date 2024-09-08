@@ -12,39 +12,40 @@ class ToDosUseCases: ToDosUseCasesProtocol {
         self.dataSource = dataSource
     }
     
-    func getToDos(userID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[ToDo], DefaultAPIError> {
-        var publisher: AnyPublisher<[ToDo], DefaultAPIError> = dataSource.getRemoteToDos(userID: userID, page: page, limit: limit)
+    func getToDos(userID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[ToDo], AppError> {
+        var publisher = dataSource.getRemoteToDos(userID: userID, page: page, limit: limit)
         
         if page == 1 {
-            let localPublisher: AnyPublisher<[ToDo], DefaultAPIError> = dataSource.getLocalToDos(userID: userID)
+            let localPublisher = dataSource.getLocalToDos(userID: userID)
             publisher = Publishers.CombineLatest(publisher, localPublisher).map { remoteToDos, localToDos in
                 localToDos + remoteToDos
             }.eraseToAnyPublisher()
         }
         
         return publisher
+            .mapError { .general(error: $0) }
             // Add a delay to see the loading view
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     
-    func add(toDo: ToDo) -> AnyPublisher<ToDo, DefaultAPIError> {
-        let publisher: AnyPublisher<ID, DefaultAPIError> = dataSource.addRemote(object: toDo)
+    func add(toDo: ToDo) -> AnyPublisher<ToDo, AppError> {
+        let publisher = dataSource.addRemote(object: toDo)
         return publisher.map { [weak self] id in
             guard let self else { return toDo }
             let id = id.id ?? 1
             toDo.id = getNextID(withInitialValue: id)
             return dataSource.addLocal(object: toDo) ?? toDo
         }
-        .eraseToAnyPublisher()
+        .mapError { .general(error: $0) }
         // Add a delay to see the loading view
         .delay(for: .seconds(1), scheduler: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
     
-    func delete(toDos: [ToDo]) -> AnyPublisher<Void, DefaultAPIError> {
-        let publishers: [AnyPublisher<Void, DefaultAPIError>] = toDos.map { toDo in
-            let publisher: AnyPublisher<EmptyResponse, DefaultAPIError> = dataSource.deleteRemote(object: toDo)
+    func delete(toDos: [ToDo]) -> AnyPublisher<Void, AppError> {
+        let publishers = toDos.map { toDo in
+            let publisher = dataSource.deleteRemote(object: toDo)
             
             publisher.sink { _ in
             } receiveValue: { _ in
@@ -58,7 +59,7 @@ class ToDosUseCases: ToDosUseCasesProtocol {
         
         return Publishers.MergeMany(publishers)
             .reduce((), { (_, _) in () })
-            .eraseToAnyPublisher()
+            .mapError { .general(error: $0) }
             // Add a delay to see the loading view
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()

@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct LCEView<Model, ViewModel, Content, Loading, Error>: View
-where ViewModel: LCEViewModel<Model>, Content: View, Loading: LoadingView, Error: ErrorView {
+struct LCEView<Model, AppError, ViewModel, Content, Loading, Error>: View
+where ViewModel: LCEViewModel<Model, AppError>, Content: View, Loading: LoadingView, Error: ErrorView {
     @ObservedObject var viewModel: ViewModel
     let content: (Model) -> Content
     let loading: (LoadingViewModel) -> Loading
@@ -48,20 +48,20 @@ struct LCEView_Previews: PreviewProvider {
                                             message: "An Error Occurred",
                                             retry: (label: "Retry", action: {}))
         
-        let states: [LCEViewModel<String>.ViewState] = [
+        let states: [LCEViewModel<String, Error>.ViewState] = [
             .loading(model: loadingViewModel),
             .error(model: errorViewModel),
             .content
         ]
         
-        return ForEach(states.indices) { index in
+        return ForEach(states.indices, id: \.self) { index in
             getLCEView(state: states[index])
         }
         .previewLayout(.fixed(width: 400, height: 150))
     }
     
-    private static func getLCEView(state: LCEViewModel<String>.ViewState) -> LCEView<String, LCEViewModel<String>, Text, DefaultLoadingView, DefaultErrorView> {
-        let viewModel = LCEViewModel<String>()
+    private static func getLCEView(state: LCEViewModel<String, Error>.ViewState) -> LCEView<String, Error, LCEViewModel<String, Error>, Text, DefaultLoadingView, DefaultErrorView> {
+        let viewModel = LCEViewModel<String, Error>()
         viewModel.model = "Content"
         viewModel.viewState = state
         return LCEView(viewModel: viewModel) { model in

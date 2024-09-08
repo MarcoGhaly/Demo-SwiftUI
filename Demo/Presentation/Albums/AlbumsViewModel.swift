@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class AlbumsViewModel<UseCases>: BaseLCEListViewModel<Album, UseCases> where UseCases: AlbumsUseCasesProtocol {
+class AlbumsViewModel<UseCases>: BaseLCEListViewModel<Album, AppError, UseCases> where UseCases: AlbumsUseCasesProtocol {
     let userID: Int?
     
     init(useCases: UseCases = AlbumsUseCases(), userID: Int? = nil, albums: [Album]? = nil) {
@@ -10,7 +10,7 @@ class AlbumsViewModel<UseCases>: BaseLCEListViewModel<Album, UseCases> where Use
         setActions()
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Album], DefaultAPIError> {
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Album], AppError> {
         useCases.getAlbums(userID: userID, page: page, limit: limit)
     }
     

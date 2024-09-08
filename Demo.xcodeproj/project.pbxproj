@@ -27,6 +27,9 @@
 		2F55F98A259AA68600AACCAA /* Identified.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F55F989259AA68600AACCAA /* Identified.swift */; };
 		2F55F98E259AAB1D00AACCAA /* DemoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F55F98D259AAB1D00AACCAA /* DemoDataSource.swift */; };
 		2F55F99D259AB90E00AACCAA /* PostsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F55F99C259AB90E00AACCAA /* PostsRepository.swift */; };
+		2F5C14202C8CE6A900F0171B /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C141F2C8CE6A900F0171B /* StorageError.swift */; };
+		2F5C14222C8CEE5B00F0171B /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C14212C8CEE5B00F0171B /* DataError.swift */; };
+		2F5C14242C8CF48000F0171B /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C14232C8CF48000F0171B /* AppError.swift */; };
 		2F6436602C45D36500E54371 /* ButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F64365F2C45D36500E54371 /* ButtonModel.swift */; };
 		2F6A520725BC985300D76582 /* Coordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6A520625BC985300D76582 /* Coordinate2D.swift */; };
 		2F6A520D25BC991500D76582 /* AnnotationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6A520C25BC991500D76582 /* AnnotationProtocol.swift */; };
@@ -168,6 +171,9 @@
 		2F55F989259AA68600AACCAA /* Identified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identified.swift; sourceTree = "<group>"; };
 		2F55F98D259AAB1D00AACCAA /* DemoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoDataSource.swift; sourceTree = "<group>"; };
 		2F55F99C259AB90E00AACCAA /* PostsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsRepository.swift; sourceTree = "<group>"; };
+		2F5C141F2C8CE6A900F0171B /* StorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
+		2F5C14212C8CEE5B00F0171B /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
+		2F5C14232C8CF48000F0171B /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		2F64365F2C45D36500E54371 /* ButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModel.swift; sourceTree = "<group>"; };
 		2F6A520625BC985300D76582 /* Coordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate2D.swift; sourceTree = "<group>"; };
 		2F6A520C25BC991500D76582 /* AnnotationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationProtocol.swift; sourceTree = "<group>"; };
@@ -316,10 +322,10 @@
 			children = (
 				2F84C781258A4C5300E9C83D /* Loading View */,
 				2F84C782258A4C8000E9C83D /* Error View */,
+				2FBD98EB256E8FA500CBFB1B /* LCE List */,
 				2F0D45672556ABCA00C44971 /* LCEViewModel.swift */,
 				2F0D45632556AB0E00C44971 /* LCEView.swift */,
 				2F84C78D258A73E700E9C83D /* DefaultLCEView.swift */,
-				2FBD98EB256E8FA500CBFB1B /* LCE List */,
 			);
 			path = LCE;
 			sourceTree = "<group>";
@@ -418,7 +424,6 @@
 		2F74F42925816B4E00B956E9 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				2F0F41DB258E782800271C93 /* DatabaseManager.swift */,
 				2FC26CDD2588F8B500731B67 /* LocalStore.swift */,
 			);
 			path = Storage;
@@ -428,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				2F55F98D259AAB1D00AACCAA /* DemoDataSource.swift */,
+				2F5C14212C8CEE5B00F0171B /* DataError.swift */,
 				2F55F994259AB63400AACCAA /* Users */,
 				2F55F995259AB65400AACCAA /* Posts */,
 				2F55F996259AB66000AACCAA /* Comments */,
@@ -546,10 +552,10 @@
 		2FC1B361264D7C1A009B4F13 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				2FF671F22C45406900EB80F9 /* NetworkAgent */,
 				2FC1B362264D7C1A009B4F13 /* APIError.swift */,
 				2FC1B363264D7C1A009B4F13 /* Retries.swift */,
 				2FC1B364264D7C1A009B4F13 /* Request.swift */,
-				2FF671F22C45406900EB80F9 /* NetworkAgent */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -658,7 +664,9 @@
 		2FFA7FD4259B6B3800BBC081 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				2F0F41DB258E782800271C93 /* DatabaseManager.swift */,
 				2F74F43325816C1700B956E9 /* UserDefaultsManager.swift */,
+				2F5C141F2C8CE6A900F0171B /* StorageError.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -739,6 +747,7 @@
 			isa = PBXGroup;
 			children = (
 				6C9BB90E2884937800395676 /* DemoUseCases.swift */,
+				2F5C14232C8CF48000F0171B /* AppError.swift */,
 				2F7C8B162C41B6D300A3A53C /* Users */,
 				2FF671D92C45154A00EB80F9 /* Posts */,
 				2FF671DE2C4521C600EB80F9 /* Comments */,
@@ -780,6 +789,7 @@
 		6CD3AD2D24FABC5200D8BF77 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6C40E1AD24FBF116007D0393 /* Address */,
 				2F55F989259AA68600AACCAA /* Identified.swift */,
 				2F7BF89C257D6F21009B5CB8 /* ID.swift */,
 				6CD3AD2E24FABC5E00D8BF77 /* Post.swift */,
@@ -789,7 +799,6 @@
 				6C40E1AE24FBF1F2007D0393 /* ToDo.swift */,
 				2FB6B5D325645AD500A7FBDD /* Album.swift */,
 				2FB6B5E72564807900A7FBDD /* Photo.swift */,
-				6C40E1AD24FBF116007D0393 /* Address */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1034,6 +1043,7 @@
 			files = (
 				2F6A520D25BC991500D76582 /* AnnotationProtocol.swift in Sources */,
 				2FF671E72C45268B00EB80F9 /* ToDosUseCasesProtocol.swift in Sources */,
+				2F5C14242C8CF48000F0171B /* AppError.swift in Sources */,
 				2F6DB71925574D41002817B5 /* PostViewModel.swift in Sources */,
 				6CD3AD3724FAC3C700D8BF77 /* PostsListView.swift in Sources */,
 				2FF671E52C45265700EB80F9 /* ToDosUseCases.swift in Sources */,
@@ -1054,6 +1064,7 @@
 				6C15569924FABA7A000980BE /* AppDelegate.swift in Sources */,
 				6CD3AD3D24FAC3F600D8BF77 /* PostsViewModel.swift in Sources */,
 				2F6A520725BC985300D76582 /* Coordinate2D.swift in Sources */,
+				2F5C14222C8CEE5B00F0171B /* DataError.swift in Sources */,
 				6C15569B24FABA7A000980BE /* SceneDelegate.swift in Sources */,
 				2FF671F12C45306000EB80F9 /* PhotosUseCasesProtocol.swift in Sources */,
 				6CD3AD6824FB1EF900D8BF77 /* UserDetailsView.swift in Sources */,
@@ -1140,6 +1151,7 @@
 				6CD3AD2F24FABC5E00D8BF77 /* Post.swift in Sources */,
 				6CD3AD5A24FB155E00D8BF77 /* Geo.swift in Sources */,
 				2F884FED25ABBBA6006E8C41 /* GridView.swift in Sources */,
+				2F5C14202C8CE6A900F0171B /* StorageError.swift in Sources */,
 				2FBD98ED256E8FDD00CBFB1B /* LCEListViewModel.swift in Sources */,
 				2FC1B368264D7C1A009B4F13 /* Request.swift in Sources */,
 				2FF671EC2C452BA100EB80F9 /* AlbumsUseCasesProtocol.swift in Sources */,

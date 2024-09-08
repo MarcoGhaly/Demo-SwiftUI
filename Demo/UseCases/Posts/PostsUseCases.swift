@@ -12,39 +12,40 @@ class PostsUseCases: PostsUseCasesProtocol {
         self.dataSource = dataSource
     }
     
-    func getPosts(userID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Post], DefaultAPIError> {
-        var publisher: AnyPublisher<[Post], DefaultAPIError> = dataSource.getRemotePosts(userID: userID, page: page, limit: limit)
+    func getPosts(userID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Post], AppError> {
+        var publisher = dataSource.getRemotePosts(userID: userID, page: page, limit: limit)
         
         if page == 1 {
-            let localPublisher: AnyPublisher<[Post], DefaultAPIError> = dataSource.getLocalPosts(userID: userID)
+            let localPublisher = dataSource.getLocalPosts(userID: userID)
             publisher = Publishers.CombineLatest(publisher, localPublisher).map { remotePosts, localPosts in
                 localPosts + remotePosts
             }.eraseToAnyPublisher()
         }
         
         return publisher
+            .mapError { .general(error: $0) }
             // Add a delay to see the loading view
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     
-    func add(post: Post) -> AnyPublisher<Post, DefaultAPIError> {
-        let publisher: AnyPublisher<ID, DefaultAPIError> = dataSource.addRemote(object: post)
+    func add(post: Post) -> AnyPublisher<Post, AppError> {
+        let publisher = dataSource.addRemote(object: post)
         return publisher.map { [weak self] id in
             guard let self else { return post }
             let id = id.id ?? 1
             post.id = getNextID(withInitialValue: id)
             return dataSource.addLocal(object: post) ?? post
         }
-        .eraseToAnyPublisher()
+        .mapError { .general(error: $0) }
         // Add a delay to see the loading view
         .delay(for: .seconds(1), scheduler: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
     
-    func delete(posts: [Post]) -> AnyPublisher<Void, DefaultAPIError> {
-        let publishers: [AnyPublisher<Void, DefaultAPIError>] = posts.map { post in
-            let publisher: AnyPublisher<EmptyResponse, DefaultAPIError> = dataSource.deleteRemote(object: post)
+    func delete(posts: [Post]) -> AnyPublisher<Void, AppError> {
+        let publishers = posts.map { post in
+            let publisher = dataSource.deleteRemote(object: post)
             
             publisher.sink { _ in
             } receiveValue: { _ in
@@ -58,7 +59,7 @@ class PostsUseCases: PostsUseCasesProtocol {
         
         return Publishers.MergeMany(publishers)
             .reduce((), { (_, _) in () })
-            .eraseToAnyPublisher()
+            .mapError { .general(error: $0) }
             // Add a delay to see the loading view
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()

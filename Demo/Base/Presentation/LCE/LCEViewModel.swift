@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class LCEViewModel<Model>: ObservableObject {
+class LCEViewModel<Model, AppError>: ObservableObject where AppError: Error {
     // MARK: - Constants
     
     enum ViewState {
@@ -38,7 +38,7 @@ class LCEViewModel<Model>: ObservableObject {
     
     // MARK: - Fetch Data
     
-    func dataPublisher() -> AnyPublisher<Model, DefaultAPIError> {
+    func dataPublisher() -> AnyPublisher<Model, AppError> {
         fatalError("Subclass must implement this publisher")
     }
     
@@ -55,7 +55,7 @@ class LCEViewModel<Model>: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    func updateViewState(completion: Subscribers.Completion<DefaultAPIError>) {
+    func updateViewState(completion: Subscribers.Completion<AppError>) {
         switch completion {
         case .finished:
             viewState = .content

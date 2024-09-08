@@ -9,12 +9,12 @@ class ToDosRepository: ToDosDataSource {
         self.networkAgent = networkAgent
     }
     
-    func getRemoteToDos(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[ToDo], DefaultAPIError> {
+    func getRemoteToDos(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[ToDo], DataError> {
         let queryParameters = queryParameters(from: userID)
         return getRemoteData(queryParameters: queryParameters, page: page, limit: limit)
     }
     
-    func getLocalToDos(userID: Int?) -> AnyPublisher<[ToDo], DefaultAPIError> {
+    func getLocalToDos(userID: Int?) -> AnyPublisher<[ToDo], DataError> {
         let queryParameters = queryParameters(from: userID)
         return getLocalData(queryParameters: queryParameters)
     }

@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class CommentsViewModel<UseCases>: BaseLCEListViewModel<Comment, UseCases> where UseCases: CommentsUseCasesProtocol {
+class CommentsViewModel<UseCases>: BaseLCEListViewModel<Comment, AppError, UseCases> where UseCases: CommentsUseCasesProtocol {
     let postID: Int?
     
     init(useCases: UseCases = CommentsUseCases(), postID: Int? = nil, comments: [Comment]? = nil) {
@@ -10,7 +10,7 @@ class CommentsViewModel<UseCases>: BaseLCEListViewModel<Comment, UseCases> where
         setActions()
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Comment], DefaultAPIError> {
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Comment], AppError> {
         useCases.getComments(postID: postID, page: page, limit: limit)
     }
     

@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class PostsViewModel<UseCases>: BaseLCEListViewModel<Post, UseCases> where UseCases: PostsUseCasesProtocol {
+class PostsViewModel<UseCases>: BaseLCEListViewModel<Post, AppError, UseCases> where UseCases: PostsUseCasesProtocol {
     let userID: Int?
     
     init(useCases: UseCases = PostsUseCases(), userID: Int? = nil, posts: [Post]? = nil) {
@@ -10,7 +10,7 @@ class PostsViewModel<UseCases>: BaseLCEListViewModel<Post, UseCases> where UseCa
         setActions()
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Post], DefaultAPIError> {
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Post], AppError> {
         useCases.getPosts(userID: userID, page: page, limit: limit)
     }
     

@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class PhotosViewModel<UseCases>: BaseLCEListViewModel<Photo, UseCases> where UseCases: PhotosUseCasesProtocol {
+class PhotosViewModel<UseCases>: BaseLCEListViewModel<Photo, AppError, UseCases> where UseCases: PhotosUseCasesProtocol {
     let albumID: Int?
     
     init(useCases: UseCases = PhotosUseCases(), albumID: Int? = nil, photos: [Photo]? = nil) {
@@ -9,7 +9,7 @@ class PhotosViewModel<UseCases>: BaseLCEListViewModel<Photo, UseCases> where Use
         super.init(useCases: useCases, models: photos, limit: 50)
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Photo], DefaultAPIError> {
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[Photo], AppError> {
         useCases.getPhotos(albumID: albumID, page: page, limit: limit)
     }
     

@@ -1,13 +1,13 @@
 import Foundation
 import Combine
 
-class UsersViewModel<UseCases>: BaseLCEListViewModel<User, UseCases> where UseCases: UsersUseCasesProtocol {
+class UsersViewModel<UseCases>: BaseLCEListViewModel<User, AppError, UseCases> where UseCases: UsersUseCasesProtocol {
     init(useCases: UseCases = UsersUseCases(), users: [User]? = nil) {
         super.init(useCases: useCases, models: users, limit: 5)
         setActions()
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[User], DefaultAPIError> {
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[User], AppError> {
         useCases.getUsers(page: page, limit: limit)
     }
     

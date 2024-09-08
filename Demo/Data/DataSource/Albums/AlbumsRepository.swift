@@ -9,12 +9,12 @@ class AlbumsRepository: AlbumsDataSource {
         self.networkAgent = networkAgent
     }
     
-    func getRemoteAlbums(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Album], DefaultAPIError> {
+    func getRemoteAlbums(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Album], DataError> {
         let queryParameters = queryParameters(from: userID)
         return getRemoteData(queryParameters: queryParameters, page: page, limit: limit)
     }
     
-    func getLocalAlbums(userID: Int?) -> AnyPublisher<[Album], DefaultAPIError> {
+    func getLocalAlbums(userID: Int?) -> AnyPublisher<[Album], DataError> {
         let queryParameters = queryParameters(from: userID)
         return getLocalData(queryParameters: queryParameters)
     }

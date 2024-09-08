@@ -12,39 +12,40 @@ class PhotosUseCases: PhotosUseCasesProtocol {
         self.dataSource = dataSource
     }
     
-    func getPhotos(albumID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Photo], DefaultAPIError> {
-        var publisher: AnyPublisher<[Photo], DefaultAPIError> = dataSource.getRemotePhotos(albumID: albumID, page: page, limit: limit)
+    func getPhotos(albumID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Photo], AppError> {
+        var publisher = dataSource.getRemotePhotos(albumID: albumID, page: page, limit: limit)
         
         if page == 1 {
-            let localPublisher: AnyPublisher<[Photo], DefaultAPIError> = dataSource.getLocalPhotos(albumID: albumID)
+            let localPublisher = dataSource.getLocalPhotos(albumID: albumID)
             publisher = Publishers.CombineLatest(publisher, localPublisher).map { remotePhotos, localPhotos in
                 localPhotos + remotePhotos
             }.eraseToAnyPublisher()
         }
         
         return publisher
+            .mapError { .general(error: $0) }
             // Add a delay to see the loading view
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     
-    func add(photo: Photo) -> AnyPublisher<Photo, DefaultAPIError> {
-        let publisher: AnyPublisher<ID, DefaultAPIError> = dataSource.addRemote(object: photo)
+    func add(photo: Photo) -> AnyPublisher<Photo, AppError> {
+        let publisher = dataSource.addRemote(object: photo)
         return publisher.map { [weak self] id in
             guard let self else { return photo }
             let id = id.id ?? 1
             photo.id = getNextID(withInitialValue: id)
             return dataSource.addLocal(object: photo) ?? photo
         }
-        .eraseToAnyPublisher()
+        .mapError { .general(error: $0) }
         // Add a delay to see the loading view
         .delay(for: .seconds(1), scheduler: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
     
-    func delete(photos: [Photo]) -> AnyPublisher<Void, DefaultAPIError> {
-        let publishers: [AnyPublisher<Void, DefaultAPIError>] = photos.map { photo in
-            let publisher: AnyPublisher<EmptyResponse, DefaultAPIError> = dataSource.deleteRemote(object: photo)
+    func delete(photos: [Photo]) -> AnyPublisher<Void, AppError> {
+        let publishers = photos.map { photo in
+            let publisher = dataSource.deleteRemote(object: photo)
             
             publisher.sink { _ in
             } receiveValue: { _ in
@@ -58,7 +59,7 @@ class PhotosUseCases: PhotosUseCasesProtocol {
         
         return Publishers.MergeMany(publishers)
             .reduce((), { (_, _) in () })
-            .eraseToAnyPublisher()
+            .mapError { .general(error: $0) }
             // Add a delay to see the loading view
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()

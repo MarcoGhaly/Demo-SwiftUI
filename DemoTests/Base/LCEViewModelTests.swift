@@ -19,12 +19,12 @@ class LCEViewModelTests: XCTestCase {
         testViewStates(error: .general(error: error))
     }
     
-    private func testViewStates(model: TestModel? = nil, error: DefaultAPIError? = nil) {
+    private func testViewStates(model: TestModel? = nil, error: AppError? = nil) {
         let viewModel = LCEViewModelTest(model: model, error: error)
         testViewStates(viewModel: viewModel, error: error)
     }
     
-    func testViewStates<T>(viewModel: LCEViewModel<T>, error: DefaultAPIError? = nil) {
+    func testViewStates<T>(viewModel: LCEViewModel<T, AppError>, error: AppError? = nil) {
         if viewModel.model != nil {
             guard case .content = viewModel.viewState else {
                 XCTAssert(false)
@@ -51,14 +51,14 @@ class LCEViewModelTests: XCTestCase {
         }
     }
     
-    func validateContent<T>(viewModel: LCEViewModel<T>) {
+    func validateContent<T>(viewModel: LCEViewModel<T, AppError>) {
         guard case .content = viewModel.viewState else {
             XCTAssert(false)
             return
         }
     }
     
-    func validateLoading<T>(viewModel: LCEViewModel<T>) {
+    func validateLoading<T>(viewModel: LCEViewModel<T, AppError>) {
         if case .loading(let loadingViewModel) = viewModel.viewState {
 //            validate(loadingViewModel: loadingViewModel)
         } else {
@@ -67,7 +67,7 @@ class LCEViewModelTests: XCTestCase {
         }
     }
     
-    func validateError<T>(viewModel: LCEViewModel<T>) {
+    func validateError<T>(viewModel: LCEViewModel<T, AppError>) {
         if case .error(let errorViewModel) = viewModel.viewState {
 //            validate(errorViewModel: errorViewModel)
         } else {
@@ -91,16 +91,16 @@ class LCEViewModelTests: XCTestCase {
     }
 }
 
-private class LCEViewModelTest: LCEViewModel<TestModel> {
-    private let error: DefaultAPIError?
+private class LCEViewModelTest: LCEViewModel<TestModel, AppError> {
+    private let error: AppError?
     
-    init(model: TestModel?, error: DefaultAPIError? = nil) {
+    init(model: TestModel?, error: AppError? = nil) {
         self.error = error
         super.init(model: model)
     }
     
-    override func dataPublisher() -> AnyPublisher<TestModel, DefaultAPIError> {
-        let publisher = PassthroughSubject<TestModel, DefaultAPIError>()
+    override func dataPublisher() -> AnyPublisher<TestModel, AppError> {
+        let publisher = PassthroughSubject<TestModel, AppError>()
         DispatchQueue.main.async {
             if let error = self.error {
                 publisher.send(completion: .failure(error))

@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 protocol CommentsUseCasesProtocol: DemoUseCases {
-    func getComments(postID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Comment], DefaultAPIError>
-    func add(comment: Comment) -> AnyPublisher<Comment, DefaultAPIError>
-    func delete(comments: [Comment]) -> AnyPublisher<Void, DefaultAPIError>
+    func getComments(postID: Int?, page: Int?, limit: Int?) -> AnyPublisher<[Comment], AppError>
+    func add(comment: Comment) -> AnyPublisher<Comment, AppError>
+    func delete(comments: [Comment]) -> AnyPublisher<Void, AppError>
 }

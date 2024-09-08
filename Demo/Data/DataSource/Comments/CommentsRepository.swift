@@ -9,12 +9,12 @@ class CommentsRepository: CommentsDataSource {
         self.networkAgent = networkAgent
     }
     
-    func getRemoteComments(postID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Comment], DefaultAPIError> {
+    func getRemoteComments(postID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Comment], DataError> {
         let queryParameters = queryParameters(from: postID)
         return getRemoteData(queryParameters: queryParameters, page: page, limit: limit)
     }
     
-    func getLocalComments(postID: Int?) -> AnyPublisher<[Comment], DefaultAPIError> {
+    func getLocalComments(postID: Int?) -> AnyPublisher<[Comment], DataError> {
         let queryParameters = queryParameters(from: postID)
         return getLocalData(queryParameters: queryParameters)
     }

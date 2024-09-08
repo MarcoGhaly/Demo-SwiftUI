@@ -9,12 +9,12 @@ class PhotosRepository: PhotosDataSource {
         self.networkAgent = networkAgent
     }
     
-    func getRemotePhotos(albumID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Photo], DefaultAPIError> {
+    func getRemotePhotos(albumID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Photo], DataError> {
         let queryParameters = queryParameters(from: albumID)
         return getRemoteData(queryParameters: queryParameters, page: page, limit: limit)
     }
     
-    func getLocalPhotos(albumID: Int?) -> AnyPublisher<[Photo], DefaultAPIError> {
+    func getLocalPhotos(albumID: Int?) -> AnyPublisher<[Photo], DataError> {
         let queryParameters = queryParameters(from: albumID)
         return getLocalData(queryParameters: queryParameters)
     }

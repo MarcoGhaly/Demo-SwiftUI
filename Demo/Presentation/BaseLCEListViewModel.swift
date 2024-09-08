@@ -2,8 +2,8 @@ import Foundation
 import Combine
 import RealmSwift
 
-class BaseLCEListViewModel<Element, UseCases>: LCEListViewModel<Element>
-where Element: Object & Identified & Codable, UseCases: DemoUseCases {
+class BaseLCEListViewModel<Element, AppError, UseCases>: LCEListViewModel<Element, AppError>
+where Element: Object & Identified & Codable, AppError: Error, UseCases: DemoUseCases {
     let useCases: UseCases
     
     let actionPublisher = PassthroughSubject<Action, Never>()

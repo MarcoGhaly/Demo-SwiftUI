@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class ToDosViewModel<UseCases>: BaseLCEListViewModel<ToDo, UseCases> where UseCases: ToDosUseCasesProtocol {
+class ToDosViewModel<UseCases>: BaseLCEListViewModel<ToDo, AppError, UseCases> where UseCases: ToDosUseCasesProtocol {
     let userID: Int?
     
     init(useCases: UseCases = ToDosUseCases(), userID: Int? = nil, todos: [ToDo]? = nil) {
@@ -10,7 +10,7 @@ class ToDosViewModel<UseCases>: BaseLCEListViewModel<ToDo, UseCases> where UseCa
         setActions()
     }
     
-    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[ToDo], DefaultAPIError> {
+    override func dataPublisher(page: Int, limit: Int?) -> AnyPublisher<[ToDo], AppError> {
         useCases.getToDos(userID: userID, page: page, limit: limit)
     }
     

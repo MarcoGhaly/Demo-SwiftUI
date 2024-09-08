@@ -9,12 +9,12 @@ class PostsRepository: PostsDataSource {
         self.networkAgent = networkAgent
     }
     
-    func getRemotePosts(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Post], DefaultAPIError> {
+    func getRemotePosts(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Post], DataError> {
         let queryParameters = queryParameters(from: userID)
         return getRemoteData(queryParameters: queryParameters, page: page, limit: limit)
     }
     
-    func getLocalPosts(userID: Int?) -> AnyPublisher<[Post], DefaultAPIError> {
+    func getLocalPosts(userID: Int?) -> AnyPublisher<[Post], DataError> {
         let queryParameters = queryParameters(from: userID)
         return getLocalData(queryParameters: queryParameters)
     }

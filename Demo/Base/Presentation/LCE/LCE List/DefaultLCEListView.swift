@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct DefaultLCEListView<Element, ViewModel, ID, CellContent, Destination>: View
-where ViewModel: LCEListViewModel<Element>, ID: Hashable, CellContent: View, Destination: View {
+struct DefaultLCEListView<Element, AppError, ViewModel, ID, CellContent, Destination>: View
+where ViewModel: LCEListViewModel<Element, AppError>, ID: Hashable, CellContent: View, Destination: View {
     @ObservedObject var viewModel: ViewModel
     let columns: Int
     let id: KeyPath<Element, ID>
@@ -53,7 +53,7 @@ extension DefaultLCEListView where Element: Identifiable, ID == Element.ID {
 
 struct DefaultLCEListView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = LCEListViewModel<String>(models: ["Hello", "World"])
+        let viewModel = LCEListViewModel<String, Error>(models: ["Hello", "World"])
         return DefaultLCEListView(viewModel: viewModel, id: \.self) { element in
             Text(element)
         }
