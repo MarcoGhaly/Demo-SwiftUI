@@ -1,17 +1,26 @@
 import SwiftUI
 
-typealias Entry = (label: String, keyboardType: UIKeyboardType, value: String, keyPath: WritableKeyPath<User, String?>)
+typealias Entry = (
+    label: String,
+    keyboardType: UIKeyboardType,
+    autoCapitalization: TextInputAutocapitalization,
+    value: String,
+    keyPath: WritableKeyPath<User, String?>
+)
 
 struct AddUserView: View {
     @Binding var isPresented: Bool
     var onConfirm: (User) -> Void
     
-    @State private var entries: [Entry] = [("Username", UIKeyboardType.default, \User.username),
-                                           ("Name", UIKeyboardType.default, \User.name),
-                                           ("Email", UIKeyboardType.emailAddress, \User.email),
-                                           ("Phone", UIKeyboardType.phonePad, \User.phone),
-                                           ("Website", UIKeyboardType.URL, \User.website)]
-        .map { Entry(label: $0.0, keyboardType: $0.1, value: "", keyPath: $0.2) }
+    @State private var entries: [Entry] = [
+        ("Username", UIKeyboardType.default, TextInputAutocapitalization.never, \User.username),
+        ("Name", UIKeyboardType.default, TextInputAutocapitalization.words, \User.name),
+        ("Email", UIKeyboardType.emailAddress, TextInputAutocapitalization.never, \User.email),
+        ("Phone", UIKeyboardType.phonePad, TextInputAutocapitalization.never, \User.phone),
+        ("Website", UIKeyboardType.URL, TextInputAutocapitalization.never, \User.website)
+    ].map {
+        Entry(label: $0.0, keyboardType: $0.1, autoCapitalization: $0.2, value: "", keyPath: $0.3)
+    }
     
     var body: some View {
         ScrollView {
@@ -19,8 +28,14 @@ struct AddUserView: View {
                 Text("Add New User")
                     .font(.title)
                 
-                ForEach(entries.indices) { index in
-                    EntryView(title: entries[index].label, placeHolder: entries[index].label, keyboardType: entries[index].keyboardType, text: $entries[index].value)
+                ForEach(entries.indices, id: \.self) { index in
+                    EntryView(
+                        title: entries[index].label,
+                        placeHolder: entries[index].label,
+                        keyboardType: entries[index].keyboardType,
+                        autoCapitalization: entries[index].autoCapitalization,
+                        text: $entries[index].value
+                    )
                     Divider()
                 }
                 

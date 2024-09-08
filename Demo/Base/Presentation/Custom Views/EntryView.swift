@@ -4,6 +4,8 @@ struct EntryView: View {
     var title: String
     var placeHolder: String
     var keyboardType: UIKeyboardType = .default
+    var autoCapitalization: TextInputAutocapitalization = .never
+    var autoCorrectEnabled = false
     @Binding var text: String
     
     var body: some View {
@@ -13,9 +15,13 @@ struct EntryView: View {
             
             TextField(placeHolder, text: _text)
                 .keyboardType(keyboardType)
+                .textInputAutocapitalization(autoCapitalization)
+                .autocorrectionDisabled(!autoCorrectEnabled)
                 .padding(8)
-                .overlay(RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.gray, lineWidth: 1))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
         }
     }
 }
