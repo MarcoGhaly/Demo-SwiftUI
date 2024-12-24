@@ -310,9 +310,10 @@
 			isa = PBXGroup;
 			children = (
 				2F00AEEA2598ED8E0082D32F /* Info.plist */,
-				2FAB465D2C52F67F00D6A749 /* Mocks */,
 				2FFA7FDF259B6BF900BBC081 /* Base */,
-				2FAB46622C52F76600D6A749 /* Tests */,
+				2FC076412D1B415A00EBA622 /* Data */,
+				2FC076442D1B41A600EBA622 /* UseCases */,
+				2FAB46622C52F76600D6A749 /* Presentation */,
 			);
 			path = DemoTests;
 			sourceTree = "<group>";
@@ -499,24 +500,12 @@
 			path = Keyboard;
 			sourceTree = "<group>";
 		};
-		2FAB465D2C52F67F00D6A749 /* Mocks */ = {
+		2FAB46622C52F76600D6A749 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				2F4F0C072C870E55002F5A73 /* NetworkAgentMock.swift */,
-				2FAB465E2C52F69900D6A749 /* DemoDataSourceMock.swift */,
-				2FAB46602C52F6AA00D6A749 /* UsersDataSourceMock.swift */,
-				2F4F0C092C877A2A002F5A73 /* UsersUseCasesMock.swift */,
+				2FC0763F2D1B413900EBA622 /* Users */,
 			);
-			path = Mocks;
-			sourceTree = "<group>";
-		};
-		2FAB46622C52F76600D6A749 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				2F55F985259A8D2C00AACCAA /* UsersViewModelTests.swift */,
-				2FC1B375264D9006009B4F13 /* DateExtensionsTests.swift */,
-			);
-			path = Tests;
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		2FB6B5D225645A7B00A7FBDD /* Albums */ = {
@@ -547,6 +536,104 @@
 				2FA24ECA258BC53C0093C03E /* DefaultLCEListView.swift */,
 			);
 			path = "LCE List";
+			sourceTree = "<group>";
+		};
+		2FC076392D1B409700EBA622 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2F4F0C072C870E55002F5A73 /* NetworkAgentMock.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		2FC0763A2D1B40B000EBA622 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				2FC0763B2D1B40C000EBA622 /* LCE */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		2FC0763B2D1B40C000EBA622 /* LCE */ = {
+			isa = PBXGroup;
+			children = (
+				2FC0763C2D1B40D600EBA622 /* LCE List */,
+				2F00AEF22598EDD10082D32F /* LCEViewModelTests.swift */,
+			);
+			path = LCE;
+			sourceTree = "<group>";
+		};
+		2FC0763C2D1B40D600EBA622 /* LCE List */ = {
+			isa = PBXGroup;
+			children = (
+				2F55F97B259A012D00AACCAA /* LCEListViewModelTests.swift */,
+			);
+			path = "LCE List";
+			sourceTree = "<group>";
+		};
+		2FC0763D2D1B40FB00EBA622 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2FC1B375264D9006009B4F13 /* DateExtensionsTests.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		2FC0763E2D1B411200EBA622 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				2FC076392D1B409700EBA622 /* Network */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		2FC0763F2D1B413900EBA622 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				2F55F985259A8D2C00AACCAA /* UsersViewModelTests.swift */,
+			);
+			path = Users;
+			sourceTree = "<group>";
+		};
+		2FC076412D1B415A00EBA622 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				2FC076422D1B416100EBA622 /* DataSource */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		2FC076422D1B416100EBA622 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				2FC076432D1B418500EBA622 /* Users */,
+				2FAB465E2C52F69900D6A749 /* DemoDataSourceMock.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		2FC076432D1B418500EBA622 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				2FAB46602C52F6AA00D6A749 /* UsersDataSourceMock.swift */,
+			);
+			path = Users;
+			sourceTree = "<group>";
+		};
+		2FC076442D1B41A600EBA622 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				2FC076452D1B41C000EBA622 /* Users */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		2FC076452D1B41C000EBA622 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				2F4F0C092C877A2A002F5A73 /* UsersUseCasesMock.swift */,
+			);
+			path = Users;
 			sourceTree = "<group>";
 		};
 		2FC1B361264D7C1A009B4F13 /* Network */ = {
@@ -674,9 +761,10 @@
 		2FFA7FDF259B6BF900BBC081 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				2FC0763E2D1B411200EBA622 /* Data */,
+				2FC0763A2D1B40B000EBA622 /* Presentation */,
+				2FC0763D2D1B40FB00EBA622 /* Utilities */,
 				2F00AEF62598F38C0082D32F /* TestModel.swift */,
-				2F00AEF22598EDD10082D32F /* LCEViewModelTests.swift */,
-				2F55F97B259A012D00AACCAA /* LCEListViewModelTests.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
