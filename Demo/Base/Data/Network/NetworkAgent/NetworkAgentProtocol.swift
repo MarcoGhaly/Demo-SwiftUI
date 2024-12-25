@@ -21,8 +21,6 @@ extension NetworkAgentProtocol {
 }
 
 extension NetworkAgentProtocol {
-    private var successCodes: Range<Int> { 200..<300 }
-    
     func performRequest<DataModel, ErrorModel>(_ request: Request) -> AnyPublisher<DataModel, APIError<ErrorModel>> where DataModel: Decodable {
         if let headers = self.headers {
             request.headers?.merge(headers) { (current, _) in current }
@@ -54,8 +52,15 @@ extension NetworkAgentProtocol {
         
         return performRequest(urlRequest, decoder: jsonDecoder, retries: request.retries)
     }
-    
-    private func performRequest<DataModel, ErrorModel, Decoder>(_ request: URLRequest, decoder: Decoder, retries: Retries? = nil) -> AnyPublisher<DataModel, APIError<ErrorModel>> where DataModel: Decodable, Decoder: TopLevelDecoder, Decoder.Input == Data {
+}
+
+// MARK: - Helpers
+private extension NetworkAgentProtocol {
+    var successCodes: Range<Int> { 200..<300 }
+
+    func performRequest<DataModel, ErrorModel, Decoder>(_ request: URLRequest, decoder: Decoder, retries: Retries? = nil)
+    -> AnyPublisher<DataModel, APIError<ErrorModel>>
+    where DataModel: Decodable, Decoder: TopLevelDecoder, Decoder.Input == Data {
         let urlSession = URLSession(configuration: .default)
         return urlSession.dataTaskPublisher(for: request)
             .tryMap { data, urlResponse in
@@ -99,13 +104,13 @@ extension NetworkAgentProtocol {
             .eraseToAnyPublisher()
     }
     
-    private func map<ErrorModel>(error: Error) -> APIError<ErrorModel> {
+    func map<ErrorModel>(error: Error) -> APIError<ErrorModel> {
         switch error {
         case URLError.Code.badURL, URLError.Code.unsupportedURL:
             return .invalidURL
         case URLError.notConnectedToInternet,
-             URLError.networkConnectionLost,
-             URLError.cannotLoadFromNetwork:
+            URLError.networkConnectionLost,
+            URLError.cannotLoadFromNetwork:
             return .noInternet
         case URLError.Code.timedOut:
             return .timeout
@@ -114,14 +119,14 @@ extension NetworkAgentProtocol {
         }
     }
     
-    private func shouldDelay<ErrorModel>(error: APIError<ErrorModel>, retries: Retries) -> Bool {
+    func shouldDelay<ErrorModel>(error: APIError<ErrorModel>, retries: Retries) -> Bool {
         if case .noInternet = error {
             return false
         }
         return retries.shouldDelay
     }
     
-    private func shouldRetry<ErrorModel>(error: APIError<ErrorModel>, retries: Retries) -> Bool {
+    func shouldRetry<ErrorModel>(error: APIError<ErrorModel>, retries: Retries) -> Bool {
         if case .noInternet = error {
             return false
         }

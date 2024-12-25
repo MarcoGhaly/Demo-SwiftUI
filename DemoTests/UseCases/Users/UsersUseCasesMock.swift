@@ -2,7 +2,7 @@ import Foundation
 import Combine
 @testable import Demo
 
-class UsersUseCasesMock: UsersUseCasesProtocol {
+final class UsersUseCasesMock: UsersUseCasesProtocol {
     var idKey = ""
 
     var stubbedUsers: [User]?
