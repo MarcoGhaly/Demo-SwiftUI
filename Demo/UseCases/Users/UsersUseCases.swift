@@ -24,8 +24,6 @@ class UsersUseCases: UsersUseCasesProtocol {
         
         return publisher
             .mapError { .general(error: $0) }
-            // Add a delay to see the loading view
-            .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     
@@ -38,8 +36,6 @@ class UsersUseCases: UsersUseCasesProtocol {
             return dataSource.addLocal(object: user) ?? user
         }
         .mapError { .general(error: $0) }
-        // Add a delay to see the loading view
-        .delay(for: .seconds(1), scheduler: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
     
@@ -60,8 +56,6 @@ class UsersUseCases: UsersUseCasesProtocol {
         return Publishers.MergeMany(publishers)
             .reduce((), { (_, _) in () })
             .mapError { .general(error: $0) }
-            // Add a delay to see the loading view
-            .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 }

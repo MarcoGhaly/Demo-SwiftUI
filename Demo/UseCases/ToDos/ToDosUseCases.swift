@@ -24,8 +24,6 @@ class ToDosUseCases: ToDosUseCasesProtocol {
         
         return publisher
             .mapError { .general(error: $0) }
-            // Add a delay to see the loading view
-            .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     
@@ -38,8 +36,6 @@ class ToDosUseCases: ToDosUseCasesProtocol {
             return dataSource.addLocal(object: toDo) ?? toDo
         }
         .mapError { .general(error: $0) }
-        // Add a delay to see the loading view
-        .delay(for: .seconds(1), scheduler: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
     
@@ -60,8 +56,6 @@ class ToDosUseCases: ToDosUseCasesProtocol {
         return Publishers.MergeMany(publishers)
             .reduce((), { (_, _) in () })
             .mapError { .general(error: $0) }
-            // Add a delay to see the loading view
-            .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 }
