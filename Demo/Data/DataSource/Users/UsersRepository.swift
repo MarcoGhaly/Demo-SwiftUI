@@ -1,13 +1,11 @@
 import Foundation
 import Combine
 
-class UsersRepository: UsersDataSource {
-    let networkAgent: NetworkAgentProtocol
-    var methodName: String { "users" }
+struct UsersRepository: UsersDataSource {
+    let methodName = "users"
     
-    init(networkAgent: NetworkAgentProtocol = NetworkAgent()) {
-        self.networkAgent = networkAgent
-    }
+    var networkAgent: NetworkAgentProtocol = NetworkAgent()
+    var databaseManager: DatabaseManagerProtocol = DatabaseManager()
 
     func getRemoteUsers(page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[User], DataError> {
         getRemoteData(page: page, limit: limit)

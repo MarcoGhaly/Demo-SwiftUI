@@ -75,6 +75,8 @@
 		2FB6B5F92564921400A7FBDD /* PhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5F82564921400A7FBDD /* PhotosViewModel.swift */; };
 		2FB6B5FC2564938500A7FBDD /* PhotosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6B5FB2564938500A7FBDD /* PhotosListView.swift */; };
 		2FB782E32D1C7CF400D5E25A /* DemoDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB782E22D1C7CF400D5E25A /* DemoDataSourceTests.swift */; };
+		2FB782E72D1CAD2A00D5E25A /* DatabaseManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB782E62D1CAD2600D5E25A /* DatabaseManagerProtocol.swift */; };
+		2FB782EC2D1CB44800D5E25A /* DatabaseManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB782EB2D1CB44600D5E25A /* DatabaseManagerMock.swift */; };
 		2FBD98ED256E8FDD00CBFB1B /* LCEListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD98EC256E8FDD00CBFB1B /* LCEListViewModel.swift */; };
 		2FBD98F1256ED1F100CBFB1B /* LCEListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD98F0256ED1F100CBFB1B /* LCEListView.swift */; };
 		2FC076472D1B80DC00EBA622 /* UsersUseCasesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC076462D1B80DC00EBA622 /* UsersUseCasesTests.swift */; };
@@ -220,6 +222,8 @@
 		2FB6B5F82564921400A7FBDD /* PhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewModel.swift; sourceTree = "<group>"; };
 		2FB6B5FB2564938500A7FBDD /* PhotosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListView.swift; sourceTree = "<group>"; };
 		2FB782E22D1C7CF400D5E25A /* DemoDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoDataSourceTests.swift; sourceTree = "<group>"; };
+		2FB782E62D1CAD2600D5E25A /* DatabaseManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManagerProtocol.swift; sourceTree = "<group>"; };
+		2FB782EB2D1CB44600D5E25A /* DatabaseManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManagerMock.swift; sourceTree = "<group>"; };
 		2FBD98EC256E8FDD00CBFB1B /* LCEListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCEListViewModel.swift; sourceTree = "<group>"; };
 		2FBD98F0256ED1F100CBFB1B /* LCEListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCEListView.swift; sourceTree = "<group>"; };
 		2FC076462D1B80DC00EBA622 /* UsersUseCasesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersUseCasesTests.swift; sourceTree = "<group>"; };
@@ -532,6 +536,31 @@
 			path = Photos;
 			sourceTree = "<group>";
 		};
+		2FB782E42D1CAD1300D5E25A /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				2FB782E62D1CAD2600D5E25A /* DatabaseManagerProtocol.swift */,
+				2F0F41DB258E782800271C93 /* DatabaseManager.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		2FB782E82D1CB42200D5E25A /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				2FB782E92D1CB43600D5E25A /* Database */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		2FB782E92D1CB43600D5E25A /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				2FB782EB2D1CB44600D5E25A /* DatabaseManagerMock.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		2FBD98EB256E8FA500CBFB1B /* LCE List */ = {
 			isa = PBXGroup;
 			children = (
@@ -587,6 +616,7 @@
 			isa = PBXGroup;
 			children = (
 				2FC076392D1B409700EBA622 /* Network */,
+				2FB782E82D1CB42200D5E25A /* Storage */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -757,7 +787,7 @@
 		2FFA7FD4259B6B3800BBC081 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				2F0F41DB258E782800271C93 /* DatabaseManager.swift */,
+				2FB782E42D1CAD1300D5E25A /* Database */,
 				2F74F43325816C1700B956E9 /* UserDefaultsManager.swift */,
 				2F5C141F2C8CE6A900F0171B /* StorageError.swift */,
 			);
@@ -1121,6 +1151,7 @@
 			files = (
 				2F00AEF72598F38C0082D32F /* TestModel.swift in Sources */,
 				2FB782E32D1C7CF400D5E25A /* DemoDataSourceTests.swift in Sources */,
+				2FB782EC2D1CB44800D5E25A /* DatabaseManagerMock.swift in Sources */,
 				2F55F986259A8D2C00AACCAA /* UsersViewModelTests.swift in Sources */,
 				2FC076472D1B80DC00EBA622 /* UsersUseCasesTests.swift in Sources */,
 				2F4F0C0A2C877A2A002F5A73 /* UsersUseCasesMock.swift in Sources */,
@@ -1139,6 +1170,7 @@
 			files = (
 				2F6A520D25BC991500D76582 /* AnnotationProtocol.swift in Sources */,
 				2FF671E72C45268B00EB80F9 /* ToDosUseCasesProtocol.swift in Sources */,
+				2FB782E72D1CAD2A00D5E25A /* DatabaseManagerProtocol.swift in Sources */,
 				2F5C14242C8CF48000F0171B /* AppError.swift in Sources */,
 				2F6DB71925574D41002817B5 /* PostViewModel.swift in Sources */,
 				6CD3AD3724FAC3C700D8BF77 /* PostsListView.swift in Sources */,

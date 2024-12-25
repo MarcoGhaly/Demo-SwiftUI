@@ -34,6 +34,7 @@ final class DemoDataSourceTests: XCTestCase {
 
 private struct DemoDataSourceExample: DemoDataSource {
     var methodName: String
-    var networkAgent: NetworkAgentProtocol
+    var networkAgent: NetworkAgentProtocol = NetworkAgentMock()
+    var databaseManager: DatabaseManagerProtocol = DatabaseManagerMock()
     var queryParameters: [String : String]?
 }

@@ -1,14 +1,12 @@
 import Foundation
 import Combine
 
-class CommentsRepository: CommentsDataSource {
-    let networkAgent: NetworkAgentProtocol
-    var methodName: String { "comments" }
+struct CommentsRepository: CommentsDataSource {
+    let methodName = "comments"
     
-    init(networkAgent: NetworkAgentProtocol = NetworkAgent()) {
-        self.networkAgent = networkAgent
-    }
-    
+    var networkAgent: NetworkAgentProtocol = NetworkAgent()
+    var databaseManager: DatabaseManagerProtocol = DatabaseManager()
+
     func getRemoteComments(postID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Comment], DataError> {
         let queryParameters = queryParameters(from: postID)
         return getRemoteData(queryParameters: queryParameters, page: page, limit: limit)

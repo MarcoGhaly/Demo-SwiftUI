@@ -1,14 +1,12 @@
 import Foundation
 import Combine
 
-class PostsRepository: PostsDataSource {
-    let networkAgent: NetworkAgentProtocol
-    var methodName: String { "posts" }
+struct PostsRepository: PostsDataSource {
+    let methodName = "posts"
     
-    init(networkAgent: NetworkAgentProtocol = NetworkAgent()) {
-        self.networkAgent = networkAgent
-    }
-    
+    var networkAgent: NetworkAgentProtocol = NetworkAgent()
+    var databaseManager: DatabaseManagerProtocol = DatabaseManager()
+
     func getRemotePosts(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Post], DataError> {
         let queryParameters = queryParameters(from: userID)
         return getRemoteData(queryParameters: queryParameters, page: page, limit: limit)

@@ -1,14 +1,12 @@
 import Foundation
 import Combine
 
-class PhotosRepository: PhotosDataSource {
-    let networkAgent: NetworkAgentProtocol
-    var methodName: String { "photos" }
+struct PhotosRepository: PhotosDataSource {
+    let methodName = "photos"
     
-    init(networkAgent: NetworkAgentProtocol = NetworkAgent()) {
-        self.networkAgent = networkAgent
-    }
-    
+    var networkAgent: NetworkAgentProtocol = NetworkAgent()
+    var databaseManager: DatabaseManagerProtocol = DatabaseManager()
+
     func getRemotePhotos(albumID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[Photo], DataError> {
         let queryParameters = queryParameters(from: albumID)
         return getRemoteData(queryParameters: queryParameters, page: page, limit: limit)

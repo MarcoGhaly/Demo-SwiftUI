@@ -5,7 +5,9 @@ import RealmSwift
 protocol DemoDataSource {
     var methodName: String { get }
     var queryParameters: [String: String]? { get }
+    
     var networkAgent: NetworkAgentProtocol { get }
+    var databaseManager: DatabaseManagerProtocol { get }
     
     // MARK: - Remote
     
@@ -108,19 +110,19 @@ extension DemoDataSource {
         if let format = queryParameters?.map({ "\($0)=\($1)" }).joined(separator: "&"), !format.isEmpty {
             predicate = NSPredicate(format: format)
         }
-        return DatabaseManager.loadObjects(predicate: predicate)
+        return databaseManager.loadObjects(predicate: predicate)
             .mapError { .localError(error: $0) }
             .eraseToAnyPublisher()
     }
     
     func addLocal<DataModel>(object: DataModel) -> DataModel?
     where DataModel: Object, DataModel: Encodable, DataModel: Identified {
-        try? DatabaseManager.save(object: object)
+        try? databaseManager.save(object: object)
     }
     
     func deleteLocal<DataModel>(object: DataModel) -> DataModel?
     where DataModel: Object, DataModel: Identified {
         let predicate = NSPredicate(format: "id = %@", argumentArray: [object.id])
-        return try? DatabaseManager.deleteObjects(predicate: predicate).first
+        return try? databaseManager.deleteObjects(predicate: predicate).first
     }
 }

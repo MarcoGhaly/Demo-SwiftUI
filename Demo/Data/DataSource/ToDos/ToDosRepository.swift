@@ -1,14 +1,12 @@
 import Foundation
 import Combine
 
-class ToDosRepository: ToDosDataSource {
-    let networkAgent: NetworkAgentProtocol
-    var methodName: String { "todos" }
+struct ToDosRepository: ToDosDataSource {
+    let methodName = "todos"
     
-    init(networkAgent: NetworkAgentProtocol = NetworkAgent()) {
-        self.networkAgent = networkAgent
-    }
-    
+    var networkAgent: NetworkAgentProtocol = NetworkAgent()
+    var databaseManager: DatabaseManagerProtocol = DatabaseManager()
+
     func getRemoteToDos(userID: Int? = nil, page: Int? = nil, limit: Int? = nil) -> AnyPublisher<[ToDo], DataError> {
         let queryParameters = queryParameters(from: userID)
         return getRemoteData(queryParameters: queryParameters, page: page, limit: limit)

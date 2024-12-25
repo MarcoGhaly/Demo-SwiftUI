@@ -6,6 +6,7 @@ import RealmSwift
 class DemoDataSourceMock: DemoDataSource {
     var methodName = ""
     var networkAgent: NetworkAgentProtocol = NetworkAgentMock()
+    var databaseManager: DatabaseManagerProtocol = DatabaseManagerMock()
     
     // MARK: - Remote
     
