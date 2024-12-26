@@ -107,7 +107,7 @@ extension DemoDataSource {
         queryParameters: [String: String]? = nil, page: Int? = nil, limit: Int? = nil
     ) -> AnyPublisher<[DataModel], DataError> where DataModel: Object, DataModel: Decodable {
         var predicate: NSPredicate?
-        if let format = queryParameters?.map({ "\($0)=\($1)" }).joined(separator: "&"), !format.isEmpty {
+        if let format = queryParameters?.map({ "\($0)=\($1)" }).joined(separator: "&&"), !format.isEmpty {
             predicate = NSPredicate(format: format)
         }
         return databaseManager.loadObjects(predicate: predicate)
