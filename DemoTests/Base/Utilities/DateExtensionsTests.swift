@@ -1,39 +1,12 @@
 import XCTest
 @testable import Demo
 
-class DateExtensionsTests: XCTestCase {
+final class DateExtensionsTests: XCTestCase {
     func testStartAndEndOfWeek() {
-        Self.testCases.forEach { inputs, outputs in
-            inputs.forEach { input in
-                XCTAssertEqual(input.startOfWeek(calendar: Self.calendar), outputs.startOfWeek)
-                XCTAssertEqual(input.endOfWeek(calendar: Self.calendar), outputs.endOfWeek)
-            }
-        }
-    }
-}
-
-// MARK: - Helpers
-private extension DateExtensionsTests {
-    static func date(_ dateString: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = .init(secondsFromGMT: 0)
-        dateFormatter.dateFormat = DateExtensionsTests.dateTimeFormat
-        var date = dateFormatter.date(from: dateString)
-        if date == nil {
-            dateFormatter.dateFormat = DateExtensionsTests.dateFormat
-            date = dateFormatter.date(from: dateString)
-        }
-        return date!
-    }
-}
-
-// MARK: - Test Cases
-private extension DateExtensionsTests {
-    typealias Inputs = [Date]
-    typealias Outputs = (startOfWeek: Date, endOfWeek: Date)
-    typealias TestCase = (inputs: Inputs, outputs: Outputs)
-    
-    static var testCases: [TestCase] {
+        typealias Inputs = [Date]
+        typealias Outputs = (startOfWeek: Date, endOfWeek: Date)
+        typealias TestCase = (inputs: Inputs, outputs: Outputs)
+        
         let testCases = [(
             inputs: [
                 "2020-10-25",
@@ -50,9 +23,7 @@ private extension DateExtensionsTests {
                 startOfWeek: "2020-10-25",
                 endOfWeek: "2020-10-31T23:59:59"
             )
-        )]
-        
-        return testCases.map {
+        )].map {
             (
                 inputs: $0.inputs.map { date($0) },
                 outputs: (
@@ -61,6 +32,28 @@ private extension DateExtensionsTests {
                 )
             )
         }
+
+        testCases.forEach { inputs, outputs in
+            inputs.forEach { input in
+                XCTAssertEqual(input?.startOfWeek(calendar: Self.calendar), outputs.startOfWeek)
+                XCTAssertEqual(input?.endOfWeek(calendar: Self.calendar), outputs.endOfWeek)
+            }
+        }
+    }
+}
+
+// MARK: - Helpers
+private extension DateExtensionsTests {
+    func date(_ dateString: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = .init(secondsFromGMT: .zero)
+        dateFormatter.dateFormat = DateExtensionsTests.dateTimeFormat
+        var date = dateFormatter.date(from: dateString)
+        if date == nil {
+            dateFormatter.dateFormat = DateExtensionsTests.dateFormat
+            date = dateFormatter.date(from: dateString)
+        }
+        return date
     }
 }
 
@@ -69,6 +62,7 @@ private extension DateExtensionsTests {
     private static let dateFormat = "yyyy-MM-dd"
     private static let timeFormat = "HH:mm:ss"
     private static let dateTimeFormat = String(format: "%@'T'%@", dateFormat, timeFormat)
+    
     private static var calendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
         calendar.firstWeekday = 1
