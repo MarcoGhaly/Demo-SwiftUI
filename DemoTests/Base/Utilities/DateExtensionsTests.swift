@@ -1,14 +1,11 @@
-import XCTest
+import Testing
+import Foundation
 @testable import Demo
 
-final class DateExtensionsTests: XCTestCase {
-    func testStartAndEndOfWeek() {
-        typealias Inputs = [Date]
-        typealias Outputs = (startOfWeek: Date, endOfWeek: Date)
-        typealias TestCase = (inputs: Inputs, outputs: Outputs)
-        
-        let testCases = [(
-            inputs: [
+struct DateExtensionsTests {
+    @Test(
+        arguments: [(
+            [
                 "2020-10-25",
                 "2020-10-25T00:00:01",
                 "2020-10-26",
@@ -19,25 +16,18 @@ final class DateExtensionsTests: XCTestCase {
                 "2020-10-31",
                 "2020-10-31T23:59:59"
             ],
-            outputs: (
-                startOfWeek: "2020-10-25",
-                endOfWeek: "2020-10-31T23:59:59"
-            )
-        )].map {
-            (
-                inputs: $0.inputs.map { date($0) },
-                outputs: (
-                    startOfWeek: date($0.outputs.startOfWeek),
-                    endOfWeek: date($0.outputs.endOfWeek)
-                )
-            )
-        }
-
-        testCases.forEach { inputs, outputs in
-            inputs.forEach { input in
-                XCTAssertEqual(input?.startOfWeek(calendar: Self.calendar), outputs.startOfWeek)
-                XCTAssertEqual(input?.endOfWeek(calendar: Self.calendar), outputs.endOfWeek)
-            }
+            "2020-10-25",
+            "2020-10-31T23:59:59"
+        )]
+    )
+    func startAndEndOfWeek(dateStrings: [String], startOfWeekString: String, endOfWeekString: String) throws {
+        try dateStrings.map {
+            try #require(date($0))
+        }.forEach { date in
+            let startOfWeek = try #require(self.date(startOfWeekString))
+            let endOfWeek = try #require(self.date(endOfWeekString))
+            #expect(date.startOfWeek(calendar: Self.calendar) == startOfWeek)
+            #expect(date.endOfWeek(calendar: Self.calendar) == endOfWeek)
         }
     }
 }
