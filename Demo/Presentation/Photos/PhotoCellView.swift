@@ -5,12 +5,10 @@ struct PhotoCellView: View {
     var photo: Photo
     
     var body: some View {
-        Group {
-            photo.thumbnailUrl.map { urlString in
-                WebImage(url: URL(string: urlString))
-                    .resizable()
-                    .scaledToFit()
-            }
+        photo.thumbnailUrl.map { urlString in
+            WebImage(url: URL(string: urlString))
+                .resizable()
+                .scaledToFit()
         }
     }
 }
