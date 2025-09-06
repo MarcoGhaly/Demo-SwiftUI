@@ -1,4 +1,5 @@
 {
+  "originHash" : "0b258513ec64d5fe8320f15994997b4b886e247bdf0165d99467df714a1921e0",
   "pins" : [
     {
       "identity" : "realm-cocoa",
@@ -23,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "2c8ed9a2f3ad537dbe9e58e2ec18be361da112aa",
-        "version" : "5.9.5"
+        "revision" : "34cf2423a2c4088d06a3b08655603b5bc3eeeb3a",
+        "version" : "5.21.2"
       }
     },
     {
@@ -32,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI",
       "state" : {
-        "revision" : "4c7f169e39bc35d6b80d42b8eb8301bee9cd0907",
-        "version" : "1.5.0"
+        "revision" : "451c6dfd5ecec2cf626d1d9ca81c2d4a60355172",
+        "version" : "3.1.3"
       }
     },
     {
@@ -41,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Jake-Short/swiftui-image-viewer",
       "state" : {
-        "revision" : "dacc75d4f1a0fd567ce0f91c789d6131ba5f57f1",
-        "version" : "2.1.0"
+        "revision" : "f61f298c0100c81dfb0c7908091e68aad12a892c",
+        "version" : "2.3.1"
       }
     },
     {
@@ -55,5 +56,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

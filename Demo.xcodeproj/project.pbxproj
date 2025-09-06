@@ -1552,7 +1552,7 @@
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.0;
+				minimumVersion = 3.1.3;
 			};
 		};
 		2FC50FCD25B2371600317E39 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */ = {
@@ -1560,7 +1560,7 @@
 			repositoryURL = "https://github.com/Jake-Short/swiftui-image-viewer";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.0;
+				minimumVersion = 2.3.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
