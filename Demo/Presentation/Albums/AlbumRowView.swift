@@ -17,7 +17,7 @@ struct AlbumRowView: View {
 
 struct AlbumRowView_Previews: PreviewProvider {
     static var previews: some View {
-        AlbumRowView(album: testAlbum)
+        AlbumRowView(album: TestData.testAlbum)
             .previewLayout(.sizeThatFits)
     }
 }

@@ -27,7 +27,7 @@ struct PostDetailsView: View {
 
 struct PostDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = PostViewModel(post: testPost)
+        let viewModel = PostViewModel(post: TestData.testPost)
         return PostDetailsView(viewModel: viewModel)
     }
 }

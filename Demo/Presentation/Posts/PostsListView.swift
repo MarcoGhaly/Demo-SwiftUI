@@ -34,7 +34,7 @@ struct PostsListView<ViewModel>: View where ViewModel: PostsViewModel<PostsUseCa
 struct PostsListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = PostsViewModel(useCases: PostsUseCases())
-        viewModel.model = [testPost]
+        viewModel.model = [TestData.testPost]
         viewModel.viewState = .content
         return PostsListView(viewModel: viewModel)
     }

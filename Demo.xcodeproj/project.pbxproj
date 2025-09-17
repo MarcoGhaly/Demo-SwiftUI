@@ -687,6 +687,7 @@
 			isa = PBXGroup;
 			children = (
 				2FECD703255B46FE00054AC1 /* Constants.swift */,
+				6CD3AD6B24FB299500D8BF77 /* TestData.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -895,7 +896,6 @@
 		6CD3AD2C24FABAED00D8BF77 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				6CD3AD6B24FB299500D8BF77 /* TestData.swift */,
 				2F53C4B9259E00BD0085D735 /* BaseLCEListViewModel.swift */,
 				2F16A7CF25A0E86E0081F181 /* BaseLCEListView.swift */,
 				2F64365E2C45D34B00E54371 /* Shared */,

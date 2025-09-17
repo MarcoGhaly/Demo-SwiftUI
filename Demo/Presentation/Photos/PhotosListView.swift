@@ -40,7 +40,7 @@ struct PhotosListView<ViewModel>: View where ViewModel: PhotosViewModel<PhotosUs
 struct PhotosListView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = PhotosViewModel(useCases: PhotosUseCases())
-        viewModel.model = [testPhoto]
+        viewModel.model = [TestData.testPhoto]
         viewModel.viewState = .content
         return PhotosListView(viewModel: viewModel)
     }

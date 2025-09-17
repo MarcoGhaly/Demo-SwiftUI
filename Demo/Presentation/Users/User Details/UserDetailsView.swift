@@ -65,6 +65,6 @@ private extension UserDetailsView {
 
 struct UserDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        return UserDetailsView(user: testUser)
+        return UserDetailsView(user: TestData.testUser)
     }
 }
