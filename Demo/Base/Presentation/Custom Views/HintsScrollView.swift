@@ -73,19 +73,17 @@ struct HintsScrollView<Content: View, HintView: View>: View {
     }
 }
 
-struct HintsScrollView_Previews: PreviewProvider {
-    static var previews: some View {
-        HintsScrollView(content: {
-            ForEach(0..<5) { _ in
-                Text("Hello World")
-                    .frame(height: 200)
-                    .background(Color.green)
-            }
-        }, hintView: {
-            Text("Scroll To Continue")
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 40)
-                .background(Color.white)
-        }, scrollStates: [.top, .bottom])
-    }
+#Preview {
+    HintsScrollView(content: {
+        ForEach(0..<5) { _ in
+            Text("Hello World")
+                .frame(height: 200)
+                .background(Color.green)
+        }
+    }, hintView: {
+        Text("Scroll To Continue")
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 40)
+            .background(Color.white)
+    }, scrollStates: [.top, .bottom])
 }

@@ -121,11 +121,9 @@ where Element: Identifiable, Element.ID == Int, UseCases: DemoUseCases, ViewMode
     }
 }
 
-//struct BaseLCEListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let viewModel = BaseLCEListViewModel<>(dataSource: )
-//        BaseLCEListView(viewModel: viewModel) { object in
-//            Text("")
-//        }
+//#Preview {
+//    let viewModel = BaseLCEListViewModel<>(dataSource: )
+//    BaseLCEListView(viewModel: viewModel) { object in
+//        Text("")
 //    }
 //}

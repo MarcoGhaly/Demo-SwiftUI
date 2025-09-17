@@ -40,11 +40,9 @@ struct GridView<Element, Content>: View where Content: View {
     }
 }
 
-struct GridView_Previews: PreviewProvider {
-    static var previews: some View {
-        GridView(elements: Array(repeating: "😃", count: 25), rows: 5) { emoji in
-            Text(emoji)
-                .font(.largeTitle)
-        }
+#Preview {
+    GridView(elements: Array(repeating: "😃", count: 25), rows: 5) { emoji in
+        Text(emoji)
+            .font(.largeTitle)
     }
 }

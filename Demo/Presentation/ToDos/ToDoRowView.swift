@@ -22,9 +22,7 @@ struct ToDoRowView: View {
     }
 }
 
-struct ToDoRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        ToDoRowView(toDo: TestData.testToDo)
-            .previewLayout(.sizeThatFits)
-    }
+#Preview {
+    ToDoRowView(toDo: TestData.testToDo)
+        .previewLayout(.sizeThatFits)
 }

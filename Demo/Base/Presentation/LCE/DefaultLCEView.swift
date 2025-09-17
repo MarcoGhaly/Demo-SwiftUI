@@ -21,36 +21,42 @@ where ViewModel: LCEViewModel<Model, AppError>, Content: View {
     }
 }
 
-struct DefaultLCEView_Previews: PreviewProvider {
-    static var previews: some View {
-        let loadingViewModel = LoadingViewModel(style: .normal,
-                                                title: "Loading...",
-                                                message: "Please Wait")
-        
-        let errorViewModel = ErrorViewModel(image: (type: .system, name: "multiply.circle", mode: .original),
-                                            title: "Error!",
-                                            message: "An Error Occurred",
-                                            retry: (label: "Retry", action: {}))
-        
-        let states: [LCEViewModel<String, Error>.ViewState] = [
-            .loading(model: loadingViewModel),
-            .error(model: errorViewModel),
-            .content
-        ]
-        
-        return ForEach(states.indices, id: \.self) { index in
-            getDefaultLCEView(state: states[index])
-        }
-        .previewLayout(.fixed(width: 400, height: 150))
+#Preview {
+    let loadingViewModel = LoadingViewModel(
+        style: .normal,
+        title: "Loading...",
+        message: "Please Wait"
+    )
+    let errorViewModel = ErrorViewModel(
+        image: (
+            type: .system,
+            name: "multiply.circle",
+            mode: .original
+        ),
+        title: "Error!",
+        message: "An Error Occurred",
+        retry: (
+            label: "Retry",
+            action: {}
+        )
+    )
+    let states: [LCEViewModel<String, Error>.ViewState] = [
+        .loading(model: loadingViewModel),
+        .error(model: errorViewModel),
+        .content
+    ]
+    ForEach(states.indices, id: \.self) { index in
+        getDefaultLCEView(state: states[index])
     }
-    
-    private static func getDefaultLCEView(state: LCEViewModel<String, Error>.ViewState) -> DefaultLCEView<String, Error, LCEViewModel<String, Error>, Text> {
-        let viewModel = LCEViewModel<String, Error>()
-        viewModel.model = "Content"
-        viewModel.viewState = state
-        return DefaultLCEView(viewModel: viewModel) { model in
-            Text(model)
-                .font(.largeTitle)
-        }
+    .previewLayout(.fixed(width: 400, height: 150))
+}
+
+private func getDefaultLCEView(state: LCEViewModel<String, Error>.ViewState) -> DefaultLCEView<String, Error, LCEViewModel<String, Error>, Text> {
+    let viewModel = LCEViewModel<String, Error>()
+    viewModel.model = "Content"
+    viewModel.viewState = state
+    return DefaultLCEView(viewModel: viewModel) { model in
+        Text(model)
+            .font(.largeTitle)
     }
 }

@@ -121,23 +121,20 @@ extension LCEListView where Element: Identifiable, ID == Element.ID {
     }
 }
 
-struct LCEListView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = LCEListViewModel<String, Error>()
-        viewModel.model = ["Hello", "World"]
-        
-        return LCEListView(viewModel: viewModel, id: \.self) { element in
-            Text(element)
-        } loading: { loadingViewModel in
-            DefaultLoadingView(loadingViewModel: loadingViewModel)
-        } error: { errorViewModel in
-            DefaultErrorView(errorViewModel: errorViewModel)
-        } paginationLoading: {
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle())
-                .scaleEffect(CGSize(width: 2, height: 2))
-                .padding()
-        }
-        .previewLayout(.sizeThatFits)
+#Preview {
+    let viewModel = LCEListViewModel<String, Error>()
+    viewModel.model = ["Hello", "World"]
+    return LCEListView(viewModel: viewModel, id: \.self) { element in
+        Text(element)
+    } loading: { loadingViewModel in
+        DefaultLoadingView(loadingViewModel: loadingViewModel)
+    } error: { errorViewModel in
+        DefaultErrorView(errorViewModel: errorViewModel)
+    } paginationLoading: {
+        ProgressView()
+            .progressViewStyle(CircularProgressViewStyle())
+            .scaleEffect(CGSize(width: 2, height: 2))
+            .padding()
     }
+    .previewLayout(.sizeThatFits)
 }

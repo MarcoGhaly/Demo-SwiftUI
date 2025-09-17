@@ -51,11 +51,9 @@ extension DefaultLCEListView where Element: Identifiable, ID == Element.ID {
     }
 }
 
-struct DefaultLCEListView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = LCEListViewModel<String, Error>(models: ["Hello", "World"])
-        return DefaultLCEListView(viewModel: viewModel, id: \.self) { element in
-            Text(element)
-        }
+#Preview {
+    let viewModel = LCEListViewModel<String, Error>(models: ["Hello", "World"])
+    DefaultLCEListView(viewModel: viewModel, id: \.self) { element in
+        Text(element)
     }
 }

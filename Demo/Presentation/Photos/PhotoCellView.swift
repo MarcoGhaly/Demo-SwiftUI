@@ -13,9 +13,7 @@ struct PhotoCellView: View {
     }
 }
 
-struct PhotoCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        PhotoCellView(photo: TestData.testPhoto)
-            .previewLayout(.sizeThatFits)
-    }
+#Preview {
+    PhotoCellView(photo: TestData.testPhoto)
+        .previewLayout(.sizeThatFits)
 }

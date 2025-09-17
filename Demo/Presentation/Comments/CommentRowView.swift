@@ -19,9 +19,7 @@ struct CommentRowView: View {
     }
 }
 
-struct CommentRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        return CommentRowView(comment: TestData.testComment)
-            .previewLayout(.sizeThatFits)
-    }
+#Preview {
+    CommentRowView(comment: TestData.testComment)
+        .previewLayout(.sizeThatFits)
 }

@@ -13,11 +13,9 @@ struct AlbumsListView<ViewModel>: View where ViewModel: AlbumsViewModel<AlbumsUs
     }
 }
 
-struct AlbumsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = AlbumsViewModel(useCases: AlbumsUseCases())
-        viewModel.model = [TestData.testAlbum]
-        viewModel.viewState = .content
-        return AlbumsListView(viewModel: viewModel)
-    }
+#Preview {
+    let viewModel = AlbumsViewModel(useCases: AlbumsUseCases())
+    viewModel.model = [TestData.testAlbum]
+    viewModel.viewState = .content
+    return AlbumsListView(viewModel: viewModel)
 }

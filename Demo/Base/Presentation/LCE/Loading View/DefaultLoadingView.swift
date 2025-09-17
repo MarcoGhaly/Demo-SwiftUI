@@ -34,12 +34,10 @@ struct DefaultLoadingView: LoadingView {
     }
 }
 
-struct LoadingView_Previews: PreviewProvider {
-    static var previews: some View {
-        let styles = LoadingViewStyle.allCases
-        ForEach(styles.indices) { index in
-            DefaultLoadingView(loadingViewModel: LoadingViewModel(style: styles[index], title: "Loadig...", message: "Please Wait"))
-                .previewLayout(.fixed(width: 400, height: 250))
-        }
+#Preview {
+    let styles = LoadingViewStyle.allCases
+    ForEach(styles.indices) { index in
+        DefaultLoadingView(loadingViewModel: LoadingViewModel(style: styles[index], title: "Loadig...", message: "Please Wait"))
+            .previewLayout(.fixed(width: 400, height: 250))
     }
 }

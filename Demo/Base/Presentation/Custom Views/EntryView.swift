@@ -26,13 +26,11 @@ struct EntryView: View {
     }
 }
 
-struct EntryView_Previews: PreviewProvider {
-    static var previews: some View {
-        let entries = ["Name", "Email", "Phone", "Address"]
-        return ForEach(entries, id: \.self) { entry in
-            EntryView(title: "\(entry):", placeHolder: entry, text: .constant(""))
-                .padding()
-                .previewLayout(.sizeThatFits)
-        }
+#Preview {
+    let entries = ["Name", "Email", "Phone", "Address"]
+    ForEach(entries, id: \.self) { entry in
+        EntryView(title: "\(entry):", placeHolder: entry, text: .constant(""))
+            .padding()
+            .previewLayout(.sizeThatFits)
     }
 }

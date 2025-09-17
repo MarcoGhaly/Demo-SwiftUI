@@ -37,15 +37,13 @@ struct MapView<Annotation: AnnotationProtocol>: View {
     }
 }
 
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        let coordinate = Coordinate2D(latitude: 30.0444, longitude: 31.2357)
-        MapView(coordinate: coordinate)
-    }
-}
-
 extension Coordinate2D {
     var mapCoordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
+}
+
+#Preview {
+    let coordinate = Coordinate2D(latitude: 30.0444, longitude: 31.2357)
+    MapView(coordinate: coordinate)
 }

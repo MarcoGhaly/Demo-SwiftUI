@@ -21,13 +21,11 @@ extension View {
     }
 }
 
-struct CardView_Previews: PreviewProvider {
-    static var previews: some View {
-        Text("Hello World")
-            .font(.title)
-            .padding()
-            .cardify()
-            .padding()
-            .previewLayout(.sizeThatFits)
-    }
+#Preview {
+    Text("Hello World")
+        .font(.title)
+        .padding()
+        .cardify()
+        .padding()
+        .previewLayout(.sizeThatFits)
 }

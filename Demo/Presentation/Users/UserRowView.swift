@@ -16,9 +16,7 @@ struct UserRowView: View {
     }
 }
 
-struct UserRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        return UserRowView(user: TestData.testUser)
-            .previewLayout(.sizeThatFits)
-    }
+#Preview {
+    UserRowView(user: TestData.testUser)
+        .previewLayout(.sizeThatFits)
 }

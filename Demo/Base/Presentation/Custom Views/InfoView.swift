@@ -29,14 +29,14 @@ struct InfoView: View {
     }
 }
 
-struct InfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        let info = [("Name:", "John Doe"),
-                    ("Email:", "john.doe@email.com"),
-                    ("Phone:", "012-345-6789"),
-                    ("Status", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua")]
-        return InfoView(info: info)
-            .previewLayout(.sizeThatFits)
-            .padding()
-    }
+#Preview {
+    let info = [
+        ("Name:", "John Doe"),
+        ("Email:", "john.doe@email.com"),
+        ("Phone:", "012-345-6789"),
+        ("Status", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua")
+    ]
+    InfoView(info: info)
+        .previewLayout(.sizeThatFits)
+        .padding()
 }

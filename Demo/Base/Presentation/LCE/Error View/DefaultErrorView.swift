@@ -35,13 +35,20 @@ struct DefaultErrorView: ErrorView {
     }
 }
 
-struct ErrorView_Previews: PreviewProvider {
-    static var previews: some View {
-        let errorViewModel = ErrorViewModel(image: (type: .system, name: "multiply.circle", mode: .icon),
-                                            title: "Error Title",
-                                            message: "Error Message",
-                                            retry: (label: "Retry", action: {}))
-        DefaultErrorView(errorViewModel: errorViewModel)
-            .previewLayout(.fixed(width: 400, height: 250))
-    }
+#Preview {
+    let errorViewModel = ErrorViewModel(
+        image: (
+            type: .system,
+            name: "multiply.circle",
+            mode: .icon
+        ),
+        title: "Error Title",
+        message: "Error Message",
+        retry: (
+            label: "Retry",
+            action: {}
+        )
+    )
+    DefaultErrorView(errorViewModel: errorViewModel)
+        .previewLayout(.fixed(width: 400, height: 250))
 }
