@@ -5,7 +5,7 @@ struct ToDosListView<ViewModel>: View where ViewModel: ToDosViewModel<ToDosUseCa
     
     var body: some View {
         BaseLCEListView(viewModel: viewModel, showEditButtons: viewModel.userID != nil) { toDo in
-            ToDoRowView(toDo: toDo)
+            ToDoItemView(toDo: toDo)
         }
         .navigationBarTitle("ToDos")
     }

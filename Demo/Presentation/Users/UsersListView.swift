@@ -7,7 +7,7 @@ struct UsersListView<ViewModel>: View where ViewModel: UsersViewModel<UsersUseCa
     
     var body: some View {
         BaseLCEListView(viewModel: viewModel, presentAddView: $presentAddUserView) { user in
-            UserRowView(user: user)
+            UserItemView(user: user)
         } destination: { user in
             UserDetailsView(user: user)
         }

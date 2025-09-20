@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CommentRowView: View {
+struct CommentItemView: View {
     var comment: Comment
     
     var body: some View {
@@ -20,6 +20,6 @@ struct CommentRowView: View {
 }
 
 #Preview {
-    CommentRowView(comment: TestData.testComment)
+    CommentItemView(comment: TestData.testComment)
         .previewLayout(.sizeThatFits)
 }

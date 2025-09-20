@@ -1,7 +1,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct PhotoCellView: View {
+struct PhotoItemView: View {
     var photo: Photo
     
     var body: some View {
@@ -14,6 +14,6 @@ struct PhotoCellView: View {
 }
 
 #Preview {
-    PhotoCellView(photo: TestData.testPhoto)
+    PhotoItemView(photo: TestData.testPhoto)
         .previewLayout(.sizeThatFits)
 }

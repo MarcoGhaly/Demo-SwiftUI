@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct AlbumRowView: View {
+struct AlbumItemView: View {
     var album: Album
     
     var body: some View {
@@ -16,6 +16,6 @@ struct AlbumRowView: View {
 }
 
 #Preview {
-    AlbumRowView(album: TestData.testAlbum)
+    AlbumItemView(album: TestData.testAlbum)
         .previewLayout(.sizeThatFits)
 }

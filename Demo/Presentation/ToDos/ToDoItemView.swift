@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ToDoRowView: View {
+struct ToDoItemView: View {
     var toDo: ToDo
     
     var body: some View {
@@ -23,6 +23,6 @@ struct ToDoRowView: View {
 }
 
 #Preview {
-    ToDoRowView(toDo: TestData.testToDo)
+    ToDoItemView(toDo: TestData.testToDo)
         .previewLayout(.sizeThatFits)
 }

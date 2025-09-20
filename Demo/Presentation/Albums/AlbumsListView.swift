@@ -5,7 +5,7 @@ struct AlbumsListView<ViewModel>: View where ViewModel: AlbumsViewModel<AlbumsUs
     
     var body: some View {
         BaseLCEListView(viewModel: viewModel, showEditButtons: viewModel.userID != nil) { album in
-            AlbumRowView(album: album)
+            AlbumItemView(album: album)
         } destination: { album in
             PhotosListView(viewModel: PhotosViewModel(albumID: album.id))
         }

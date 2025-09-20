@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PostRowView: View {
+struct PostItemView: View {
     var post: Post
     
     var body: some View {
@@ -25,6 +25,6 @@ struct PostRowView: View {
 }
 
 #Preview {
-    PostRowView(post: TestData.testPost)
+    PostItemView(post: TestData.testPost)
         .previewLayout(.sizeThatFits)
 }

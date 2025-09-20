@@ -5,7 +5,7 @@ struct CommentsListView<ViewModel>: View where ViewModel: CommentsViewModel<Comm
     
     var body: some View {
         BaseLCEListView(viewModel: viewModel, showEditButtons: viewModel.postID != nil) { comment in
-            CommentRowView(comment: comment)
+            CommentItemView(comment: comment)
         }
         .if(viewModel.postID == nil) {
             $0.navigationBarTitle("Comments")

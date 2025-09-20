@@ -9,7 +9,7 @@ struct UserDetailsView: View {
         VStack(spacing: 0) {
             MapView(coordinate: coordinate, delta: 0.005, annotations: [coordinate])
             
-            UserRowView(user: user)
+            UserItemView(user: user)
             
             Divider()
             

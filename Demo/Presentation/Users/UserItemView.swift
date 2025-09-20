@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct UserRowView: View {
+struct UserItemView: View {
     let user: User
     
     var body: some View {
@@ -17,6 +17,6 @@ struct UserRowView: View {
 }
 
 #Preview {
-    UserRowView(user: TestData.testUser)
+    UserItemView(user: TestData.testUser)
         .previewLayout(.sizeThatFits)
 }
