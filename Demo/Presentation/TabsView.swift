@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct HomeView: View {
+struct TabsView: View {
     private let spacing: CGFloat = 20
 
     var body: some View {
@@ -18,7 +18,7 @@ struct HomeView: View {
     }
 }
 
-private extension HomeView {
+private extension TabsView {
     // Put views in closures to allow lazy navigation
     var buttonModels: [ButtonModel] {
         [
@@ -42,5 +42,5 @@ private extension HomeView {
 }
 
 #Preview {
-    HomeView()
+    TabsView()
 }
