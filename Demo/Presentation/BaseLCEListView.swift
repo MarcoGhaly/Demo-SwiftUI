@@ -1,35 +1,35 @@
 import SwiftUI
 
-struct BaseLCEListView<Element, AppError, UseCases, ViewModel, CellContent, Destination>: View
-where Element: Identifiable, Element.ID == Int, UseCases: DemoUseCases, ViewModel: BaseLCEListViewModel<Element, AppError, UseCases>, CellContent: View, Destination: View {
+struct BaseLCEListView<Element, AppError, UseCases, ViewModel, ItemContent, Destination>: View
+where Element: Identifiable, Element.ID == Int, UseCases: DemoUseCases, ViewModel: BaseLCEListViewModel<Element, AppError, UseCases>, ItemContent: View, Destination: View {
     @ObservedObject var viewModel: ViewModel
     @State var columns: Int
     var showGridButtons: Bool
     var showEditButtons: Bool
     @Binding var presentAddView: Bool
-    let cellContent: (Element) -> CellContent
+    let itemContent: (Element) -> ItemContent
     let destination: (Element) -> Destination
     
     @State private var isEditMode = false
     @State private var selectedIDs = Set<Int>()
     
-    init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder destination: @escaping (Element) -> Destination) {
+    init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), @ViewBuilder itemContent: @escaping (Element) -> ItemContent, @ViewBuilder destination: @escaping (Element) -> Destination) {
         self.viewModel = viewModel
         self._columns = State(initialValue: columns)
         self.showGridButtons = showGridButtons
         self.showEditButtons = showEditButtons
         self._presentAddView = presentAddView
-        self.cellContent = cellContent
+        self.itemContent = itemContent
         self.destination = destination
     }
     
-    init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), @ViewBuilder cellContent: @escaping (Element) -> CellContent) where Destination == EmptyView {
-        self.init(viewModel: viewModel, columns: columns, showGridButtons: showGridButtons, showEditButtons: showEditButtons, presentAddView: presentAddView, cellContent: cellContent, destination: { _ in EmptyView() })
+    init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), @ViewBuilder itemContent: @escaping (Element) -> ItemContent) where Destination == EmptyView {
+        self.init(viewModel: viewModel, columns: columns, showGridButtons: showGridButtons, showEditButtons: showEditButtons, presentAddView: presentAddView, itemContent: itemContent, destination: { _ in EmptyView() })
     }
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            DefaultLCEListView(viewModel: viewModel, columns: columns, isEditMode: isEditMode, selectedIDs: $selectedIDs, cellContent: { element in
+            DefaultLCEListView(viewModel: viewModel, columns: columns, isEditMode: isEditMode, selectedIDs: $selectedIDs, itemContent: { element in
                 cellView(forElement: element)
             }, destination: destination)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -43,7 +43,7 @@ where Element: Identifiable, Element.ID == Int, UseCases: DemoUseCases, ViewMode
     
     private func cellView(forElement element: Element) -> some View {
         HStack {
-            cellContent(element)
+            itemContent(element)
             
             if isEditMode {
                 Image(systemName: selectedIDs.contains(element.id) ? "checkmark.circle.fill" : "circle")

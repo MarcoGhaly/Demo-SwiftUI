@@ -1,14 +1,14 @@
 import SwiftUI
 
-struct LCEListView<Element, AppError, ViewModel, ID, CellContent, Destination, Loading, Error, PaginationLoading>: View
-where ViewModel: LCEListViewModel<Element, AppError>, ID: Hashable, CellContent: View, Destination: View, Loading: LoadingView, Error: ErrorView, PaginationLoading: View {
+struct LCEListView<Element, AppError, ViewModel, ID, ItemContent, Destination, Loading, Error, PaginationLoading>: View
+where ViewModel: LCEListViewModel<Element, AppError>, ID: Hashable, ItemContent: View, Destination: View, Loading: LoadingView, Error: ErrorView, PaginationLoading: View {
     @ObservedObject var viewModel: ViewModel
     let columns: Int
     let spacing: CGFloat
     let id: KeyPath<Element, ID>
     let isEditMode: Bool
     @Binding var selectedIDs: Set<ID>
-    let cellContent: (Element) -> CellContent
+    let itemContent: (Element) -> ItemContent
     let destination: (Element) -> Destination
     let loading: (LoadingViewModel) -> Loading
     let error: (ErrorViewModel) -> Error
@@ -17,22 +17,22 @@ where ViewModel: LCEListViewModel<Element, AppError>, ID: Hashable, CellContent:
     @State private var selectedDestination: Destination?
     @State private var navigate = false
     
-    init(viewModel: ViewModel, columns: Int = 1, spacing: CGFloat = 15, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder destination: @escaping (Element) -> Destination, @ViewBuilder loading: @escaping (LoadingViewModel) -> Loading, @ViewBuilder error: @escaping (ErrorViewModel) -> Error, @ViewBuilder paginationLoading: @escaping () -> PaginationLoading) {
+    init(viewModel: ViewModel, columns: Int = 1, spacing: CGFloat = 15, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder itemContent: @escaping (Element) -> ItemContent, @ViewBuilder destination: @escaping (Element) -> Destination, @ViewBuilder loading: @escaping (LoadingViewModel) -> Loading, @ViewBuilder error: @escaping (ErrorViewModel) -> Error, @ViewBuilder paginationLoading: @escaping () -> PaginationLoading) {
         self.viewModel = viewModel
         self.columns = columns
         self.spacing = spacing
         self.id = id
         self.isEditMode = isEditMode
         self._selectedIDs = selectedIDs
-        self.cellContent = cellContent
+        self.itemContent = itemContent
         self.destination = destination
         self.loading = loading
         self.error = error
         self.paginationLoading = paginationLoading
     }
     
-    init(viewModel: ViewModel, columns: Int = 1, spacing: CGFloat = 15, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder loading: @escaping (LoadingViewModel) -> Loading, @ViewBuilder error: @escaping (ErrorViewModel) -> Error, @ViewBuilder paginationLoading: @escaping () -> PaginationLoading) where Destination == EmptyView {
-        self.init(viewModel: viewModel, columns: columns, spacing: spacing, id: id, isEditMode: isEditMode, selectedIDs: selectedIDs, cellContent: cellContent, destination: { _ in EmptyView() }, loading: loading, error: error, paginationLoading: paginationLoading)
+    init(viewModel: ViewModel, columns: Int = 1, spacing: CGFloat = 15, id: KeyPath<Element, ID>, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder itemContent: @escaping (Element) -> ItemContent, @ViewBuilder loading: @escaping (LoadingViewModel) -> Loading, @ViewBuilder error: @escaping (ErrorViewModel) -> Error, @ViewBuilder paginationLoading: @escaping () -> PaginationLoading) where Destination == EmptyView {
+        self.init(viewModel: viewModel, columns: columns, spacing: spacing, id: id, isEditMode: isEditMode, selectedIDs: selectedIDs, itemContent: itemContent, destination: { _ in EmptyView() }, loading: loading, error: error, paginationLoading: paginationLoading)
     }
     
     var body: some View {
@@ -80,7 +80,7 @@ where ViewModel: LCEListViewModel<Element, AppError>, ID: Hashable, CellContent:
     }
     
     private func cellView(forElement element: Element) -> some View {
-        cellContent(element)
+        itemContent(element)
             .simultaneousGesture(TapGesture().onEnded { _ in
                 if isEditMode {
                     let identifier = element[keyPath: id]
@@ -112,12 +112,12 @@ where ViewModel: LCEListViewModel<Element, AppError>, ID: Hashable, CellContent:
 }
 
 extension LCEListView where Element: Identifiable, ID == Element.ID {
-    init(viewModel: ViewModel, columns: Int = 1, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, @ViewBuilder destination: @escaping (Element) -> Destination, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
-        self.init(viewModel: viewModel, columns: columns, id: \Element.id, isEditMode: isEditMode, selectedIDs: selectedIDs, cellContent: cellContent, destination: destination, loading: loading, error: error, paginationLoading: paginationLoading)
+    init(viewModel: ViewModel, columns: Int = 1, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder itemContent: @escaping (Element) -> ItemContent, @ViewBuilder destination: @escaping (Element) -> Destination, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) {
+        self.init(viewModel: viewModel, columns: columns, id: \Element.id, isEditMode: isEditMode, selectedIDs: selectedIDs, itemContent: itemContent, destination: destination, loading: loading, error: error, paginationLoading: paginationLoading)
     }
     
-    init(viewModel: ViewModel, columns: Int = 1, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder cellContent: @escaping (Element) -> CellContent, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) where Destination == EmptyView {
-        self.init(viewModel: viewModel, columns: columns, isEditMode: isEditMode, selectedIDs: selectedIDs, cellContent: cellContent, destination: { _ in EmptyView() }, loading: loading, error: error, paginationLoading: paginationLoading)
+    init(viewModel: ViewModel, columns: Int = 1, isEditMode: Bool = false, selectedIDs: Binding<Set<ID>> = .constant([]), @ViewBuilder itemContent: @escaping (Element) -> ItemContent, loading: @escaping (LoadingViewModel) -> Loading, error: @escaping (ErrorViewModel) -> Error, paginationLoading: @escaping () -> PaginationLoading) where Destination == EmptyView {
+        self.init(viewModel: viewModel, columns: columns, isEditMode: isEditMode, selectedIDs: selectedIDs, itemContent: itemContent, destination: { _ in EmptyView() }, loading: loading, error: error, paginationLoading: paginationLoading)
     }
 }
 
