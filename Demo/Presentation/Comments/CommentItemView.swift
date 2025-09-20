@@ -21,5 +21,4 @@ struct CommentItemView: View {
 
 #Preview {
     CommentItemView(comment: TestData.testComment)
-        .previewLayout(.sizeThatFits)
 }

@@ -40,5 +40,4 @@ private struct TextAnimator: AnimatableModifier {
 
 #Preview {
     AnimatableText(number: "0")
-        .previewLayout(.fixed(width: 100, height: 100))
 }

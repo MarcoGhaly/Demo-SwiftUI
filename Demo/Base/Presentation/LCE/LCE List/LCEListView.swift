@@ -136,5 +136,4 @@ extension LCEListView where Element: Identifiable, ID == Element.ID {
             .scaleEffect(CGSize(width: 2, height: 2))
             .padding()
     }
-    .previewLayout(.sizeThatFits)
 }

@@ -62,7 +62,5 @@ struct ProgressBarView: View {
     let values = [0, 25, 50, 75, 100]
     ForEach(values, id: \.self) { value in
         ProgressBarView(value: value)
-            .previewLayout(.fixed(width: 400, height: 40))
-            .padding(10)
     }
 }

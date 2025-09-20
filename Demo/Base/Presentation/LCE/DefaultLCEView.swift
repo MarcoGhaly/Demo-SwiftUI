@@ -48,7 +48,6 @@ where ViewModel: LCEViewModel<Model, AppError>, Content: View {
     ForEach(states.indices, id: \.self) { index in
         getDefaultLCEView(state: states[index])
     }
-    .previewLayout(.fixed(width: 400, height: 150))
 }
 
 private func getDefaultLCEView(state: LCEViewModel<String, Error>.ViewState) -> DefaultLCEView<String, Error, LCEViewModel<String, Error>, Text> {

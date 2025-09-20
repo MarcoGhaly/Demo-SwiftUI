@@ -27,5 +27,4 @@ extension View {
         .padding()
         .cardify()
         .padding()
-        .previewLayout(.sizeThatFits)
 }

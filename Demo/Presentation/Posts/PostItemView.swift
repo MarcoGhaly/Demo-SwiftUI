@@ -26,5 +26,4 @@ struct PostItemView: View {
 
 #Preview {
     PostItemView(post: TestData.testPost)
-        .previewLayout(.sizeThatFits)
 }

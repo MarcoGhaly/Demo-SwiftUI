@@ -50,5 +50,4 @@ struct DefaultErrorView: ErrorView {
         )
     )
     DefaultErrorView(errorViewModel: errorViewModel)
-        .previewLayout(.fixed(width: 400, height: 250))
 }

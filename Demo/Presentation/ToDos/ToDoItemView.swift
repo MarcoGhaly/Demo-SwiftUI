@@ -24,5 +24,4 @@ struct ToDoItemView: View {
 
 #Preview {
     ToDoItemView(toDo: TestData.testToDo)
-        .previewLayout(.sizeThatFits)
 }

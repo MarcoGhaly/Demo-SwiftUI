@@ -15,5 +15,4 @@ struct PhotoItemView: View {
 
 #Preview {
     PhotoItemView(photo: TestData.testPhoto)
-        .previewLayout(.sizeThatFits)
 }

@@ -17,5 +17,4 @@ struct AlbumItemView: View {
 
 #Preview {
     AlbumItemView(album: TestData.testAlbum)
-        .previewLayout(.sizeThatFits)
 }

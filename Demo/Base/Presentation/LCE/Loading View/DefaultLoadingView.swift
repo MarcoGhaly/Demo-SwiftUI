@@ -38,6 +38,5 @@ struct DefaultLoadingView: LoadingView {
     let styles = LoadingViewStyle.allCases
     ForEach(styles.indices) { index in
         DefaultLoadingView(loadingViewModel: LoadingViewModel(style: styles[index], title: "Loadig...", message: "Please Wait"))
-            .previewLayout(.fixed(width: 400, height: 250))
     }
 }

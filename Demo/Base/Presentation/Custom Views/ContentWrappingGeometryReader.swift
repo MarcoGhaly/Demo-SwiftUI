@@ -28,5 +28,4 @@ struct ContentWrappingGeometryReader<Content>: View where Content: View {
             .foregroundColor(.white)
             .background(Color.black)
     }
-    .previewLayout(.fixed(width: 400, height: 100))
 }

@@ -37,6 +37,4 @@ struct InfoView: View {
         ("Status", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua")
     ]
     InfoView(info: info)
-        .previewLayout(.sizeThatFits)
-        .padding()
 }

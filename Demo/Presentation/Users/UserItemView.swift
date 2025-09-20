@@ -18,5 +18,4 @@ struct UserItemView: View {
 
 #Preview {
     UserItemView(user: TestData.testUser)
-        .previewLayout(.sizeThatFits)
 }

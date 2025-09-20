@@ -31,6 +31,5 @@ struct EntryView: View {
     ForEach(entries, id: \.self) { entry in
         EntryView(title: "\(entry):", placeHolder: entry, text: .constant(""))
             .padding()
-            .previewLayout(.sizeThatFits)
     }
 }
