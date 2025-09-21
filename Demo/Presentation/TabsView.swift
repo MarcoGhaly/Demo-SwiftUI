@@ -5,39 +5,38 @@ struct TabsView: View {
 
     var body: some View {
         TabView {
-            ForEach(buttonModels, id: \.self.title) { buttonModel in
-                NavigationView {
-                    NavigationLazyView(buttonModel.destinationView())
-                }
-                .tabItem {
-                    Image(systemName: buttonModel.iconName)
-                    Text(buttonModel.title)
-                }
+            tabView(title: "Users", iconName: "person.fill") {
+                UsersListView(viewModel: UsersViewModel())
+            }
+            tabView(title: "Posts", iconName: "envelope.fill") {
+                PostsListView(viewModel: PostsViewModel())
+            }
+            tabView(title: "Comments", iconName: "message.fill") {
+                CommentsListView(viewModel: CommentsViewModel())
+            }
+            tabView(title: "ToDos", iconName: "checkmark.circle.fill") {
+                ToDosListView(viewModel: ToDosViewModel())
+            }
+            tabView(title: "Albums", iconName: "photo.fill") {
+                AlbumsListView(viewModel: AlbumsViewModel())
             }
         }
     }
 }
 
 private extension TabsView {
-    // Put views in closures to allow lazy navigation
-    var buttonModels: [ButtonModel] {
-        [
-            .init(title: "Users", iconName: "person.fill") {
-                UsersListView(viewModel: UsersViewModel()).toAnyView()
-            },
-            .init(title: "Posts", iconName: "envelope.fill") {
-                PostsListView(viewModel: PostsViewModel()).toAnyView()
-            },
-            .init(title: "Comments", iconName: "message.fill") {
-                CommentsListView(viewModel: CommentsViewModel()).toAnyView()
-            },
-            .init(title: "ToDos", iconName: "checkmark.circle.fill") {
-                ToDosListView(viewModel: ToDosViewModel()).toAnyView()
-            },
-            .init(title: "Albums", iconName: "photo.fill") {
-                AlbumsListView(viewModel: AlbumsViewModel()).toAnyView()
-            }
-        ]
+    func tabView<Destination>(
+        title: String,
+        iconName: String,
+        destination: @escaping () -> Destination
+    ) -> some View where Destination: View {
+        NavigationView {
+            NavigationLazyView(destination)
+        }
+        .tabItem {
+            Image(systemName: iconName)
+            Text(title)
+        }
     }
 }
 

@@ -18,9 +18,7 @@ extension View {
             self
         }
     }
-    
-    func toAnyView() -> AnyView { AnyView(self) }
-    
+
     func navigationLink<Destination: View>(destination: Destination) -> NavigationLink<Self, Destination> {
         NavigationLink(destination: destination) { self }
     }
