@@ -10,7 +10,12 @@ class Post: Object, Codable, Identifiable, Identified {
     
     override init() {}
     
-    init(userId: Int = 0, id: Int = 0, title: String? = nil, body: String? = nil) {
+    init(
+        userId: Int = 0,
+        id: Int = 0,
+        title: String? = nil,
+        body: String? = nil
+    ) {
         self.userId = userId
         self.id = id
         self.title = title

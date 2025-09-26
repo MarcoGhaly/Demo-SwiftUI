@@ -11,13 +11,32 @@ struct CardView: ViewModifier {
         content
             .background(backgroundColor)
             .cornerRadius(cornerRadius)
-            .shadow(color: shadowColor, radius: shadowRadius, x: shadowOffset.x, y: shadowOffset.y)
+            .shadow(
+                color: shadowColor,
+                radius: shadowRadius,
+                x: shadowOffset.x,
+                y: shadowOffset.y
+            )
     }
 }
 
 extension View {
-    func cardify(backgroundColor: Color = .white, cornerRadius: CGFloat = 10, shadowColor: Color = .gray, shadowRadius: CGFloat = 10, shadowOffset: CGPoint = .zero) -> some View {
-        modifier(CardView(backgroundColor: backgroundColor, cornerRadius: cornerRadius, shadowColor: shadowColor, shadowRadius: shadowRadius, shadowOffset: shadowOffset))
+    func cardify(
+        backgroundColor: Color = .white,
+        cornerRadius: CGFloat = 10,
+        shadowColor: Color = .gray,
+        shadowRadius: CGFloat = 10,
+        shadowOffset: CGPoint = .zero
+    ) -> some View {
+        modifier(
+            CardView(
+                backgroundColor: backgroundColor,
+                cornerRadius: cornerRadius,
+                shadowColor: shadowColor,
+                shadowRadius: shadowRadius,
+                shadowOffset: shadowOffset
+            )
+        )
     }
 }
 

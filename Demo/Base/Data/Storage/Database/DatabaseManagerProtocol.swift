@@ -3,13 +3,13 @@ import RealmSwift
 import Combine
 
 protocol DatabaseManagerProtocol {
-    func loadObjects<T>(predicate: NSPredicate?) -> AnyPublisher<[T], StorageError> where T: Object
-    func save<T>(object: T) throws -> T where T: Object
-    func deleteObjects<T>(predicate: NSPredicate) throws -> [T] where T: Object
+    func loadObjects<T: Object>(predicate: NSPredicate?) -> AnyPublisher<[T], StorageError>
+    func save<T: Object>(object: T) throws -> T
+    func deleteObjects<T: Object>(predicate: NSPredicate) throws -> [T]
 }
 
 extension DatabaseManagerProtocol {
-    func loadObjects<T>(predicate: NSPredicate? = nil) -> AnyPublisher<[T], StorageError> where T: Object {
+    func loadObjects<T: Object>(predicate: NSPredicate? = nil) -> AnyPublisher<[T], StorageError> {
         loadObjects(predicate: predicate)
     }
 }

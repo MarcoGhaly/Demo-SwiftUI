@@ -36,7 +36,7 @@ struct DefaultLoadingView: LoadingView {
 
 #Preview {
     let styles = LoadingViewStyle.allCases
-    ForEach(styles.indices) { index in
+    ForEach(styles.indices, id: \.self) { index in
         DefaultLoadingView(loadingViewModel: LoadingViewModel(style: styles[index], title: "Loadig...", message: "Please Wait"))
     }
 }

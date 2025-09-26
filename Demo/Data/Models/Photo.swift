@@ -11,7 +11,13 @@ class Photo: Object, Codable, Identifiable, Identified {
     
     override init() {}
     
-    init(albumId: Int = 0, id: Int = 0, title: String? = nil, url: String? = nil, thumbnailUrl: String? = nil) {
+    init(
+        albumId: Int = 0,
+        id: Int = 0,
+        title: String? = nil,
+        url: String? = nil,
+        thumbnailUrl: String? = nil
+    ) {
         self.albumId = albumId
         self.id = id
         self.title = title

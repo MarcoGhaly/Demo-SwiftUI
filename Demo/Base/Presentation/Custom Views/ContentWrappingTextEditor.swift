@@ -9,8 +9,10 @@ struct ContentWrappingTextEditor: View {
             if isEditable {
                 TextEditor(text: $text)
                     .frame(minHeight: 25)
-                    .overlay(RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.black, lineWidth: 1))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.black, lineWidth: 1)
+                    )
                 
                 Text(text)
                     .frame(maxWidth: .infinity)

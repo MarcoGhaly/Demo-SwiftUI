@@ -9,21 +9,31 @@ final class KeyboardGuardian: ObservableObject {
     // this flag makes sure we only act once per keyboard appearance
     public var keyboardIsHidden = true
     
-    @Published var slide: CGFloat = 0
+    @Published var slide: CGFloat = .zero
     
-    var showField: Int = 0 {
+    var showField: Int = .zero {
         didSet {
             updateSlide()
         }
     }
     
     init(textFieldCount: Int) {
-        self.rects = Array<CGRect>(repeating: CGRect(), count: textFieldCount)
+        self.rects = Array(repeating: CGRect(), count: textFieldCount)
     }
     
     func addObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardDidHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyBoardWillShow(notification:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyBoardDidHide(notification:)),
+            name: UIResponder.keyboardDidHideNotification,
+            object: nil
+        )
     }
     
     func removeObserver() {

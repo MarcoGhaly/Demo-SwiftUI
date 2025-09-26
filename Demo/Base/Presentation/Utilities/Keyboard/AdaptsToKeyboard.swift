@@ -2,32 +2,38 @@ import SwiftUI
 import Combine
 
 struct AdaptsToKeyboard: ViewModifier {
-    @State var currentHeight: CGFloat = 0
+    @State var currentHeight: CGFloat = .zero
     
     func body(content: Content) -> some View {
         GeometryReader { geometry in
             content
                 .padding(.bottom, self.currentHeight)
-                .onAppear(perform: {
-                    NotificationCenter.Publisher(center: NotificationCenter.default, name: UIResponder.keyboardWillShowNotification)
-                        .merge(with: NotificationCenter.Publisher(center: NotificationCenter.default, name: UIResponder.keyboardWillChangeFrameNotification))
+                .onAppear {
+                    publisher(from: UIResponder.keyboardWillShowNotification)
+                        .merge(with: publisher(from: UIResponder.keyboardWillChangeFrameNotification))
                         .compactMap { notification in
                             withAnimation(.easeOut(duration: 0.16)) {
                                 notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
                             }
-                    }
-                    .map { rect in
-                        rect.height - geometry.safeAreaInsets.bottom
-                    }
-                    .subscribe(Subscribers.Assign(object: self, keyPath: \.currentHeight))
+                        }
+                        .map { rect in
+                            rect.height - geometry.safeAreaInsets.bottom
+                        }
+                        .subscribe(Subscribers.Assign(object: self, keyPath: \.currentHeight))
                     
-                    NotificationCenter.Publisher(center: NotificationCenter.default, name: UIResponder.keyboardWillHideNotification)
+                    publisher(from: UIResponder.keyboardWillHideNotification)
                         .compactMap { notification in
                             CGFloat.zero
-                    }
-                    .subscribe(Subscribers.Assign(object: self, keyPath: \.currentHeight))
-                })
+                        }
+                        .subscribe(Subscribers.Assign(object: self, keyPath: \.currentHeight))
+                }
         }
+    }
+}
+
+private extension AdaptsToKeyboard {
+    func publisher(from notificationName: NSNotification.Name) -> NotificationCenter.Publisher {
+        NotificationCenter.Publisher(center: NotificationCenter.default, name: notificationName)
     }
 }
 

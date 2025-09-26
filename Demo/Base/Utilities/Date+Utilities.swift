@@ -7,15 +7,25 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
-    func get(component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
+    func get(
+        component: Calendar.Component,
+        calendar: Calendar = Calendar.current
+    ) -> Int {
         calendar.component(component, from: self)
     }
     
-    func get(components: Set<Calendar.Component>, calendar: Calendar = Calendar.current) -> DateComponents {
+    func get(
+        components: Set<Calendar.Component>,
+        calendar: Calendar = Calendar.current
+    ) -> DateComponents {
         calendar.dateComponents(components, from: self)
     }
     
-    func add(component: Calendar.Component, value: Int, calendar: Calendar = Calendar.current) -> Date {
+    func add(
+        component: Calendar.Component,
+        value: Int,
+        calendar: Calendar = Calendar.current
+    ) -> Date {
         calendar.date(byAdding: component, value: value, to: self)!
     }
     
@@ -23,7 +33,9 @@ extension Date {
         let components = get(components: [.year, .month, .day], calendar: calendar)
         return calendar.date(from: components)!
     }
-    
+}
+
+extension Date {
     func startOfWeek(calendar: Calendar = Calendar.current) -> Date {
         calendar.date(from: get(components: [.yearForWeekOfYear, .weekOfYear], calendar: calendar))!
     }

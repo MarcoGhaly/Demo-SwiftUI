@@ -13,7 +13,15 @@ where Element: Identifiable, Element.ID == Int, UseCases: DemoUseCases, ViewMode
     @State private var isEditMode = false
     @State private var selectedIDs = Set<Int>()
     
-    init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), @ViewBuilder itemContent: @escaping (Element) -> ItemContent, @ViewBuilder destination: @escaping (Element) -> Destination) {
+    init(
+        viewModel: ViewModel,
+        columns: Int = 1,
+        showGridButtons: Bool = true,
+        showEditButtons: Bool = true,
+        presentAddView: Binding<Bool> = .constant(false),
+        @ViewBuilder itemContent: @escaping (Element) -> ItemContent,
+        @ViewBuilder destination: @escaping (Element) -> Destination
+    ) {
         self.viewModel = viewModel
         self._columns = State(initialValue: columns)
         self.showGridButtons = showGridButtons
@@ -23,15 +31,37 @@ where Element: Identifiable, Element.ID == Int, UseCases: DemoUseCases, ViewMode
         self.destination = destination
     }
     
-    init(viewModel: ViewModel, columns: Int = 1, showGridButtons: Bool = true, showEditButtons: Bool = true, presentAddView: Binding<Bool> = .constant(false), @ViewBuilder itemContent: @escaping (Element) -> ItemContent) where Destination == EmptyView {
-        self.init(viewModel: viewModel, columns: columns, showGridButtons: showGridButtons, showEditButtons: showEditButtons, presentAddView: presentAddView, itemContent: itemContent, destination: { _ in EmptyView() })
+    init(
+        viewModel: ViewModel,
+        columns: Int = 1,
+        showGridButtons: Bool = true,
+        showEditButtons: Bool = true,
+        presentAddView: Binding<Bool> = .constant(false),
+        @ViewBuilder itemContent: @escaping (Element) -> ItemContent
+    ) where Destination == EmptyView {
+        self.init(
+            viewModel: viewModel,
+            columns: columns,
+            showGridButtons: showGridButtons,
+            showEditButtons: showEditButtons,
+            presentAddView: presentAddView,
+            itemContent: itemContent,
+            destination: { _ in EmptyView() }
+        )
     }
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            DefaultLCEListView(viewModel: viewModel, columns: columns, isEditMode: isEditMode, selectedIDs: $selectedIDs, itemContent: { element in
-                cellView(forElement: element)
-            }, destination: destination)
+            DefaultLCEListView(
+                viewModel: viewModel,
+                columns: columns,
+                isEditMode: isEditMode,
+                selectedIDs: $selectedIDs,
+                itemContent: { element in
+                    cellView(forElement: element)
+                },
+                destination: destination
+            )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             if isEditMode {

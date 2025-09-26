@@ -29,7 +29,11 @@ struct EntryView: View {
 #Preview {
     let entries = ["Name", "Email", "Phone", "Address"]
     ForEach(entries, id: \.self) { entry in
-        EntryView(title: "\(entry):", placeHolder: entry, text: .constant(""))
-            .padding()
+        EntryView(
+            title: "\(entry):",
+            placeHolder: entry,
+            text: .constant("")
+        )
+        .padding()
     }
 }

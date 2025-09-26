@@ -9,7 +9,11 @@ class Album: Object, Codable, Identifiable, Identified {
     
     override init() {}
     
-    init(id: Int = 0, userId: Int = 0, title: String? = nil) {
+    init(
+        id: Int = 0,
+        userId: Int = 0,
+        title: String? = nil
+    ) {
         self.id = id
         self.userId = userId
         self.title = title

@@ -3,7 +3,7 @@ import RealmSwift
 import Combine
 
 struct DatabaseManager: DatabaseManagerProtocol {
-    func save<T>(object: T) throws -> T where T: Object {
+    func save<T: Object>(object: T) throws -> T {
         do {
             let realm = try Realm()
             try realm.write {
@@ -15,7 +15,7 @@ struct DatabaseManager: DatabaseManagerProtocol {
         return object.freeze()
     }
     
-    func loadObjects<T>(predicate: NSPredicate? = nil) -> AnyPublisher<[T], StorageError> where T: Object {
+    func loadObjects<T: Object>(predicate: NSPredicate? = nil) -> AnyPublisher<[T], StorageError> {
         let publisher = PassthroughSubject<[T], StorageError>()
         
         do {
@@ -37,7 +37,7 @@ struct DatabaseManager: DatabaseManagerProtocol {
         return publisher.eraseToAnyPublisher()
     }
     
-    func deleteObjects<T>(predicate: NSPredicate) throws -> [T] where T: Object {
+    func deleteObjects<T: Object>(predicate: NSPredicate) throws -> [T] {
         do {
             let realm = try Realm()
             let objects = realm.objects(T.self).filter(predicate)

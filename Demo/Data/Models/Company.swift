@@ -9,7 +9,11 @@ class Company: Object, Codable {
     
     override init() {}
     
-    init(name: String? = nil, catchPhrase: String? = nil, bs: String? = nil) {
+    init(
+        name: String? = nil,
+        catchPhrase: String? = nil,
+        bs: String? = nil
+    ) {
         self.name = name
         self.catchPhrase = catchPhrase
         self.bs = bs

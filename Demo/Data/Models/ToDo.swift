@@ -10,7 +10,12 @@ class ToDo: Object, Codable, Identifiable, Identified {
     
     override init() {}
     
-    init(userId: Int = 0, id: Int = 0, title: String? = nil, completed: Bool? = nil) {
+    init(
+        userId: Int = 0,
+        id: Int = 0,
+        title: String? = nil,
+        completed: Bool? = nil
+    ) {
         self.userId = userId
         self.id = id
         self.title = title

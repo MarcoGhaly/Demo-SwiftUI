@@ -29,11 +29,24 @@ class LCEViewModel<Model, AppError>: ObservableObject where AppError: Error {
     // MARK: - Loading & Error
     
     func loadingViewModel() -> LoadingViewModel {
-        LoadingViewModel(style: .normal, title: "Loading...", message: "Please Wait")
+        LoadingViewModel(
+            style: .normal,
+            title: "Loading...",
+            message: "Please Wait"
+        )
     }
     
     func errorViewModel(fromError error: Error) -> ErrorViewModel {
-        ErrorViewModel(title: "Error!", message: error.localizedDescription, retry: (label: "Retry", action: { self.fetchData() }))
+        ErrorViewModel(
+            title: "Error!",
+            message: error.localizedDescription,
+            retry: (
+                label: "Retry",
+                action: {
+                    self.fetchData()
+                }
+            )
+        )
     }
     
     // MARK: - Fetch Data

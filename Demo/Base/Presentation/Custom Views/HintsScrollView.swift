@@ -13,7 +13,11 @@ struct HintsScrollView<Content: View, HintView: View>: View {
     var hintView: HintView
     var scrollStates: [ScrollState]
     
-    init(@ViewBuilder content: @escaping () -> Content, hintView: @escaping () -> HintView, scrollStates: [ScrollState] = [.top, .bottom]) {
+    init(
+        @ViewBuilder content: @escaping () -> Content,
+        hintView: @escaping () -> HintView,
+        scrollStates: [ScrollState] = [.top, .bottom]
+    ) {
         self.content = content()
         self.hintView = hintView()
         self.scrollStates = scrollStates

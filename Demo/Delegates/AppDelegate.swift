@@ -10,13 +10,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LocalStore.loadEncryptionKey() ?? createEncryptionKey()
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         initRealm()
         return true
     }
     
     private func initRealm() {
-        let configuration = Realm.Configuration(encryptionKey: encryptionKey, schemaVersion: databaseVersion) { migration, oldSchemaVersion in
+        let configuration = Realm.Configuration(
+            encryptionKey: encryptionKey,
+            schemaVersion: databaseVersion
+        ) { migration, oldSchemaVersion in
             if oldSchemaVersion < 1 {
             }
         } shouldCompactOnLaunch: { totalBytes, usedBytes in

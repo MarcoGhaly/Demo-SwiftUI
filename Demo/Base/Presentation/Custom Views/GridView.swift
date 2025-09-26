@@ -9,7 +9,13 @@ struct GridView<Element, Content>: View where Content: View {
     private let spacing: CGFloat
     private let content: (Element) -> Content
     
-    private init(elements: [Element], rows: Int, columns: Int, spacing: CGFloat, @ViewBuilder content: @escaping (Element) -> Content) {
+    private init(
+        elements: [Element],
+        rows: Int,
+        columns: Int,
+        spacing: CGFloat,
+        @ViewBuilder content: @escaping (Element) -> Content
+    ) {
         self.elements = elements
         self.rows = rows
         self.columns = columns
@@ -17,19 +23,41 @@ struct GridView<Element, Content>: View where Content: View {
         self.content = content
     }
     
-    init(elements: [Element], rows: Int, spacing: CGFloat = defaultSpacing, @ViewBuilder content: @escaping (Element) -> Content) {
-        self.init(elements: elements, rows: rows, columns: elements.count / rows, spacing: spacing, content: content)
+    init(
+        elements: [Element],
+        rows: Int,
+        spacing: CGFloat = defaultSpacing,
+        @ViewBuilder content: @escaping (Element) -> Content
+    ) {
+        self.init(
+            elements: elements,
+            rows: rows,
+            columns: elements.count / rows,
+            spacing: spacing,
+            content: content
+        )
     }
     
-    init(elements: [Element], columns: Int, spacing: CGFloat = defaultSpacing, @ViewBuilder content: @escaping (Element) -> Content) {
-        self.init(elements: elements, rows: elements.count / columns, columns: columns, spacing: spacing, content: content)
+    init(
+        elements: [Element],
+        columns: Int,
+        spacing: CGFloat = defaultSpacing,
+        @ViewBuilder content: @escaping (Element) -> Content
+    ) {
+        self.init(
+            elements: elements,
+            rows: elements.count / columns,
+            columns: columns,
+            spacing: spacing,
+            content: content
+        )
     }
     
     var body: some View {
         VStack(spacing: spacing) {
-            ForEach(0..<rows) { row in
+            ForEach(0..<rows, id: \.self) { row in
                 HStack(spacing: spacing) {
-                    ForEach(0..<columns) { column in
+                    ForEach(0..<columns, id: \.self) { column in
                         let element = elements[columns * row + column]
                         content(element)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)

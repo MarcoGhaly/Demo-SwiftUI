@@ -11,7 +11,13 @@ class Comment: Object, Codable, Identifiable, Identified {
     
     override init() {}
     
-    init(postId: Int = 0, id: Int = 0, name: String? = nil, email: String? = nil, body: String? = nil) {
+    init(
+        postId: Int = 0,
+        id: Int = 0,
+        name: String? = nil,
+        email: String? = nil,
+        body: String? = nil
+    ) {
         self.postId = postId
         self.id = id
         self.name = name

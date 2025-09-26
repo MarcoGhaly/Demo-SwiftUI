@@ -17,17 +17,45 @@ struct ProgressBarView: View {
     var border: Border?
     var animationDuration: Double
     
-    init(value: Int, backgroundColor: Color, foregroundColor: Color, border: Border? = nil, animationDuration: Double = ProgressBarView.defaultAnimationDuration) {
-        self.init(value: value, backgroundView: AnyView(backgroundColor), foregroundView: AnyView(foregroundColor), animationDuration: animationDuration)
+    init(
+        value: Int,
+        backgroundColor: Color,
+        foregroundColor: Color,
+        border: Border? = nil,
+        animationDuration: Double = ProgressBarView.defaultAnimationDuration
+    ) {
+        self.init(
+            value: value,
+            backgroundView: AnyView(backgroundColor),
+            foregroundView: AnyView(foregroundColor),
+            animationDuration: animationDuration
+        )
     }
     
-    init(value: Int, backgroundColors: [Color], foregroundColors: [Color], border: Border? = nil, animationDuration: Double = ProgressBarView.defaultAnimationDuration) {
+    init(
+        value: Int,
+        backgroundColors: [Color],
+        foregroundColors: [Color],
+        border: Border? = nil,
+        animationDuration: Double = ProgressBarView.defaultAnimationDuration
+    ) {
         let backgroundGradient = ProgressBarView.gradient(withColors: backgroundColors)
         let foregroundGradient = ProgressBarView.gradient(withColors: foregroundColors)
-        self.init(value: value, backgroundView: AnyView(backgroundGradient), foregroundView: AnyView(foregroundGradient), animationDuration: animationDuration)
+        self.init(
+            value: value,
+            backgroundView: AnyView(backgroundGradient),
+            foregroundView: AnyView(foregroundGradient),
+            animationDuration: animationDuration
+        )
     }
     
-    init(value: Int, backgroundView: AnyView = ProgressBarView.defaultBackgroundView, foregroundView: AnyView = ProgressBarView.defaultForegroundView, border: Border? = nil, animationDuration: Double = ProgressBarView.defaultAnimationDuration) {
+    init(
+        value: Int,
+        backgroundView: AnyView = ProgressBarView.defaultBackgroundView,
+        foregroundView: AnyView = ProgressBarView.defaultForegroundView,
+        border: Border? = nil,
+        animationDuration: Double = ProgressBarView.defaultAnimationDuration
+    ) {
         self.value = value
         self.backgroundView = backgroundView
         self.foregroundView = foregroundView

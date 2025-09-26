@@ -10,7 +10,9 @@ protocol NetworkAgentProtocol {
     var pathParameters: [String]? { get }
     var queryParameters: [String: String]? { get }
     
-    func performRequest<DataModel: Decodable, ErrorModel: Decodable>(_ request: Request) -> AnyPublisher<DataModel, APIError<ErrorModel>>
+    func performRequest<DataModel: Decodable, ErrorModel: Decodable>(
+        _ request: Request
+    ) -> AnyPublisher<DataModel, APIError<ErrorModel>>
 }
 
 extension NetworkAgentProtocol {
@@ -21,7 +23,9 @@ extension NetworkAgentProtocol {
 }
 
 extension NetworkAgentProtocol {
-    func performRequest<DataModel, ErrorModel>(_ request: Request) -> AnyPublisher<DataModel, APIError<ErrorModel>> where DataModel: Decodable {
+    func performRequest<DataModel, ErrorModel>(
+        _ request: Request
+    ) -> AnyPublisher<DataModel, APIError<ErrorModel>> where DataModel: Decodable {
         if let headers = self.headers {
             request.headers?.merge(headers) { (current, _) in current }
         }
@@ -58,9 +62,11 @@ extension NetworkAgentProtocol {
 private extension NetworkAgentProtocol {
     var successCodes: Range<Int> { 200..<300 }
 
-    func performRequest<DataModel, ErrorModel, Decoder>(_ request: URLRequest, decoder: Decoder, retries: Retries? = nil)
-    -> AnyPublisher<DataModel, APIError<ErrorModel>>
-    where DataModel: Decodable, Decoder: TopLevelDecoder, Decoder.Input == Data {
+    func performRequest<DataModel: Decodable, ErrorModel, Decoder: TopLevelDecoder>(
+        _ request: URLRequest,
+        decoder: Decoder,
+        retries: Retries? = nil
+    ) -> AnyPublisher<DataModel, APIError<ErrorModel>> where Decoder.Input == Data {
         let urlSession = URLSession(configuration: .default)
         return urlSession.dataTaskPublisher(for: request)
             .tryMap { data, urlResponse in

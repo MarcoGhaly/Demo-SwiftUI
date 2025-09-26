@@ -4,9 +4,6 @@ struct CommentItemView: View {
     var comment: Comment
     
     var body: some View {
-        let info = [("Name:", comment.name),
-                    ("Email:", comment.email)]
-        
         VStack(alignment: .leading) {
             InfoView(info: info)
             
@@ -16,6 +13,15 @@ struct CommentItemView: View {
             }
         }
         .padding()
+    }
+}
+
+private extension CommentItemView {
+    var info: [(label: String, value: String?)] {
+        [
+            ("Name:", comment.name),
+            ("Email:", comment.email)
+        ]
     }
 }
 

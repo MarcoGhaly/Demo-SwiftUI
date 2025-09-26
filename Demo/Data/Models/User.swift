@@ -14,7 +14,16 @@ class User: Object, Codable, Identifiable, Identified {
     
     override init() {}
     
-    init(id: Int = 0, name: String? = nil, username: String? = nil, email: String? = nil, address: Address? = nil, phone: String? = nil, website: String? = nil, company: Company? = nil) {
+    init(
+        id: Int = 0,
+        name: String? = nil,
+        username: String? = nil,
+        email: String? = nil,
+        address: Address? = nil,
+        phone: String? = nil,
+        website: String? = nil,
+        company: Company? = nil
+    ) {
         self.id = id
         self.name = name
         self.username = username

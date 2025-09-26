@@ -8,7 +8,25 @@ class Address: Object, Codable {
     dynamic var city: String?
     dynamic var zipcode: String?
     dynamic var geo: Geo?
+
+    override init() {}
     
+    init(
+        street: String?,
+        suite: String?,
+        city: String?,
+        zipcode: String?,
+        geo: Geo?
+    ) {
+        self.street = street
+        self.suite = suite
+        self.city = city
+        self.zipcode = zipcode
+        self.geo = geo
+    }
+}
+
+extension Address {
     override var description: String {
         var address = street ?? ""
         suite.map {
@@ -18,15 +36,5 @@ class Address: Object, Codable {
             address += ", \($0)"
         }
         return address
-    }
-    
-    override init() {}
-    
-    init(street: String?, suite: String?, city: String?, zipcode: String?, geo: Geo?) {
-        self.street = street
-        self.suite = suite
-        self.city = city
-        self.zipcode = zipcode
-        self.geo = geo
     }
 }

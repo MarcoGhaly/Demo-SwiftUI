@@ -7,7 +7,12 @@ where ViewModel: LCEViewModel<Model, AppError>, Content: View, Loading: LoadingV
     let loading: (LoadingViewModel) -> Loading
     let error: (ErrorViewModel) -> Error
     
-    init(viewModel: ViewModel, @ViewBuilder content: @escaping (Model) -> Content, @ViewBuilder loading: @escaping (LoadingViewModel) -> Loading, @ViewBuilder error: @escaping (ErrorViewModel) -> Error) {
+    init(
+        viewModel: ViewModel,
+        @ViewBuilder content: @escaping (Model) -> Content,
+        @ViewBuilder loading: @escaping (LoadingViewModel) -> Loading,
+        @ViewBuilder error: @escaping (ErrorViewModel) -> Error
+    ) {
         self.viewModel = viewModel
         self.content = content
         self.loading = loading
@@ -66,7 +71,9 @@ where ViewModel: LCEViewModel<Model, AppError>, Content: View, Loading: LoadingV
     }
 }
 
-private func getLCEView(state: LCEViewModel<String, Error>.ViewState) -> LCEView<String, Error, LCEViewModel<String, Error>, Text, DefaultLoadingView, DefaultErrorView> {
+private func getLCEView(
+    state: LCEViewModel<String, Error>.ViewState
+) -> LCEView<String, Error, LCEViewModel<String, Error>, Text, DefaultLoadingView, DefaultErrorView> {
     let viewModel = LCEViewModel<String, Error>()
     viewModel.model = "Content"
     viewModel.viewState = state

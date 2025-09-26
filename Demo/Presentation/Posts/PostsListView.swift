@@ -11,7 +11,11 @@ struct PostsListView<ViewModel>: View where ViewModel: PostsViewModel<PostsUseCa
         ZStack(alignment: .bottom) {
             Color.clear
             
-            BaseLCEListView(viewModel: viewModel, showEditButtons: userID != nil, presentAddView: $presentAddPostView) { post in
+            BaseLCEListView(
+                viewModel: viewModel,
+                showEditButtons: userID != nil,
+                presentAddView: $presentAddPostView
+            ) { post in
                 PostItemView(post: post)
             } destination: { post in
                 PostDetailsView(viewModel: PostViewModel(post: post))

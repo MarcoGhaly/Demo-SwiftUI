@@ -17,13 +17,21 @@ struct MapView<Annotation: AnnotationProtocol>: View {
         }
     }
     
-    init(coordinate: Coordinate2D = defaultCoordinate, delta: Double = defaultDelta, annotations: [Annotation]) {
+    init(
+        coordinate: Coordinate2D = defaultCoordinate,
+        delta: Double = defaultDelta,
+        annotations: [Annotation]
+    ) {
         self._coordinate = State(initialValue: coordinate)
         self._delta = State(initialValue: delta)
         self._annotations = State(initialValue: annotations)
     }
     
-    init(coordinate: Coordinate2D = defaultCoordinate, delta: Double = defaultDelta, annotations: [Coordinate2D] = []) where Annotation == DefaultAnnotation {
+    init(
+        coordinate: Coordinate2D = defaultCoordinate,
+        delta: Double = defaultDelta,
+        annotations: [Coordinate2D] = []
+    ) where Annotation == DefaultAnnotation {
         let annotations = annotations.map {
             DefaultAnnotation(coordinate: $0)
         }

@@ -50,7 +50,9 @@ where ViewModel: LCEViewModel<Model, AppError>, Content: View {
     }
 }
 
-private func getDefaultLCEView(state: LCEViewModel<String, Error>.ViewState) -> DefaultLCEView<String, Error, LCEViewModel<String, Error>, Text> {
+private func getDefaultLCEView(
+    state: LCEViewModel<String, Error>.ViewState
+) -> DefaultLCEView<String, Error, LCEViewModel<String, Error>, Text> {
     let viewModel = LCEViewModel<String, Error>()
     viewModel.model = "Content"
     viewModel.viewState = state

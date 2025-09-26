@@ -2,7 +2,10 @@ import SwiftUI
 
 extension View {
     @ViewBuilder
-    func `if`<Transform: View>(_ condition: Bool, transform: (Self) -> Transform) -> some View {
+    func `if`<Transform: View>(
+        _ condition: Bool,
+        transform: (Self) -> Transform
+    ) -> some View {
         if condition {
             transform(self)
         } else {
@@ -11,7 +14,10 @@ extension View {
     }
     
     @ViewBuilder
-    func ifLet<Object: Any, Transform: View>(_ optional: Object?, transform: (Object, Self) -> Transform) -> some View {
+    func ifLet<Object: Any, Transform: View>(
+        _ optional: Object?,
+        transform: (Object, Self) -> Transform
+    ) -> some View {
         if let object = optional {
             transform(object, self)
         } else {
@@ -19,7 +25,9 @@ extension View {
         }
     }
 
-    func navigationLink<Destination: View>(destination: Destination) -> NavigationLink<Self, Destination> {
+    func navigationLink<Destination: View>(
+        destination: Destination
+    ) -> NavigationLink<Self, Destination> {
         NavigationLink(destination: destination) { self }
     }
 }
