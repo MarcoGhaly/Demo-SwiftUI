@@ -56,7 +56,7 @@ private extension DateExtensionsTests {
     private static var calendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
         calendar.firstWeekday = 1
-        calendar.timeZone = .init(secondsFromGMT: 0)!
+        calendar.timeZone = .init(secondsFromGMT: .zero)!
         return calendar
     }
 }

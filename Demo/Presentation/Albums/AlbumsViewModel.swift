@@ -20,7 +20,7 @@ class AlbumsViewModel<UseCases>: BaseLCEListViewModel<Album, AppError, UseCases>
         useCases.add(album: album).sink { [weak self] completion in
             self?.updateViewState(completion: completion)
         } receiveValue: { [weak self] album in
-            self?.model?.insert(album, at: 0)
+            self?.model?.insert(album, at: .zero)
         }
         .store(in: &subscriptions)
     }

@@ -20,7 +20,7 @@ class PostsViewModel<UseCases>: BaseLCEListViewModel<Post, AppError, UseCases> w
         useCases.add(post: post).sink { [weak self] completion in
             self?.updateViewState(completion: completion)
         } receiveValue: { [weak self] post in
-            self?.model?.insert(post, at: 0)
+            self?.model?.insert(post, at: .zero)
         }
         .store(in: &subscriptions)
     }

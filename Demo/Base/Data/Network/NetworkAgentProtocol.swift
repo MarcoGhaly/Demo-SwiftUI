@@ -30,7 +30,7 @@ extension NetworkAgentProtocol {
             request.headers?.merge(headers) { (current, _) in current }
         }
         if let pathParameters = self.pathParameters {
-            request.pathParameters?.insert(contentsOf: pathParameters, at: 0)
+            request.pathParameters?.insert(contentsOf: pathParameters, at: .zero)
         }
         if let queryParameters = self.queryParameters {
             request.queryParameters?.merge(queryParameters) { (current, _) in current }

@@ -7,7 +7,7 @@ class UsersViewModelTests: LCEListViewModelTests {
         let user = User(id: 1, name: "Test Name", username: "Test Username")
         let viewModel = UsersViewModel(useCases: UsersUseCasesMock(), users: [user])
         validateContent(viewModel: viewModel)
-        viewModel.model?.remove(at: 0)
+        viewModel.model?.removeFirst()
         validateError(viewModel: viewModel)
     }
     

@@ -6,7 +6,7 @@ struct UserDetailsView: View {
     var body: some View {
         let coordinate = coordinateToCoordinate2D(coordinate: user.address?.geo)
         
-        VStack(spacing: 0) {
+        VStack(spacing: .zero) {
             MapView(coordinate: coordinate, delta: 0.005, annotations: [coordinate])
             UserItemView(user: user)
             Divider()
@@ -16,7 +16,7 @@ struct UserDetailsView: View {
     }
     
     private var buttonsView: some View {
-        HStack(spacing: 0) {
+        HStack(spacing: .zero) {
             navigationView(title: "Posts", iconName: "envelope.fill") {
                 PostsListView(viewModel: PostsViewModel(userID: user.id))
             }

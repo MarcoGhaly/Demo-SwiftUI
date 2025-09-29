@@ -20,7 +20,7 @@ class ToDosViewModel<UseCases>: BaseLCEListViewModel<ToDo, AppError, UseCases> w
         useCases.add(toDo: toDo).sink { [weak self] completion in
             self?.updateViewState(completion: completion)
         } receiveValue: { [weak self] toDo in
-            self?.model?.insert(toDo, at: 0)
+            self?.model?.insert(toDo, at: .zero)
         }
         .store(in: &subscriptions)
     }

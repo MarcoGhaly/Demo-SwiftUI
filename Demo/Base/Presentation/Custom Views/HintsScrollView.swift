@@ -27,7 +27,7 @@ struct HintsScrollView<Content: View, HintView: View>: View {
         return ZStack {
             GeometryReader { outerGeometry in
                 ScrollView {
-                    VStack(spacing: 0) {
+                    VStack(spacing: .zero) {
                         if self.scrollStates.contains(.top) {
                             GeometryReader { topGeometry -> Text in
                                 DispatchQueue.main.async {
@@ -40,7 +40,7 @@ struct HintsScrollView<Content: View, HintView: View>: View {
                                 }
                                 return Text("")
                             }
-                            .frame(height: 0)
+                            .frame(height: .zero)
                         }
                         
                         self.content
@@ -57,7 +57,7 @@ struct HintsScrollView<Content: View, HintView: View>: View {
                                 }
                                 return Text("")
                             }
-                            .frame(height: 0)
+                            .frame(height: .zero)
                         }
                     }
                 }

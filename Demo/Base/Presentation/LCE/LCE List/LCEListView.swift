@@ -147,7 +147,7 @@ where ViewModel: LCEListViewModel<Element, AppError>, ID: Hashable, ItemContent:
             }
             return Color.clear
         }
-        .frame(height: 0)
+        .frame(height: .zero)
     }
 }
 

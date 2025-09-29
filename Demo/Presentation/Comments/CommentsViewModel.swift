@@ -20,7 +20,7 @@ class CommentsViewModel<UseCases>: BaseLCEListViewModel<Comment, AppError, UseCa
         useCases.add(comment: comment).sink { [weak self] completion in
             self?.updateViewState(completion: completion)
         } receiveValue: { [weak self] comment in
-            self?.model?.insert(comment, at: 0)
+            self?.model?.insert(comment, at: .zero)
         }
         .store(in: &subscriptions)
     }

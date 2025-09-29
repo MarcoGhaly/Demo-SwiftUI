@@ -8,7 +8,7 @@ final class UsersUseCasesMock: UsersUseCasesProtocol {
     var stubbedUsers: [User]?
     var stubbedUsersCompletion: Subscribers.Completion<AppError> = .finished
     func getUsers(page: Int?, limit: Int?) -> AnyPublisher<[User], AppError> {
-        let users = stubbedUsers ?? .init(repeating: User(), count: page! < 3 ? limit! : 0)
+        let users = stubbedUsers ?? .init(repeating: User(), count: page! < 3 ? limit! : .zero)
         let publisher = PassthroughSubject<[User], AppError>()
         DispatchQueue.main.async {
             publisher.send(users)

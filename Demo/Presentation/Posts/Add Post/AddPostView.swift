@@ -18,7 +18,7 @@ struct AddPostView: View {
             
             if isPresented {
                 GeometryReader { geometry in
-                    VStack(spacing: 0) {
+                    VStack(spacing: .zero) {
                         Text("Add New Post")
                             .font(.title)
                         

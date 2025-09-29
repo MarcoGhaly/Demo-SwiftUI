@@ -4,7 +4,7 @@ import Combine
 
 class LCEListViewModelTests: LCEViewModelTests {
     func testEmptyData() {
-        let viewModel = LCEListViewModelTest(totalCount: 0)
+        let viewModel = LCEListViewModelTest(totalCount: .zero)
         
         validateLoading(viewModel: viewModel)
         

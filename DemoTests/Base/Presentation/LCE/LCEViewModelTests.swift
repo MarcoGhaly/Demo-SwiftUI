@@ -105,7 +105,7 @@ private class LCEViewModelTest: LCEViewModel<TestModel, AppError> {
             if let error = self.error {
                 publisher.send(completion: .failure(error))
             } else {
-                publisher.send(TestModel(number: 0, text: ""))
+                publisher.send(TestModel(number: .zero, text: ""))
                 publisher.send(completion: .finished)
             }
         }

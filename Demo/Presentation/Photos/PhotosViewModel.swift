@@ -19,7 +19,7 @@ class PhotosViewModel<UseCases>: BaseLCEListViewModel<Photo, AppError, UseCases>
         useCases.add(photo: photo).sink { [weak self] completion in
             self?.updateViewState(completion: completion)
         } receiveValue: { [weak self] photo in
-            self?.model?.insert(photo, at: 0)
+            self?.model?.insert(photo, at: .zero)
         }
         .store(in: &subscriptions)
     }

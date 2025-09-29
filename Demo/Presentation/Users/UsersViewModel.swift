@@ -17,7 +17,7 @@ class UsersViewModel<UseCases>: BaseLCEListViewModel<User, AppError, UseCases> w
         useCases.add(user: user).sink { [weak self] completion in
             self?.updateViewState(completion: completion)
         } receiveValue: { [weak self] user in
-            self?.model?.insert(user, at: 0)
+            self?.model?.insert(user, at: .zero)
         }
         .store(in: &subscriptions)
     }
