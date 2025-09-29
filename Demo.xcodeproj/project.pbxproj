@@ -452,6 +452,14 @@
 			path = Users;
 			sourceTree = "<group>";
 		};
+		2F836AB52E8AA56100354C79 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2FF671F32C45409300EB80F9 /* NetworkAgent.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		2F84C781258A4C5300E9C83D /* Loading View */ = {
 			isa = PBXGroup;
 			children = (
@@ -665,7 +673,7 @@
 		2FC1B361264D7C1A009B4F13 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				2FF671F22C45406900EB80F9 /* NetworkAgent */,
+				2FC1B365264D7C1A009B4F13 /* NetworkAgentProtocol.swift */,
 				2FC1B362264D7C1A009B4F13 /* APIError.swift */,
 				2FC1B363264D7C1A009B4F13 /* Retries.swift */,
 				2FC1B364264D7C1A009B4F13 /* Request.swift */,
@@ -725,15 +733,6 @@
 				2FF671EE2C45300100EB80F9 /* PhotosUseCases.swift */,
 			);
 			path = Photos;
-			sourceTree = "<group>";
-		};
-		2FF671F22C45406900EB80F9 /* NetworkAgent */ = {
-			isa = PBXGroup;
-			children = (
-				2FC1B365264D7C1A009B4F13 /* NetworkAgentProtocol.swift */,
-				2FF671F32C45409300EB80F9 /* NetworkAgent.swift */,
-			);
-			path = NetworkAgent;
 			sourceTree = "<group>";
 		};
 		2FF9CDF4275E6FAD00F66BCE /* Utilities */ = {
@@ -876,6 +875,7 @@
 		6CD3AD2A24FABADC00D8BF77 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2F836AB52E8AA56100354C79 /* Network */,
 				6CD3AD2D24FABC5200D8BF77 /* Models */,
 				2F74F43C2581AF4400B956E9 /* DataSource */,
 				2F74F42925816B4E00B956E9 /* Storage */,
