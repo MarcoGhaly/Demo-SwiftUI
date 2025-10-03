@@ -37,7 +37,7 @@ protocol DemoDataSource {
         queryParameters: [String: String]?,
         page: Int?,
         limit: Int?
-    ) -> AnyPublisher<[DataModel], DataError>
+    ) throws(DataError) -> [DataModel]
     
     func addLocal<DataModel: Encodable & Object & Identified>(
         object: DataModel
@@ -122,14 +122,16 @@ extension DemoDataSource {
         queryParameters: [String: String]? = nil,
         page: Int? = nil,
         limit: Int? = nil
-    ) -> AnyPublisher<[DataModel], DataError> {
-        var predicate: NSPredicate?
-        if let format = queryParameters?.map({ "\($0)=\($1)" }).joined(separator: "&&"), !format.isEmpty {
-            predicate = NSPredicate(format: format)
+    ) throws(DataError) -> [DataModel] {
+        do {
+            var predicate: NSPredicate?
+            if let format = queryParameters?.map({ "\($0)=\($1)" }).joined(separator: "&&"), !format.isEmpty {
+                predicate = NSPredicate(format: format)
+            }
+            return try databaseManager.loadObjects(predicate: predicate)
+        } catch(let error) {
+            throw DataError.localError(error: error)
         }
-        return databaseManager.loadObjects(predicate: predicate)
-            .mapError { .localError(error: $0) }
-            .eraseToAnyPublisher()
     }
     
     func addLocal<DataModel: Encodable & Object & Identified>(

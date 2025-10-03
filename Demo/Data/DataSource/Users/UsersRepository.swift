@@ -12,6 +12,13 @@ struct UsersRepository: UsersDataSource {
     }
     
     func getLocalUsers() -> AnyPublisher<[User], DataError> {
-        getLocalData()
+        Future { promise in
+            do {
+                let users: [User] = try getLocalData()
+                promise(.success(users))
+            } catch {
+                promise(.failure(.localError(error: error)))
+            }
+        }.eraseToAnyPublisher()
     }
 }

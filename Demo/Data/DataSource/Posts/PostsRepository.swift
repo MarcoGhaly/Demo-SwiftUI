@@ -13,8 +13,15 @@ struct PostsRepository: PostsDataSource {
     }
     
     func getLocalPosts(userID: Int?) -> AnyPublisher<[Post], DataError> {
-        let queryParameters = queryParameters(from: userID)
-        return getLocalData(queryParameters: queryParameters)
+        Future { promise in
+            do {
+                let queryParameters = queryParameters(from: userID)
+                let posts: [Post] = try getLocalData(queryParameters: queryParameters)
+                promise(.success(posts))
+            } catch {
+                promise(.failure(.localError(error: error)))
+            }
+        }.eraseToAnyPublisher()
     }
 }
 

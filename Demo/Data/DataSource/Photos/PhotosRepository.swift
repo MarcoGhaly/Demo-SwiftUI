@@ -13,8 +13,15 @@ struct PhotosRepository: PhotosDataSource {
     }
     
     func getLocalPhotos(albumID: Int?) -> AnyPublisher<[Photo], DataError> {
-        let queryParameters = queryParameters(from: albumID)
-        return getLocalData(queryParameters: queryParameters)
+        Future { promise in
+            do {
+                let queryParameters = queryParameters(from: albumID)
+                let photos: [Photo] = try getLocalData(queryParameters: queryParameters)
+                promise(.success(photos))
+            } catch {
+                promise(.failure(.localError(error: error)))
+            }
+        }.eraseToAnyPublisher()
     }
 }
 

@@ -13,8 +13,15 @@ struct CommentsRepository: CommentsDataSource {
     }
     
     func getLocalComments(postID: Int?) -> AnyPublisher<[Comment], DataError> {
-        let queryParameters = queryParameters(from: postID)
-        return getLocalData(queryParameters: queryParameters)
+        Future { promise in
+            do {
+                let queryParameters = queryParameters(from: postID)
+                let comments: [Comment] = try getLocalData(queryParameters: queryParameters)
+                promise(.success(comments))
+            } catch {
+                promise(.failure(.localError(error: error)))
+            }
+        }.eraseToAnyPublisher()
     }
 }
 

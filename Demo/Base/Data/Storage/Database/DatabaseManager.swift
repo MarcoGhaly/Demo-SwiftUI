@@ -15,26 +15,17 @@ struct DatabaseManager: DatabaseManagerProtocol {
         return object.freeze()
     }
     
-    func loadObjects<T: Object>(predicate: NSPredicate? = nil) -> AnyPublisher<[T], StorageError> {
-        let publisher = PassthroughSubject<[T], StorageError>()
-        
+    func loadObjects<T: Object>(predicate: NSPredicate? = nil) throws -> [T] {
         do {
             let realm = try Realm()
             var objects = realm.objects(T.self)
             if let predicate = predicate {
                 objects = objects.filter(predicate)
             }
-            DispatchQueue.main.async {
-                publisher.send(Array(objects.freeze()))
-                publisher.send(completion: .finished)
-            }
+            return Array(objects.freeze())
         } catch(let error) {
-            DispatchQueue.main.async {
-                publisher.send(completion: .failure(.databaseError(error: error)))
-            }
+            throw StorageError.databaseError(error: error)
         }
-        
-        return publisher.eraseToAnyPublisher()
     }
     
     func deleteObjects<T: Object>(predicate: NSPredicate) throws -> [T] {

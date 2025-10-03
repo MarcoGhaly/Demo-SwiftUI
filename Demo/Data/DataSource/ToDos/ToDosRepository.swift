@@ -13,8 +13,15 @@ struct ToDosRepository: ToDosDataSource {
     }
     
     func getLocalToDos(userID: Int?) -> AnyPublisher<[ToDo], DataError> {
-        let queryParameters = queryParameters(from: userID)
-        return getLocalData(queryParameters: queryParameters)
+        Future { promise in
+            do {
+                let queryParameters = queryParameters(from: userID)
+                let toDos: [ToDo] = try getLocalData(queryParameters: queryParameters)
+                promise(.success(toDos))
+            } catch {
+                promise(.failure(.localError(error: error)))
+            }
+        }.eraseToAnyPublisher()
     }
 }
 
